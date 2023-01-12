@@ -1,1 +1,1 @@
-# Final Year Projrct Management System
+# FYP Management System
