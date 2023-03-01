@@ -12100,11 +12100,10 @@ a:focus {
   }
 }
 
-.bg-login-image {
-  background: url("./bg-login.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 70% auto
+.bg-auth-image img {
+  max-width: 300px;
+  vertical-align: middle;
+  border-style: none;
 }
 
 form.user .custom-checkbox.small label {
