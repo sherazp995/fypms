@@ -12101,10 +12101,10 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("../bg-login.png");
+  background: url("./bg-login.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 95% auto
+  background-size: 70% auto
 }
 
 form.user .custom-checkbox.small label {
