@@ -11,6 +11,7 @@ import { TopbarComponent } from './layout/topbar/topbar.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { RegisterComponent } from './component/register/register.component';
 import { PasswordComponent } from './component/password/password.component';
+import { NgTiltModule } from '@geometricpanda/angular-tilt';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PasswordComponent } from './component/password/password.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgTiltModule
   ],
   providers: [],
   bootstrap: [AppComponent]
