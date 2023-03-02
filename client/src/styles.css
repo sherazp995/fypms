@@ -10970,7 +10970,7 @@ html {
 }
 
 body {
-  height: 100%;
+  min-height: 100%;
 }
 
 a:focus {
@@ -11522,7 +11522,7 @@ a:focus {
 
 .sidebar {
   width: 6.5rem;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 .sidebar .nav-item {
