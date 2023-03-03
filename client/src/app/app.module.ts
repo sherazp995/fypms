@@ -12,6 +12,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { RegisterComponent } from './component/register/register.component';
 import { PasswordComponent } from './component/password/password.component';
 import { NgTiltModule } from '@geometricpanda/angular-tilt';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NgTiltModule } from '@geometricpanda/angular-tilt';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgTiltModule
+    NgTiltModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
