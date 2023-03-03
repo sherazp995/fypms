@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-lg-5 bg-auth-image d-flex align-items-center justify-content-center">
+    <img src="../../../assets/images/bg-login.png" alt="" ngTilt [scale]="1.2">
+  </div>
+  <div class="col-lg-7">
+      <div class="p-5">
+          <div class="text-center">
+              <h1 class="h4 text-gray-900 mb-4"> Welcome Back! </h1>
+          </div>
+          <form class="user">
+              <div class="form-group">
+                  <input class="form-control form-control-user" name="username" [(ngModel)]="login_object.username" type="text"
+                      placeholder="Username" />
+              </div>
+              <div class="form-group">
+                  <input type="password" class="form-control form-control-user" name="password" [(ngModel)]="login_object.password"
+                      placeholder="Password" />
+              </div>
+              <div class="form-group">
+                  <div class="custom-control custom-checkbox small d-flex">
+                      <input type="checkbox" id="customCheck" class="form-check" name="remember_me" [(ngModel)]="login_object.remember_me" />
+                      <label class="form-check" for="customCheck">
+                          Remember Me
+                      </label>
+                  </div>
+              </div>
+              <button class="btn btn-primary btn-user btn-block" (click)="submit()">
+                  Login
+              </button>
+          </form>
+          <hr />
+          <div class="text-center">
+              <a class="small" href="forgot-password.html">
+                  Forgot Password?
+              </a>
+          </div>
+          <div class="text-center">
+              <a class="small" href="register.html">
+                  Create an Account!
+              </a>
+          </div>
+      </div>
+  </div>
+</div>
