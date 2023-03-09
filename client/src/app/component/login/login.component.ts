@@ -6,9 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(){
-    this.validate_fields()
-  }
+  constructor() {  }
 
   login_object = {
     username: '',
@@ -16,14 +14,22 @@ export class LoginComponent {
     remember_me: false
   }
 
-  validate_fields() {
-    for (const key in this.login_object) {
-     console.log()
+  validate_email() {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(re.test(this.login_object.username)){
+      return true;
+    }
+    else{
+      return false;
     }
   }
 
-  submit() {
+  login() {
     console.log(this.login_object)
+    if (this.login_object.username.trim() !== '' && this.login_object.password.trim() !== '' && this.validate_email()) {
+      this.login_object.username = this.login_object.username.trim();
+      this.login_object.password = this.login_object.password.trim();
+    }
   }
 }
  
