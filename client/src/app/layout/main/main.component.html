@@ -1,21 +1,26 @@
 <body id="page-top">
   <!-- Page Wrapper -->
-  <div id="wrapper">
+  <div id="wrapper" class="h-100">
       <!-- Sidebar -->
       <app-sidebar></app-sidebar>
       <!-- End of Sidebar -->
 
       <!-- Content Wrapper -->
-      <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content-wrapper" class="d-flex flex-column" style="overflow-y: hidden;">
         <!-- Main Content -->
-        <div id="content">
+        <div id="content" class="h-100">
             <!-- Topbar -->
             <app-topbar></app-topbar>
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <router-outlet></router-outlet>
-            <!-- /.container-fluid -->
+            <div style="overflow-x: hidden; overflow-y: scroll; height: 87%;">
+                <div class="h-100">
+                    <router-outlet></router-outlet>
+                    <br>
+                </div>
+            </div>
+        <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
 

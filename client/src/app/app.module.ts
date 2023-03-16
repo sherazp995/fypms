@@ -13,6 +13,8 @@ import { RegisterComponent } from './component/register/register.component';
 import { PasswordComponent } from './component/password/password.component';
 import { NgTiltModule } from '@geometricpanda/angular-tilt';
 import { FormsModule } from '@angular/forms';
+import { UploadProjectComponent } from './component/upload-project/upload-project.component';
+import { TagInputModule } from 'ngx-chips';
 
 @NgModule({
   declarations: [
@@ -24,11 +26,13 @@ import { FormsModule } from '@angular/forms';
     TopbarComponent,
     DashboardComponent,
     RegisterComponent,
-    PasswordComponent
+    PasswordComponent,
+    UploadProjectComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    TagInputModule, 
     NgTiltModule,
     FormsModule
   ],
