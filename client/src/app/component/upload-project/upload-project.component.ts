@@ -6,14 +6,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./upload-project.component.css']
 })
 export class UploadProjectComponent {
+  constructor() {  }
 
   upload_project = {
-    email: '',
-    first_name: '',
-    last_name: '',
-    password: '',
-    password_confirm: '',
-    role: ''
+    title: '',
+    description: '',
+    skills: [''],
+    domain: [''],
+    languages: [''],
+    tools: [''],
+    project_file: ''
   }
 
+  upload() {
+    console.log(this.upload_project)
+  }
 }
