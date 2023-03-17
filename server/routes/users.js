@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var jwt = require('jsonwebtoken');
 var passwordHash = require('password-hash');
+const auth = require("../middleware/authentication");
 
 router.get('/', (req, res) => {
   res.send({ User: 'index'})
@@ -80,9 +81,9 @@ router.post('/login', async (req, res) => {
       if (passwordHash.verify(req.body.password, result.password)) {
         let jwtToken = jwt.sign({ _id: result._id }, process.env.privateKeyForLoginSignup);
         console.log(result);
-        if (req.body.fcmToken[0] && result.fcmToken.indexOf(req.body.fcmToken[0]) == -1) {
-          await User.findByIdAndUpdate(result._id, { $push: { fcmToken: req.body.fcmToken[0] } });
-        }
+        // if (req.body.fcmToken[0] && result.fcmToken.indexOf(req.body.fcmToken[0]) == -1) {
+        //   await User.findByIdAndUpdate(result._id, { $push: { fcmToken: req.body.fcmToken[0] } });
+        // }
         res.json({ result, jwtToken, message: 'Authorized' });
       }
       else {
