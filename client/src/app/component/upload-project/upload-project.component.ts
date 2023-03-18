@@ -14,8 +14,12 @@ export class UploadProjectComponent {
     skills: [''],
     domain: [''],
     languages: [''],
-    tools: [''],
+    tools: '',
     project_file: ''
+  }
+
+  ngOnInit() {
+    this.upload_project.domain = this.upload_project.tools.split(/[ ,]+/);
   }
 
   upload() {

@@ -22,14 +22,16 @@
           </div>
           <div class="form-group">
             <label for="tools">Tools</label>
-            <tag-input [(ngModel)]='upload_project.tools'></tag-input>
+            <tag-input></tag-input>
 
             <input type="text" class="form-control" id="tools" placeholder="Enter Allowed Tools">
           </div>
           <div class="form-group file-upload-wrapper">
             <label for="project_file">Upload Project File</label>
             <br/>
-            <input type="file" name="project_file" id="project_file" class="file-upload" />
+            <div class="file-upload-wrapper">
+              <input type="file" name="project_file" id="project_file" class="file-upload" />
+            </div>
           </div>
         <button class="btn btn-primary">Submit</button>
       </form>
