@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core'
 
 @Component({
   selector: 'app-upload-project',
@@ -6,20 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./upload-project.component.css']
 })
 export class UploadProjectComponent {
+
   constructor() {  }
 
   upload_project = {
     title: '',
     description: '',
-    skills: [''],
-    domain: [''],
-    languages: [''],
+    skills: '',
+    domain: '',
+    languages: '',
     tools: '',
     project_file: ''
-  }
-
-  ngOnInit() {
-    this.upload_project.domain = this.upload_project.tools.split(/[ ,]+/);
   }
 
   upload() {
