@@ -1,41 +1,80 @@
-<div class="container-fluid"> <!-- Page Heading -->
-    <form id="project_upload_form">
-        <div class="form-group">
-          <label for="title">Project Title</label>
-          <input type="text" class="form-control" id="title" placeholder="Enter Title">
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Project Upload</h1>
+  </div>
+  <!-- Content Row -->
+  <div class="row">
+    <form id="project_upload_form" class="col container">
+      <div class="form-group">
+        <label for="title">Project Title</label>
+        <input type="text" class="form-control" id="title" name="title" [(ngModel)]="upload_project.title" placeholder="Enter Title">
+      </div>
+      <div class="form-group">
+        <label for="description">Project Description</label>
+        <input type="text" class="form-control" id="description" name="description" [(ngModel)]="upload_project.description" placeholder="Enter Description">
+      </div>
+      <div class="form-group">
+        <label for="skills">Required Skills</label>
+        <div class="form-control tag-height">
+          <tag-input
+            [(ngModel)]="upload_project.skills"
+            [separatorKeyCodes]="[32,9]"
+            inputId="skills"
+            name="skills"
+            [placeholder]="'Add Required Skill'"
+            [secondaryPlaceholder]="'Enter Required Skills'"
+            [addOnBlur]="true"
+            theme='bootstrap'
+          >
+          </tag-input>
         </div>
-        <div class="form-group">
-          <label for="description">Project Description</label>
-          <input type="text" class="form-control" id="description" placeholder="Enter Description">
+      </div>
+      <div class="form-group">
+        <label for="domain">Domain</label>
+        <input type="text" class="form-control" id="domain" name="domain" [(ngModel)]="upload_project.domain" placeholder="Enter Domain of Project">
+      </div>
+      <div class="form-group">
+        <label for="languages">Programming Languages</label>
+        <div class="form-control tag-height">
+          <tag-input
+            [(ngModel)]="upload_project.languages"
+            [separatorKeyCodes]="[32,9]"
+            inputId="languages"
+            name="languages"
+            [placeholder]="'Add Required Language'"
+            [secondaryPlaceholder]="'Enter Required Languages'"
+            [addOnBlur]="true"
+            theme='bootstrap'
+          ></tag-input>
         </div>
-        <div class="form-group">
-            <label for="skills">Required Skills</label>
-            <input type="text" class="form-control" id="skills" placeholder="Enter Required Skills for this Project">
-          </div>
-          <div class="form-group">
-            <label for="domain">Domain</label>
-            <input type="text" class="form-control" id="domain" placeholder="Enter Domain of Project">
-          </div>
-          <div class="form-group">
-            <label for="languages">Programming Languages</label>
-            <input type="text" class="form-control" id="languages" placeholder="Enter Allowed Programming Languages">
-          </div>
-          <div class="form-group">
-            <label for="tools">Tools</label>
-            <tag-input></tag-input>
-
-            <input type="text" class="form-control" id="tools" placeholder="Enter Allowed Tools">
-          </div>
-          <div class="form-group file-upload-wrapper">
-            <label for="project_file">Upload Project File</label>
-            <br/>
-            <div class="file-upload-wrapper">
-              <input type="file" name="project_file" id="project_file" class="file-upload" />
-            </div>
-          </div>
-        <button class="btn btn-primary">Submit</button>
-      </form>
+      </div>
+      <div class="form-group">
+        <label for="tools">Tools</label>
+        <div class="form-control tag-height">
+          <tag-input
+            [(ngModel)]="upload_project.tools"
+            [separatorKeyCodes]="[32,9]"
+            inputId="tools"
+            name="tools"
+            [placeholder]="'Add Allowed Tool'"
+            [secondaryPlaceholder]="'Enter Allowed Tools'"
+            [addOnBlur]="true"
+            theme='bootstrap'
+          ></tag-input>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="project_file">Upload Project File</label>
+        <br/>
+        <div class="file-upload-wrapper">
+          <input type="file" name="project_file" id="project_file" [(ngModel)]="upload_project.project_file" class="file-upload"/>
+        </div>
+      </div>
+      <button (click)="upload()" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
 </div>
 <script>
-    $(".file-upload").file_upload();
+  $(".file-upload").file_upload();
 </script>

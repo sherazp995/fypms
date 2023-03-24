@@ -705,8 +705,8 @@ body {
   animation-name: growIn;
   -webkit-animation-duration: 200ms;
   animation-duration: 200ms;
-  -webkit-animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
-  animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
+  -webkit-animation-timing-function: cubic-bezier(0.18, 1.25, 0.4, 1), cubic-bezier(0, 1, 0.4, 1);
+  animation-timing-function: cubic-bezier(0.18, 1.25, 0.4, 1), cubic-bezier(0, 1, 0.4, 1);
 }
 
 @-webkit-keyframes fadeIn {
@@ -734,8 +734,8 @@ body {
   animation-name: fadeIn;
   -webkit-animation-duration: 200ms;
   animation-duration: 200ms;
-  -webkit-animation-timing-function: opacity cubic-bezier(0, 1, 0.4, 1);
-  animation-timing-function: opacity cubic-bezier(0, 1, 0.4, 1);
+  -webkit-animation-timing-function: cubic-bezier(0, 1, 0.4, 1);
+  animation-timing-function: cubic-bezier(0, 1, 0.4, 1);
 }
 
 .bg-gradient-primary {
@@ -1176,6 +1176,7 @@ body {
 }
 
 .sidebar #sidebarToggle {
+  font-family: "Font Awesome 5 Free", serif;
   width: 2.5rem;
   height: 2.5rem;
   text-align: center;
@@ -1183,7 +1184,7 @@ body {
   cursor: pointer;
 }
 
-.sidebar #sidebarToggle::after {
+.sidebar #sidebarToggle:after {
   font-weight: 900;
   content: '\f104';
   margin-right: 0.1rem;
@@ -1301,10 +1302,9 @@ body {
 
   .sidebar .nav-item .nav-link {
       display: block;
-      width: 100%;
+      width: 14rem;
       text-align: left;
       padding: 1rem;
-      width: 14rem;
   }
 
   .sidebar .nav-item .nav-link i {
@@ -1357,8 +1357,8 @@ body {
       animation-name: growIn;
       -webkit-animation-duration: 200ms;
       animation-duration: 200ms;
-      -webkit-animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
-      animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
+    -webkit-animation-timing-function: cubic-bezier(0.18, 1.25, 0.4, 1), cubic-bezier(0, 1, 0.4, 1);
+    animation-timing-function: cubic-bezier(0.18, 1.25, 0.4, 1), cubic-bezier(0, 1, 0.4, 1);
   }
 
   .sidebar.toggled .nav-item .collapse .collapse-inner {
@@ -2278,4 +2278,9 @@ body.sidebar-toggled footer.sticky-footer {
     -webkit-transform: rotateZ(0);
     transform: rotateZ(0)
   }
+}
+
+.tag-height {
+  height: 60px;
+  overflow: hidden;
 }

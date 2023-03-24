@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "open": "ng serve -o",
     "build": "ng build",
+    "create_compoment": "ng generate component",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

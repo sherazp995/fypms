@@ -15,6 +15,7 @@ import { NgTiltModule } from '@geometricpanda/angular-tilt';
 import { FormsModule } from '@angular/forms';
 import { UploadProjectComponent } from './component/upload-project/upload-project.component';
 import { TagInputModule } from 'ngx-chips';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import { TagInputModule } from 'ngx-chips';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule ,
     AppRoutingModule,
-    TagInputModule, 
+    TagInputModule,
     NgTiltModule,
     FormsModule
   ],
