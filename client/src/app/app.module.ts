@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { UploadProjectComponent } from './component/upload-project/upload-project.component';
 import { TagInputModule } from 'ngx-chips';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ProjectsComponent } from './component/projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     DashboardComponent,
     RegisterComponent,
     PasswordComponent,
-    UploadProjectComponent
+    UploadProjectComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,
