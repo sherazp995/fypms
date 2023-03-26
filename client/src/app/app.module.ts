@@ -18,6 +18,7 @@ import { TagInputModule } from 'ngx-chips';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ProjectsComponent } from './component/projects/projects.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShowProjectComponent } from './component/show-project/show-project.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterComponent,
     PasswordComponent,
     UploadProjectComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    ShowProjectComponent
   ],
   imports: [
     BrowserModule,

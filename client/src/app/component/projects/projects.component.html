@@ -9,27 +9,27 @@
       <table class="table ms-5">
         <thead>
         <tr>
-          <th>
+          <th class="w-50">
             Project Title
           </th>
-          <th>
-            Project Title
+          <th class="w-25">
+            Project Domain
           </th>
-          <th>
-            Project Title
+          <th class="w-25">
+            Links
           </th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr *ngFor="let project of projects">
           <td>
-            abc
+            {{project.title}}
           </td>
           <td>
-            abc
+            {{project.domain}}
           </td>
           <td>
-            abc
+            links
           </td>
         </tr>
         </tbody>

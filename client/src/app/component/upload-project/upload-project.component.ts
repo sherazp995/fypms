@@ -15,9 +15,18 @@ export class UploadProjectComponent {
     skills: '',
     domain: '',
     languages: '',
-    tools: '',
-    project_file: ''
+    tools: ''
   }
+  // for file uploading
+  // upload_project = {
+  //   title: '',
+  //   description: '',
+  //   skills: '',
+  //   domain: '',
+  //   languages: '',
+  //   tools: '',
+  //   project_file: ''
+  // }
 
   upload() {
     console.log(this.upload_project)
