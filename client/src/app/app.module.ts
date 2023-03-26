@@ -22,6 +22,8 @@ import { ShowProjectComponent } from './component/show-project/show-project.comp
 import { TokenInspectorService } from './services/token.inspector.service';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiService } from './services/api.service';
+import { LoginGuard } from './guards/login.guard';
+import { ComponentGuard } from './guards/component.guard';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { ApiService } from './services/api.service';
   ],
   providers: [
     ApiService,
+    LoginGuard,
+    ComponentGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInspectorService, multi: true },
   ],
   bootstrap: [AppComponent]

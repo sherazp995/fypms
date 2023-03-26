@@ -8,11 +8,14 @@ import { UploadProjectComponent } from './component/upload-project/upload-projec
 import { AuthComponent } from './layout/auth/auth.component';
 import { MainComponent } from './layout/main/main.component';
 import {ProjectsComponent} from "./component/projects/projects.component";
+import { LoginGuard } from './guards/login.guard';
+import { ComponentGuard } from './guards/component.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivateChild: [ComponentGuard],
     children: [
       {
         path: '',
@@ -31,6 +34,7 @@ const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
+    canActivate: [LoginGuard],
     children: [
       {
         path: 'login',
