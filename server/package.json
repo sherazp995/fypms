@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "private": true,
-  "main": "app.js",
+  "main": "bin/www",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon  .js"
+    "start": "node bin/www",
+    "dev": "nodemon  bin/www"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
