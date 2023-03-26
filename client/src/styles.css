@@ -1224,6 +1224,11 @@ body {
   z-index: 1;
 }
 
+.sidebar .sidebar-brand .sidebar-brand-icon img {
+  height: 40px;
+  width: 40px;
+}
+
 .sidebar .sidebar-brand .sidebar-brand-icon i {
   font-size: 2rem;
 }
@@ -1412,62 +1417,6 @@ body {
   }
 }
 
-.sidebar-light .sidebar-brand {
-  color: #6e707e;
-}
-
-.sidebar-light hr.sidebar-divider {
-  border-top: 1px solid #eaecf4;
-}
-
-.sidebar-light .sidebar-heading {
-  color: #b7b9cc;
-}
-
-.sidebar-light .nav-item .nav-link {
-  color: #858796;
-}
-
-.sidebar-light .nav-item .nav-link i {
-  color: #d1d3e2;
-}
-
-.sidebar-light .nav-item .nav-link:active,
-.sidebar-light .nav-item .nav-link:focus,
-.sidebar-light .nav-item .nav-link:hover {
-  color: #6e707e;
-}
-
-.sidebar-light .nav-item .nav-link:active i,
-.sidebar-light .nav-item .nav-link:focus i,
-.sidebar-light .nav-item .nav-link:hover i {
-  color: #6e707e;
-}
-
-.sidebar-light .nav-item .nav-link[data-toggle="collapse"]::after {
-  color: #b7b9cc;
-}
-
-.sidebar-light .nav-item.active .nav-link {
-  color: #6e707e;
-}
-
-.sidebar-light .nav-item.active .nav-link i {
-  color: #6e707e;
-}
-
-.sidebar-light #sidebarToggle {
-  background-color: #eaecf4;
-}
-
-.sidebar-light #sidebarToggle::after {
-  color: #b7b9cc;
-}
-
-.sidebar-light #sidebarToggle:hover {
-  background-color: #dddfeb;
-}
-
 .sidebar-dark .sidebar-brand {
   color: #fff;
 }
@@ -1488,16 +1437,21 @@ body {
   color: rgba(255, 255, 255, 0.3);
 }
 
-.sidebar-dark .nav-item .nav-link:active,
 .sidebar-dark .nav-item .nav-link:focus,
 .sidebar-dark .nav-item .nav-link:hover {
   color: #fff;
 }
 
-.sidebar-dark .nav-item .nav-link:active i,
 .sidebar-dark .nav-item .nav-link:focus i,
 .sidebar-dark .nav-item .nav-link:hover i {
   color: #fff;
+}
+
+.sidebar-dark .nav-item .nav-link:active,
+.sidebar-dark .nav-item .nav-link.active,
+.sidebar-dark .nav-item .nav-link:active i,
+.sidebar-dark .nav-item .nav-link.active i {
+  color: #4e73df;
 }
 
 .sidebar-dark .nav-item .nav-link[data-toggle="collapse"]::after {
@@ -1505,11 +1459,11 @@ body {
 }
 
 .sidebar-dark .nav-item.active .nav-link {
-  color: #fff;
+  color: #4e73df;
 }
 
 .sidebar-dark .nav-item.active .nav-link i {
-  color: #fff;
+  color: #4e73df;
 }
 
 .sidebar-dark #sidebarToggle {

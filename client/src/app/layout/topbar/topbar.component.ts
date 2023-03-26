@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-topbar',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./topbar.component.css']
 })
 export class TopbarComponent {
+  @Output() togglerEvent = new EventEmitter();
 
+  toggleClick() {
+    this.togglerEvent.emit()
+  }
 }

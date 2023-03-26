@@ -24,9 +24,9 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              "src/assets/vendor/fontawesome.css",
-              "node_modules/bootstrap/dist/css/bootstrap.css"
+              "src/assets/vendor/fontawesome.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.js",

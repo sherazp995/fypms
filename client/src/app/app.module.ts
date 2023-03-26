@@ -17,6 +17,7 @@ import { UploadProjectComponent } from './component/upload-project/upload-projec
 import { TagInputModule } from 'ngx-chips';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ProjectsComponent } from './component/projects/projects.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ProjectsComponent } from './component/projects/projects.component';
     AppRoutingModule,
     TagInputModule,
     NgTiltModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
