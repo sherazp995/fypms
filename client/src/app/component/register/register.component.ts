@@ -11,11 +11,11 @@ export class RegisterComponent {
   constructor(private apiServices: ApiService, private router: Router) {  }
 
   register_object = {
-    email: 'usamatahreem920@gmail.com',
-    first_name: 'Usama',
-    last_name: 'Khalid',
-    password: '12345',
-    password_confirm: '12345',
+    email: '',
+    first_name: '',
+    last_name: '',
+    password: '',
+    password_confirm: '',
     role: 'Student'
   }
 

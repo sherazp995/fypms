@@ -34,7 +34,7 @@ const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
-    canActivate: [LoginGuard],
+    canActivateChild: [LoginGuard],
     children: [
       {
         path: 'login',

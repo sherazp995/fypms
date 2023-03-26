@@ -12,7 +12,6 @@ export class ComponentGuard implements CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       let data = JSON.parse(localStorage.getItem('data'))
       if (data && data._id) {
-        console.log("Has Access")
           return true;
       } else {
         this._router.navigate(['/login'])
