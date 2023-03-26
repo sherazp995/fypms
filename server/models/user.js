@@ -15,7 +15,6 @@ const User = new Schema({
         default: "Student", 
         required: true
     }, // Admin, Supervisor or Student
-    roleId: { type: mongoose.Schema.Types.ObjectId, refPath: 'role' },
     status: {
         type: Number,
         default: 0

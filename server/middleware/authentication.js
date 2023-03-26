@@ -3,9 +3,11 @@ var jwt = require('jsonwebtoken');
 var auth = function(req, res, next) {
     try {
         let token = jwt.verify(req.headers.token, process.env.privateKey)
+        console.log(token)
         if (token) {
             next()
         } else {
+            console.log("Error Middle ware")
             throw {name:'JsonWebTokenError'};
         }
     } catch (error) {

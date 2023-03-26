@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   res.send({ User: 'index'})
 });
 
-router.post("/create", async (req, res) => {
+router.post("/register", async (req, res) => {
   try {
     let result = await User.findOne({ email: req.body.email });
     let message = '';
