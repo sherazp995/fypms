@@ -19,6 +19,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ProjectsComponent } from './component/projects/projects.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowProjectComponent } from './component/show-project/show-project.component';
+import { TokenInspectorService } from './services/token.inspector.service';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -42,9 +45,13 @@ import { ShowProjectComponent } from './component/show-project/show-project.comp
     TagInputModule,
     NgTiltModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInspectorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

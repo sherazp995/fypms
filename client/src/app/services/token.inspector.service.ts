@@ -16,6 +16,7 @@ export class TokenInspectorService {
     token = JSON.parse(localStorage.getItem('data')) || {}
     token = token.token || null
     console.log('interceptor', token);
+    console.log(request)
     
     if (token) {
 

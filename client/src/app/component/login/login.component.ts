@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from 'app/services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -6,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor() {  }
+  constructor(private apiServices: ApiService, private router: Router) {  }
 
   login_object = {
     username: '',
@@ -25,10 +27,21 @@ export class LoginComponent {
   }
 
   login() {
-    console.log(this.login_object)
-    if (this.login_object.username.trim() !== '' && this.login_object.password.trim() !== '' && this.validate_email()) {
+    if (this.login_object.username.trim() !== '' && this.login_object.password.trim() !== '') {
+      console.log(this.login_object)
       this.login_object.username = this.login_object.username.trim();
       this.login_object.password = this.login_object.password.trim();
+
+      this.apiServices.login(this.login_object).subscribe(res => {
+        if(res.message == "Authorized"){
+          localStorage.setItem('data', JSON.stringify(res.result));
+          this.router.navigate(["/"])
+        }
+        else{
+          console.log(res.message)
+        }
+      })
+
     }
   }
 }

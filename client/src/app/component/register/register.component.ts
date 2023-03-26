@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from 'app/services/api.service';
 
 @Component({
   selector: 'app-register',
@@ -6,15 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  constructor() {  }
+  constructor(private apiServices: ApiService, private router: Router) {  }
 
   register_object = {
-    email: '',
-    first_name: '',
-    last_name: '',
-    password: '',
-    password_confirm: '',
-    role: ''
+    email: 'usamatahreem920@gmail.com',
+    first_name: 'Usama',
+    last_name: 'Khalid',
+    password: '12345',
+    password_confirm: '12345',
+    role: 'Student'
   }
 
   users = ['Student', 'Supervisor']
@@ -31,5 +33,8 @@ export class RegisterComponent {
 
   sign_up() {
     console.log(this.register_object)
+    this.apiServices.register(this.register_object).subscribe((res) => {
+      this.router.navigate(['/login'])
+    })
   }
 }
