@@ -35,6 +35,8 @@ export class LoginComponent {
       this.apiServices.login(this.login_object).subscribe(res => {
         if(res.message == "Authorized"){
           localStorage.setItem('data', JSON.stringify(res.result));
+          console.log(res.jwtToken)
+          localStorage.setItem('jwt', res.jwtToken)
           this.router.navigate(["/"])
         }
         else{

@@ -14,12 +14,10 @@ export class ApiService {
   imgURL = this.url + 'uploads/';
 
   register(data): Observable<any> {
-    console.log(data, this.http)
     return this.http.post(this.url + 'users/register', data)
   }
 
   login(data): Observable<any> {
-    console.log(data, this.http)
     return this.http.post(this.url + 'users/login', data)
   }
 }
