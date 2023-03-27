@@ -37,7 +37,7 @@ router.post("/register", async (req, res) => {
 router.post('/delete/:id', async (req, res) => {
   try {
     let result = await User.findByIdAndUpdate(req.params.id, { $set: { status: 2 } }, { new: true });
-    res.json({ result, message: 'User Deleted Successfully' });
+    res.status(200).json({ result, message: 'User Deleted Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
@@ -53,19 +53,19 @@ router.post('/update/:id', async (req, res) => {
     let result = await User.findByIdAndUpdate(req.params.id, {
       $set: body
     }, { new: true });
-    res.status(500).json({ result, message: 'User Updated Successfully' });
+    res.status(200).json({ result, message: 'User Updated Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
   }
 });
 
-router.post('/activate/:id', async (req, res) => {
+router.post('/verify/:id', async (req, res) => {
   try {
     let result = await User.findByIdAndUpdate(req.params.id, {
       $set: { status: 1 }
     }, { new: true });
-    res.json({ result, message: 'User Activated Successfully' });
+    res.status(200).json({ result, message: 'User Activated Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
@@ -84,7 +84,7 @@ router.post('/login', async (req, res) => {
         // if (req.body.fcmToken[0] && result.fcmToken.indexOf(req.body.fcmToken[0]) == -1) {
         //   await User.findByIdAndUpdate(result._id, { $push: { fcmToken: req.body.fcmToken[0] } });
         // }
-        res.json({ result, jwtToken, message: 'Authorized' });
+        res.json({ result, jwtToken: jwtToken, message: 'Authorized' });
       }
       else {
         res.status(500).json({ message: 'Not Authorized' });
@@ -107,7 +107,6 @@ router.post('/logout/', async (req, res) => {
     console.log(error);
     res.status(500).json({ message: error });
   }
-
 });
 
 module.exports = router;

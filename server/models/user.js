@@ -17,7 +17,7 @@ const User = new Schema({
     }, // Admin, Supervisor or Student
     status: {
         type: Number,
-        default: 0
+        default: 1 // 1 for active 2 for deleted 0 for not verirfied
     },
     fcmToken: [String],
 }, { timestamps: true })
