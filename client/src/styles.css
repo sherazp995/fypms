@@ -1665,7 +1665,6 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 .tag-height {
-  height: 60px;
+  height: 45px;
   overflow: hidden;
-  border-radius: 10rem !important;
 }
