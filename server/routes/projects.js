@@ -2,6 +2,14 @@ const express = require('express');
 var router = express.Router();
 var Project = require('../models/project');
 
+function normalize_values(data) {
+  for (let key in data) {
+    if (typeof data[key] === "object") {
+      data[key] = data[key].map(val => val.value).join(",")
+    }
+  }
+  return data
+}
 router.get('/', (req, res) => {
   res.send({ Project: 'index' })
 });
@@ -10,12 +18,11 @@ router.post("/create", async (req, res) => {
   try {
     let result = await Project.findOne({ title: req.body.project.title });
     let message = '';
-    console.log(req.body)
     if (result) {
       message = "Project already exists"
     } else {
       message = 'Project Created Successfully!';
-      result = await Project.create(req.body.project);
+      result = await Project.create(normalize_values(req.body.project));
       result.supervisorId = req.body.user._id;
       result.save();
     }
@@ -59,9 +66,11 @@ router.get('/project_by_supervisor/:id', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/get_one_project/:id', async (req, res) => {
+  console.log(req.params.id)
   try {
-    let result = await Project.find({ supervisorId: req.params.id });
+    let result = await Project.findOne({ _id: req.params.id });
+    console.log(result)
     res.status(200).json({ result, message: 'Success' });
   } catch (error) {
     console.log(error);
