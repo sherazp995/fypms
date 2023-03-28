@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment.development';
 import { Observable } from 'rxjs';
@@ -23,6 +23,10 @@ export class ApiService {
 
   project_by_supervisor(id): Observable<any> {
     return this.http.get(this.url + 'projects/project_by_supervisor/' + id)
+  }
+
+  project_by_id(id): Observable<any> {
+    return this.http.get(this.url + 'projects/get_one_project/' + id)
   }
 
   all_projects(): Observable<any> {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'app/services/api.service';
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-projects',
@@ -7,12 +8,13 @@ import { ApiService } from 'app/services/api.service';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent {
-  projects: any[]
+  projects = []
+  user = {}
 
-  constructor(private apiServices: ApiService) {
-    let user = JSON.parse(localStorage.getItem('data'))
-    if (user.role == "Supervisor") {
-      this.apiServices.project_by_supervisor(user._id).subscribe((res) => {
+  constructor(private apiServices: ApiService, private appServices: AppService) {
+    this.user = appServices.get_user()
+    if (this.user['role'] == "Supervisor") {
+      this.apiServices.project_by_supervisor(this.user['_id']).subscribe((res) => {
         this.projects = res.result
       })
     } else {

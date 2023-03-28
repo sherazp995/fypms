@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core'
 import { Router } from '@angular/router'
 import { ApiService } from 'app/services/api.service'
+import { AppService } from 'app/services/app.service'
 
 @Component({
   selector: 'app-upload-project',
@@ -9,7 +10,7 @@ import { ApiService } from 'app/services/api.service'
 })
 export class UploadProjectComponent {
 
-  constructor(private apiServices: ApiService, private router: Router) {  }
+  constructor(private apiServices: ApiService, private router: Router, private appServices: AppService) {  }
 
   upload_project = {
     title: '',
@@ -30,27 +31,9 @@ export class UploadProjectComponent {
   //   project_file: ''
   // }
 
-  normalize_values() {
-    let data = this.upload_project
-    for (let key in data) {
-      if (typeof data[key] === "object") {
-        data[key] = data[key].map(val => val.value)
-      }
-    }
-    return {
-      title: 'a',
-      description: 'aa',
-      skills: 'a',
-      domain: 'a',
-      languages: 'a',
-      tools: 'a'
-    }
-  }
 
   upload() {
-    let data = this.normalize_values()
-    console.log(data)
-    let user = JSON.parse(localStorage.getItem('data'))
+    let user = this.appServices.get_user()
     if (user.role == "Supervisor") {
       this.apiServices.upload_project({user: user, project: data}).subscribe((res) => {
         console.log(res)
