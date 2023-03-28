@@ -1,4 +1,6 @@
 import {Component, ViewChild} from '@angular/core'
+import { Router } from '@angular/router'
+import { ApiService } from 'app/services/api.service'
 
 @Component({
   selector: 'app-upload-project',
@@ -7,7 +9,7 @@ import {Component, ViewChild} from '@angular/core'
 })
 export class UploadProjectComponent {
 
-  constructor() {  }
+  constructor(private apiServices: ApiService, private router: Router) {  }
 
   upload_project = {
     title: '',
@@ -29,6 +31,8 @@ export class UploadProjectComponent {
   // }
 
   upload() {
-    console.log(this.upload_project)
+    this.apiServices.upload_project(this.upload_project).subscribe((res) => {
+      this.router.navigate(['/projects'])
+    })
   }
 }
