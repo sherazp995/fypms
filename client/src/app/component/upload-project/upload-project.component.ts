@@ -18,7 +18,8 @@ export class UploadProjectComponent {
     skills: '',
     domain: '',
     languages: '',
-    tools: ''
+    tools: '',
+    maxStudents: 1
   }
   // for file uploading
   // upload_project = {
@@ -34,8 +35,8 @@ export class UploadProjectComponent {
 
   upload() {
     let user = this.appServices.get_user()
-    if (user.role == "Supervisor") {
-      this.apiServices.upload_project({user: user, project: data}).subscribe((res) => {
+    if (user["role"] == "Supervisor") {
+      this.apiServices.upload_project({user: user, project: this.upload_project}).subscribe((res) => {
         console.log(res)
         this.router.navigate(['/projects'])
       })

@@ -32,7 +32,6 @@ export class RegisterComponent {
   }
 
   sign_up() {
-    console.log(this.register_object)
     this.apiServices.register(this.register_object).subscribe((res) => {
       this.router.navigate(['/login'])
     })

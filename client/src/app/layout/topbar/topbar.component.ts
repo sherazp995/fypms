@@ -17,12 +17,11 @@ export class TopbarComponent {
   }
 
   logout() {
-    console.log("logging out")
     localStorage.clear()
-    this.router.navigate(['/login'])
     // let user = JSON.parse(localStorage.getItem('data'))
     // this.apiServices.logout(user).subscribe((res) => {
     //   this.router.navigate(['/login'])
     // })
+    this.router.navigate(['/login'])
   }
 }

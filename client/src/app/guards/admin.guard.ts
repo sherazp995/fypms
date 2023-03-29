@@ -6,18 +6,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ComponentGuard implements CanActivateChild {
+export class AdminGuard implements CanActivate {
   constructor(private _router: Router, private appServices: AppService){}
-  canActivateChild(
-    route: ActivatedRouteSnapshot,
+
+  canActivate(
+    childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       let data = this.appServices.get_user()
-      if (data && data["_id"]) {
+      if (data && data["role"] == "Admin") {
           return true;
       } else {
-        this._router.navigate(['/login'])
+        this._router.navigate(['/'])
         return false;
-      }
-  }
+      }  
+    }
   
 }

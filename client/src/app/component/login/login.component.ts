@@ -28,20 +28,18 @@ export class LoginComponent {
 
   login() {
     if (this.login_object.username.trim() !== '' && this.login_object.password.trim() !== '') {
-      console.log(this.login_object)
       this.login_object.username = this.login_object.username.trim();
       this.login_object.password = this.login_object.password.trim();
 
-      this.apiServices.login(this.login_object).subscribe(res => {
+      this.apiServices.login(this.login_object).subscribe((res) => {
         if(res.message == "Authorized"){
           localStorage.setItem('data', JSON.stringify(res.result));
-          console.log(res.jwtToken)
           localStorage.setItem('jwt', res.jwtToken)
-          this.router.navigate(["/"])
         }
         else{
           console.log(res.message)
         }
+        this.router.navigate(['/'])
       })
 
     }

@@ -11,6 +11,7 @@ import {ProjectsComponent} from "./component/projects/projects.component";
 import { LoginGuard } from './guards/login.guard';
 import { ComponentGuard } from './guards/component.guard';
 import {ShowProjectComponent} from "./component/show-project/show-project.component";
+import { SupervisorGuard } from './guards/supervisor.guard';
 
 const routes: Routes = [
   {
@@ -24,7 +25,8 @@ const routes: Routes = [
       },
       {
         path: 'upload_project',
-        component: UploadProjectComponent
+        component: UploadProjectComponent,
+        canActivate: [SupervisorGuard]
       },
       {
         path: 'projects',
