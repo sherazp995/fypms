@@ -11,7 +11,7 @@ export class ProjectsComponent {
 
   constructor(private apiServices: ApiService) {
     let user = JSON.parse(localStorage.getItem('data'))
-    if (user.role = "Supervisor") {
+    if (user.role == "Supervisor") {
       this.apiServices.project_by_supervisor(user._id).subscribe((res) => {
         this.projects = res.result
       })

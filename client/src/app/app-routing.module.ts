@@ -10,6 +10,7 @@ import { MainComponent } from './layout/main/main.component';
 import {ProjectsComponent} from "./component/projects/projects.component";
 import { LoginGuard } from './guards/login.guard';
 import { ComponentGuard } from './guards/component.guard';
+import {ShowProjectComponent} from "./component/show-project/show-project.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
       {
         path: 'projects',
         component: ProjectsComponent
+      },
+      {
+        path: 'show_project/:id',
+        component: ShowProjectComponent
       }
     ]
   },

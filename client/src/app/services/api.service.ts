@@ -20,17 +20,17 @@ export class ApiService {
   login(data): Observable<any> {
     return this.http.post(this.url + 'users/login', data)
   }
-  
+
   project_by_supervisor(id): Observable<any> {
     return this.http.get(this.url + 'projects/project_by_supervisor/' + id)
   }
-  
+
   all_projects(): Observable<any> {
     return this.http.get(this.url + 'projects/all')
   }
-  
+
   upload_project(data): Observable<any> {
     return this.http.post(this.url + 'projects/create', data)
   }
-  
+
 }

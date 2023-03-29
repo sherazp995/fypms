@@ -1,7 +1,8 @@
 {
   "name": "client",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
+    "install_packages": "npm i --legacy-peer-deps",
     "ng": "ng",
     "start": "ng serve",
     "open": "ng serve -o",

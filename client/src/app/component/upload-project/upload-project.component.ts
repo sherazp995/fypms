@@ -30,9 +30,32 @@ export class UploadProjectComponent {
   //   project_file: ''
   // }
 
+  normalize_values() {
+    let data = this.upload_project
+    for (let key in data) {
+      if (typeof data[key] === "object") {
+        data[key] = data[key].map(val => val.value)
+      }
+    }
+    return {
+      title: 'a',
+      description: 'aa',
+      skills: 'a',
+      domain: 'a',
+      languages: 'a',
+      tools: 'a'
+    }
+  }
+
   upload() {
-    this.apiServices.upload_project(this.upload_project).subscribe((res) => {
-      this.router.navigate(['/projects'])
-    })
+    let data = this.normalize_values()
+    console.log(data)
+    let user = JSON.parse(localStorage.getItem('data'))
+    if (user.role == "Supervisor") {
+      this.apiServices.upload_project({user: user, project: data}).subscribe((res) => {
+        console.log(res)
+        this.router.navigate(['/projects'])
+      })
+    }
   }
 }
