@@ -2,7 +2,7 @@ var jwt = require('jsonwebtoken');
 
 var auth = function(req, res, next) {
     try {
-        let token = jwt.verify(req.headers.token, process.env.privateKey)
+        let token = jwt.verify(req.headers.accesstoken, process.env.privateKeyForLoginSignup)
         console.log(req)
         if (token) {
             next();

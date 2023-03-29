@@ -8,7 +8,7 @@ const Project = new Schema({
     skills: String,
     domain: String,
     languages: String,
-    tools: Number,
+    tools: String,
     supervisorId: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     maxStudents: {
         default: 1,

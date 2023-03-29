@@ -80,7 +80,7 @@ router.post('/login', async (req, res) => {
     if (result) {
       if (passwordHash.verify(req.body.password, result.password)) {
         let jwtToken = jwt.sign({ _id: result._id }, process.env.privateKeyForLoginSignup);
-        console.log(result);
+        // console.log(result);
         // if (req.body.fcmToken[0] && result.fcmToken.indexOf(req.body.fcmToken[0]) == -1) {
         //   await User.findByIdAndUpdate(result._id, { $push: { fcmToken: req.body.fcmToken[0] } });
         // }
@@ -99,7 +99,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/logout/', async (req, res) => {
+router.post('/logout', async (req, res) => {
   try {
     await User.findByIdAndUpdate(req.body._id, { $pull: { fcmToken: req.body.fcmToken } });
     res.json({ message: 'Success' });
