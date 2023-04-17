@@ -10,30 +10,58 @@ import { ApiService } from 'app/services/api.service';
 export class RegisterComponent {
   constructor(private apiServices: ApiService, private router: Router) {  }
 
-  register_object = {
+  registerObject = {
     email: '',
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     password: '',
-    password_confirm: '',
+    confirmPassword: '',
     role: 'Student'
   }
 
   users = ['Student', 'Supervisor']
-  
-  validate_email() {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(re.test(this.register_object.email)){
+
+  checkName() {
+    const re = /^[A-Za-z]+$/;
+    if(re.test(this.registerObject.firstName) && re.test(this.registerObject.lastName)){
       return true;
     }
     else{
+      console.log("not valid")
       return false;
     }
   }
 
-  sign_up() {
-    this.apiServices.register(this.register_object).subscribe((res) => {
-      this.router.navigate(['/login'])
-    })
+  validateEmail() {
+    const re = /^[a-zA-Z]\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if(re.test(this.registerObject.email)){
+      return true;
+    }
+    else{
+      console.log("not valid")
+      return false;
+    }
+  }
+
+  validatePassword() {
+    // const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    // if(re.test(this.register_object.email)){
+    //   return true;
+    // }
+    // else{
+    //   console.log("not valid")
+    //   return false;
+    // }
+    return true
+  }
+
+  signUp() {
+    if (this.validateEmail() && this.validatePassword()) {
+      this.apiServices.register(this.registerObject).subscribe((res) => {
+        this.router.navigate(['/login'])
+      })
+    } else {
+      console.log("invalid email or password")
+    }
   }
 }

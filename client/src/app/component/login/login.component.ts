@@ -16,33 +16,23 @@ export class LoginComponent {
     remember_me: false
   }
 
-  validate_email() {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(re.test(this.login_object.username)){
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
-
   login() {
     if (this.login_object.username.trim() !== '' && this.login_object.password.trim() !== '') {
       this.login_object.username = this.login_object.username.trim();
       this.login_object.password = this.login_object.password.trim();
 
       this.apiServices.login(this.login_object).subscribe((res) => {
-        if(res.message == "Authorized"){
+        console.log(res.message)
+        if (res.message == "Authorized") {
           localStorage.setItem('data', JSON.stringify(res.result));
           localStorage.setItem('jwt', res.jwtToken)
-        }
-        else{
+          // this.router.navigate(['/'])
+          location.reload();
+        } else {
           console.log(res.message)
         }
-        this.router.navigate(['/'])
       })
 
     }
   }
 }
- 

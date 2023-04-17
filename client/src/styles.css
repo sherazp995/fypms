@@ -19,7 +19,7 @@ section {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-block: 0.5rem;
 }
 
 .btn-block {

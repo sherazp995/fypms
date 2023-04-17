@@ -94,14 +94,14 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.post('/logout', async (req, res) => {
-  try {
-    await User.findByIdAndUpdate(req.body._id, { $pull: { fcmToken: req.body.fcmToken } });
-    res.json({ message: 'Success' });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: error });
-  }
-});
+// router.post('/logout', async (req, res) => {
+//   try {
+//     await User.findByIdAndUpdate(req.body._id, { $pull: { fcmToken: req.body.fcmToken } });
+//     res.json({ message: 'Success' });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ message: error });
+//   }
+// });
 
 module.exports = router;

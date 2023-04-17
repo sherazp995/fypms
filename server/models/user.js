@@ -17,9 +17,9 @@ const User = new Schema({
     }, // Admin, Supervisor or Student
     status: {
         type: Number,
-        default: 1 // 1 for active 2 for deleted 0 for not verirfied
+        default: 1 // 1 for active 2 for deleted 0 for not verified
     },
-    fcmToken: [String],
+    // fcmToken: [String],
 }, { timestamps: true })
 
 // Export Model

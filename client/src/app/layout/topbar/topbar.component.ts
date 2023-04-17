@@ -17,11 +17,8 @@ export class TopbarComponent {
   }
 
   logout() {
-    localStorage.clear()
-    // let user = JSON.parse(localStorage.getItem('data'))
-    // this.apiServices.logout(user).subscribe((res) => {
-    //   this.router.navigate(['/login'])
-    // })
-    this.router.navigate(['/login'])
+    localStorage.removeItem('data')
+    localStorage.removeItem('jwt')
+    location.reload();
   }
 }

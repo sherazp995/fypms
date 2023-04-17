@@ -7,38 +7,53 @@
       <div class="text-center">
         <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
       </div>
-      <form class="user">
+      <form #registerForm="ngForm" class="user">
         <div class="form-group row">
           <div class="col-sm-6 mb-3 mb-sm-0">
-            <input type="text" class="form-control form-control-user" [(ngModel)]="register_object.first_name"
-              name="first_name" id="exampleFirstName" placeholder="First Name" />
+            <input type="text" class="form-control form-control-user" [(ngModel)]="registerObject.firstName"
+              name="firstName" id="firstName" placeholder="First Name" pattern="^[a-zA-Z\s]+$" #firstName="ngModel" />
           </div>
           <div class="col-sm-6">
-            <input type="text" class="form-control form-control-user" [(ngModel)]="register_object.last_name"
-              name="last_name" id="exampleLastName" placeholder="Last Name" />
+            <input type="text" class="form-control form-control-user" [(ngModel)]="registerObject.lastName"
+              name="lastName" id="lastName" placeholder="Last Name" pattern="^[a-zA-Z\s]+$" #lastName="ngModel" />
           </div>
+        </div>
+        <div *ngIf="firstName.errors">
+          First Name can only be alphabets
+        </div>
+        <div *ngIf="lastName.errors">
+          Last Name is can only be alphabets
         </div>
         <div class="form-group">
-          <input type="email" class="form-control form-control-user" [(ngModel)]="register_object.email" name="email"
-            placeholder="Email Address" />
+          <input type="email" class="form-control form-control-user" [(ngModel)]="registerObject.email" name="email"
+            placeholder="Email Address" pattern="^[a-zA-Z]\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" />
+        </div>
+        <div *ngIf="email.errors">
+          Enter a valid email
         </div>
         <div class="form-group row">
           <div class="col-sm-6 mb-3 mb-sm-0">
-            <input type="password" class="form-control form-control-user" [(ngModel)]="register_object.password"
-              name="password" id="exampleInputPassword" placeholder="Password" />
+            <input type="password" class="form-control form-control-user" [(ngModel)]="registerObject.password"
+              name="password" id="password" placeholder="Password" required minlength="8" #password="ngModel" />
           </div>
           <div class="col-sm-6">
-            <input type="password" class="form-control form-control-user" [(ngModel)]="register_object.password_confirm"
-              name="password_confirm" id="exampleRepeatPassword" placeholder="Repeat Password" />
+            <input type="password" class="form-control form-control-user" [(ngModel)]="registerObject.confirmPassword"
+              name="confirmPassword" id="confirmPassword" placeholder="Repeat Password" required #confirmPassword="ngModel" />
           </div>
+        </div>
+        <div *ngIf="password.model != '' && password.invalid">
+          Enter a valid Password
+        </div>
+        <div *ngIf="confirmPassword.model != '' && (confirmPassword.model !== password.model)">
+          Enter a valid confirmPassword
         </div>
         <div class="form-group">
           <label class="form-label" for="role">Select account type!</label>
-          <select class="form-select form-control" id="user_role" name="role" [(ngModel)]="register_object.role">
+          <select class="form-select form-control" id="role" name="role" [(ngModel)]="registerObject.role">
             <option *ngFor="let option of users" [value]="option" [selected]="option === 'Student'">{{option}}</option>
           </select>
         </div>
-        <button (click)="sign_up()" class="btn btn-primary btn-user btn-block">
+        <button (click)="signUp()" [disabled]="!registerForm.valid" class="btn btn-primary btn-user btn-block">
           Register Account
         </button>
       </form>
