@@ -16,10 +16,10 @@ export class RegisterComponent {
     lastName: '',
     password: '',
     confirmPassword: '',
-    role: 'Student'
+    role: 'student'
   }
 
-  users = ['Student', 'Supervisor']
+  users = ['student', 'supervisor']
 
   checkName() {
     const re = /^[A-Za-z]+$/;

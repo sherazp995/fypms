@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const passwordHash = require('password-hash');
 
 router.get('/all', async (req, res) => {
-  let result = await User.find()
+  let result = await User.find({status: 1})
   res.status(200).json({ users: result})
 });
 

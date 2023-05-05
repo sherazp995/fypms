@@ -22,10 +22,10 @@ const User = new Schema({
     phoneNumber: String,
     role: {
         type: String,
-        enum: ["Admin", "Supervisor", "Student"],
-        default: "Student", 
+        enum: ["admin", "supervisor", "student"],
+        default: "student",
         required: true
-    }, // Admin, Supervisor or Student
+    }, // admin, supervisor or student
     status: {
         type: Number,
         default: 1 // 1 for active 2 for deleted 0 for not verified

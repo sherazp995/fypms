@@ -18,11 +18,18 @@ const Task = new Schema({
     },
     status: {
         type: String,
-        required: true
+        required: true,
+        enum: ['pending', 'in_progress', 'completed'],
+        default: 'pending'
     },
     supervisor: {
         type: Schema.Types.ObjectId,
         ref: 'User',
+        required: true
+    },
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Project',
         required: true
     },
     group: {
@@ -30,7 +37,11 @@ const Task = new Schema({
         ref: 'Group',
         required: true
     },
-    progress: Number
+    progress: {
+        type: Number,
+        required: true,
+        default: 0
+    },
 });
 
 // Export Model
