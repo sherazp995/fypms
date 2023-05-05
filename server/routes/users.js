@@ -1,12 +1,17 @@
 const express = require('express');
-var router = express.Router();
-var User = require('../models/user');
-var jwt = require('jsonwebtoken');
-var passwordHash = require('password-hash');
-const auth = require("../middleware/authentication");
+const router = express.Router();
+const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const passwordHash = require('password-hash');
 
-router.get('/', (req, res) => {
-  res.send({ User: 'index'})
+router.get('/all', async (req, res) => {
+  let result = await User.find()
+  res.status(200).json({ users: result})
+});
+
+router.get('/:id', async (req, res) => {
+  let result = await User.findOne({ _id: req.params.id })
+  res.json({ user: result})
 });
 
 router.post("/register", async (req, res) => {
@@ -78,7 +83,7 @@ router.post('/login', async (req, res) => {
 
     if (result) {
       if (passwordHash.verify(req.body.password, result.password)) {
-        let jwtToken = jwt.sign({ _id: result._id }, process.env.privateKeyForLoginSignup);
+        let jwtToken = jwt.sign({ _id: result._id }, process.env.privateKey);
         res.json({ result, jwtToken: jwtToken, message: 'Authorized' });
       }
       else {
@@ -90,7 +95,7 @@ router.post('/login', async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Somthing went wrong' });
+    res.status(500).json({ message: 'Something went wrong' });
   }
 });
 

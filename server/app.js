@@ -1,16 +1,16 @@
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
 const auth = require("./middleware/authentication");
 require('dotenv').config({ path: './config/config.env' });
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var projectsRouter = require('./routes/projects');
-const mongoose = require('./db/conn');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const projectsRouter = require('./routes/projects');
+require('./db/conn');
 
-var app = express();
+const app = express();
 // Add headers before the routes are defined
 app.use(function (req, res, next) {
 

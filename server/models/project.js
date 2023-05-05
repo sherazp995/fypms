@@ -9,11 +9,15 @@ const Project = new Schema({
     domain: String,
     languages: String,
     tools: String,
-    supervisorId: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
+    supervisor: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     maxStudents: {
         default: 1,
         type: Number
-    }
+    },
+    file: String
 }, { timestamps: true })
 
 // Export Model

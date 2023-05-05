@@ -1,23 +1,23 @@
-var jwt = require('jsonwebtoken');
+// noinspection ExceptionCaughtLocallyJS
 
-var auth = function(req, res, next) {
+const jwt = require('jsonwebtoken');
+
+const auth = function (req, res, next) {
     try {
-        let token = jwt.verify(req.headers.accesstoken, process.env.privateKeyForLoginSignup)
+        let token = jwt.verify(req.headers.accesstoken, process.env.privateKey)
         if (token) {
             next();
         } else {
             console.log("Error Middle ware")
-            throw {name:'JsonWebTokenError'};
+            throw {name: 'JsonWebTokenError'};
         }
     } catch (error) {
         console.log(req.originalUrl)
-        if(req.originalUrl == '/users/login' || req.originalUrl == '/users/register'){
+        if(req.originalUrl === '/users/login' || req.originalUrl === '/users/register'){
             next();
-        }
-        else if (error.name == 'JsonWebTokenError') {
-            return res.json({status:-1, message: 'Invalid JWT'})
-        }
-        else return res.json({ status: 0, message: error.message })
+        } else if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({message: 'Invalid JWT'})
+        } else return res.status(500).json({message: error.message})
     }
 };
 module.exports = auth;
