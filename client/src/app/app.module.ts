@@ -13,6 +13,17 @@ import { RegisterComponent } from './component/register/register.component';
 import { PasswordComponent } from './component/password/password.component';
 import { NgTiltModule } from '@geometricpanda/angular-tilt';
 import { FormsModule } from '@angular/forms';
+import { UploadProjectComponent } from './component/upload-project/upload-project.component';
+import { TagInputModule } from 'ngx-chips';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ProjectsComponent } from './component/projects/projects.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShowProjectComponent } from './component/show-project/show-project.component';
+import { TokenInspectorService } from './services/token.inspector.service';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApiService } from './services/api.service';
+import { LoginGuard } from './guards/login.guard';
+import { ComponentGuard } from './guards/component.guard';
 
 @NgModule({
   declarations: [
@@ -24,15 +35,27 @@ import { FormsModule } from '@angular/forms';
     TopbarComponent,
     DashboardComponent,
     RegisterComponent,
-    PasswordComponent
+    PasswordComponent,
+    UploadProjectComponent,
+    ProjectsComponent,
+    ShowProjectComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule ,
     AppRoutingModule,
+    TagInputModule,
     NgTiltModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    LoginGuard,
+    ComponentGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInspectorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

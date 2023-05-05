@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Project Details</h1>
+  </div>
+  <!-- Content Row -->
+  <div class="row container">
+    <div class="col">
+      <div class="h2 text-center">{{ project['title'] }}</div>
+      <div class="h4 mt-3">Project Domain</div>
+      <div class="ms-3">{{ project['domain'] }}</div>
+      <div class="h4 mt-3">Project Description</div>
+      <div class="ms-3">{{ project['description'] }}</div>
+      <div class="h4 mt-3">Required Skills</div>
+      <div class="ms-3">{{ project['skills'] }}</div>
+      <div class="h4 mt-3">Programming Languages</div>
+      <div class="ms-3">{{ project['languages'] }}</div>
+      <div class="h4 mt-3">Allowed Tools</div>
+      <div class="ms-3">{{ project['tools'] }}</div>
+      <div class="h4 mt-3">Maximum Students Allowed</div>
+      <div class="ms-3">{{ project['maxStudents'] || 0 }}</div>
+      <button class="btn btn-primary mt-5" [routerLink]="['/projects']">
+        Back
+      </button>
+    </div>
+  </div>
+</div>

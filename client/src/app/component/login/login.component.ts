@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from 'app/services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -6,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor() {  }
+  constructor(private apiServices: ApiService, private router: Router) {  }
 
   login_object = {
     username: '',
@@ -14,22 +16,23 @@ export class LoginComponent {
     remember_me: false
   }
 
-  validate_email() {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(re.test(this.login_object.username)){
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
-
   login() {
-    console.log(this.login_object)
-    if (this.login_object.username.trim() !== '' && this.login_object.password.trim() !== '' && this.validate_email()) {
+    if (this.login_object.username.trim() !== '' && this.login_object.password.trim() !== '') {
       this.login_object.username = this.login_object.username.trim();
       this.login_object.password = this.login_object.password.trim();
+
+      this.apiServices.login(this.login_object).subscribe((res) => {
+        console.log(res.message)
+        if (res.message == "Authorized") {
+          localStorage.setItem('data', JSON.stringify(res.result));
+          localStorage.setItem('jwt', res.jwtToken)
+          // this.router.navigate(['/'])
+          location.reload();
+        } else {
+          console.log(res.message)
+        }
+      })
+
     }
   }
 }
- 

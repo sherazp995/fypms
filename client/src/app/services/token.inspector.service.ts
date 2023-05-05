@@ -13,9 +13,10 @@ export class TokenInspectorService {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token;
-    token = JSON.parse(localStorage.getItem('data')) || {}
-    token = token.token || null
-    console.log('interceptor', token);
+    token = localStorage.getItem('jwt')
+    token = token || null
+    // console.log('interceptor', token);
+    // console.log(request)
     
     if (token) {
 
@@ -30,6 +31,7 @@ export class TokenInspectorService {
                 (err) => {
                     if (err instanceof HttpErrorResponse && err.status === 401) {
                         localStorage.removeItem('data')
+                        localStorage.removeItem('jwt')
                         this.router.navigate(['/login']);
                     }
                 }

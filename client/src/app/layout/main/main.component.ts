@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {SidebarComponent} from "../sidebar/sidebar.component";
 
 @Component({
   selector: 'app-main',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent {
+  @ViewChild(SidebarComponent) child:SidebarComponent;
 
+  toggleSidebar () {
+    this.child.toggler()
+  }
 }

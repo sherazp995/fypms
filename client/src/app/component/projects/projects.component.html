@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+    <h1 class="h3 mb-0 text-gray-800">All Projects</h1>
+  </div>
+  <!-- Content Row -->
+  <div class="row">
+    <div class="col">
+      <table class="table ms-5">
+        <thead>
+        <tr>
+          <th class="w-50">
+            Project Title
+          </th>
+          <th class="w-25">
+            Project Domain
+          </th>
+          <th class="w-25">
+            Links
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let project of projects">
+          <td>
+            {{project.title}}
+          </td>
+          <td>
+            {{project.domain}}
+          </td>
+          <td>
+            <a class="btn btn-primary" [routerLink]="['/show_project', project._id]"> view details</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

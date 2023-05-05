@@ -1,8 +1,8 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul ngbNav [activeId]="route.fragment | async" #nav="ngbNav" [ngClass]="toggled ? '' : 'toggled'" class="nav-tabs navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center">
       <div class="sidebar-brand-icon">
-          <img src="../../../assets/images/logo.png" alt="FYP Management System" height="40px" width="40px" />
+          <img src="../../../assets/images/logo.png" alt="FYP Management System" />
       </div>
   </a>
 
@@ -10,8 +10,8 @@
   <hr class="sidebar-divider my-0" />
 
   <!-- Nav Item - Dashboard -->
-  <li class="nav-item active">
-      <a class="nav-link" href="index.html">
+  <li [ngbNavItem]="'1'" class="nav-item">
+      <a ngbNavLink [fragment]="'1'" class="nav-link" [routerLink]="['/']">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
   </li>
@@ -22,41 +22,28 @@
   <!-- Heading -->
   <div class="sidebar-heading">Interface</div>
 
-  <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-          aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-      </a>
-      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Login Screens:</h6>
-              <a class="collapse-item" href="login.html">Login</a>
-              <a class="collapse-item" href="register.html">Register</a>
-              <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-              <div class="collapse-divider"></div>
-              <h6 class="collapse-header">Other Pages:</h6>
-              <a class="collapse-item" href="404.html">404 Page</a>
-              <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-      </div>
-  </li>
-
   <!-- Nav Item - Users -->
-  <li class="nav-item">
-      <a class="nav-link" href="users.html">
+  <!-- <li [ngbNavItem]="2" class="nav-item" [routerLink]="['/']">
+      <a ngbNavLink class="nav-link">
           <i class="fas fa-users"></i>
           <span>Users</span>
       </a>
-  </li>
+  </li> -->
 
   <!-- Nav Item - Documents -->
-  <li class="nav-item">
-      <a class="nav-link" href="documents.html">
+  <li [ngbNavItem]="'2'" *ngIf="user['role'] === 'Supervisor'" class="nav-item">
+      <a ngbNavLink [fragment]="'2'" class="nav-link" [routerLink]="['/upload_project']">
           <i class="fa fa-file"></i>
-          <span>Documents</span>
+          <span>Upload Projects</span>
       </a>
+  </li>
+
+  <!-- Nav Item - Projects -->
+  <li [ngbNavItem]="'3'" class="nav-item">
+    <a ngbNavLink [fragment]="'3'" class="nav-link" [routerLink]="['/projects']">
+      <i class="fa fa-file"></i>
+      <span>All Projects</span>
+    </a>
   </li>
 
   <!-- Divider -->
@@ -64,6 +51,6 @@
 
   <!-- Sidebar Toggler (Sidebar) -->
   <div class="text-center d-none d-md-inline">
-      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      <button class="rounded-circle border-0" (click)="toggler()" id="sidebarToggle"></button>
   </div>
 </ul>
