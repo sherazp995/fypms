@@ -12,6 +12,10 @@ import { LoginGuard } from './guards/login.guard';
 import { ComponentGuard } from './guards/component.guard';
 import {ShowProjectComponent} from "./component/show-project/show-project.component";
 import { SupervisorGuard } from './guards/supervisor.guard';
+import {UsersComponent} from "./component/users/users.component";
+import {AdminGuard} from "./guards/admin.guard";
+import {ShowUserComponent} from "./component/show-user/show-user.component";
+import {EditUserComponent} from "./component/edit-user/edit-user.component";
 
 const routes: Routes = [
   {
@@ -22,6 +26,29 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent
+      },
+      {
+        path: 'users',
+        component: UsersComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'show_user/:id',
+        component: ShowUserComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'edit_user/:id',
+        component: EditUserComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'my_profile',
+        component: ShowUserComponent
+      },
+      {
+        path: 'edit_profile',
+        component: EditUserComponent
       },
       {
         path: 'upload_project',

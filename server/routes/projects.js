@@ -10,8 +10,15 @@ function normalize_values(data) {
   }
   return data
 }
-router.get('/', (req, res) => {
-  res.send({ Project: 'index' })
+
+router.get('/all', async (req, res) => {
+  try {
+    let result = await Project.find();
+    res.status(200).json({ result, message: 'Success' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
 });
 
 router.post("/create", async (req, res) => {
@@ -62,11 +69,11 @@ router.get('/project_by_supervisor/:id', async (req, res) => {
     res.status(200).json({ result, message: 'Success' });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Somthing went wrong' });
+    res.status(500).json({ message: 'Something went wrong' });
   }
 });
 
-router.get('/get_one_project/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   console.log(req.params.id)
   try {
     let result = await Project.findOne({ _id: req.params.id });
@@ -74,17 +81,7 @@ router.get('/get_one_project/:id', async (req, res) => {
     res.status(200).json({ result, message: 'Success' });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Somthing went wrong' });
-  }
-});
-
-router.get('/all', async (req, res) => {
-  try {
-    let result = await Project.find();
-    res.status(200).json({ result, message: 'Success' });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Somthing went wrong' });
+    res.status(500).json({ message: 'Something went wrong' });
   }
 });
 

@@ -33,6 +33,9 @@ const User = new Schema({
     group: {
         type: Schema.Types.ObjectId,
         ref: 'Group'
+    },
+    image: {
+        type: String
     }
 }, { timestamps: true })
 

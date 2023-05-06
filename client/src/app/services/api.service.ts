@@ -21,12 +21,16 @@ export class ApiService {
     return this.http.post(this.url + 'users/login', data)
   }
 
+  all_users(): Observable<any> {
+    return this.http.get(this.url + 'users/all')
+  }
+
   project_by_supervisor(id): Observable<any> {
     return this.http.get(this.url + 'projects/project_by_supervisor/' + id)
   }
 
-  project_by_id(id): Observable<any> {
-    return this.http.get(this.url + 'projects/get_one_project/' + id)
+  project(id): Observable<any> {
+    return this.http.get(this.url + 'projects/' + id)
   }
 
   all_projects(): Observable<any> {

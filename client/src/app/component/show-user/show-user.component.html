@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Project Details</h1>
+  </div>
+  <!-- Content Row -->
+  <div class="row container">
+    <div class="col">
+      <div class="h2 text-center">{{ user['firstName'] }}</div>
+      <div class="h4 mt-3">Project Domain</div>
+      <div class="ms-3">{{ user['lastName'] }}</div>
+      <div class="h4 mt-3">Project Description</div>
+      <div class="ms-3">{{ user["username"] }}</div>
+      <div class="h4 mt-3">Required Skills</div>
+      <div class="ms-3">{{ user['email'] }}</div>
+      <button class="btn btn-primary mt-5" [routerLink]="['/edit_profile']">
+        Edit
+      </button>
+      <button class="btn btn-primary mt-5" [routerLink]="['/']">
+        Back
+      </button>
+    </div>
+  </div>
+</div>

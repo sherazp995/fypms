@@ -20,5 +20,5 @@ export class LoginGuard implements CanActivateChild {
         return true;
       }
   }
-  
+
 }

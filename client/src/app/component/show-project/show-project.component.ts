@@ -10,11 +10,11 @@ import { ApiService } from 'app/services/api.service';
 export class ShowProjectComponent {
   project = {}
   constructor(private route: ActivatedRoute, private apiServices: ApiService){
-    this.apiServices.project_by_id(this.get_id()).subscribe((res) => {
+    this.apiServices.project(this.get_id()).subscribe((res) => {
       this.project = res.result
     })
     }
-  
+
   get_id(){
     return this.route.snapshot.params['id']
   }

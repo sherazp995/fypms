@@ -8,17 +8,17 @@ import { Observable } from 'rxjs';
 })
 export class SupervisorGuard implements CanActivate {
   constructor(private _router: Router, private appServices: AppService){}
-  
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       let data = this.appServices.get_user()
-      if (data && data["role"] == "Supervisor") {
+      if (data && (data["role"] == "supervisor" || data["role"] == "admin")) {
           return true;
       } else {
         this._router.navigate(['/'])
         return false;
-      } 
+      }
     }
-  
+
 }

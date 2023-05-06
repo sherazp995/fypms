@@ -20,10 +20,13 @@ import { ProjectsComponent } from './component/projects/projects.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowProjectComponent } from './component/show-project/show-project.component';
 import { TokenInspectorService } from './services/token.inspector.service';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { LoginGuard } from './guards/login.guard';
 import { ComponentGuard } from './guards/component.guard';
+import { UsersComponent } from './component/users/users.component';
+import { EditUserComponent } from './component/edit-user/edit-user.component';
+import { ShowUserComponent } from './component/show-user/show-user.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { ComponentGuard } from './guards/component.guard';
     PasswordComponent,
     UploadProjectComponent,
     ProjectsComponent,
-    ShowProjectComponent
+    ShowProjectComponent,
+    UsersComponent,
+    EditUserComponent,
+    ShowUserComponent
   ],
   imports: [
     BrowserModule,

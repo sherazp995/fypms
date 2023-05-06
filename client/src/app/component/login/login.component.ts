@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
+import {DashboardComponent} from "../dashboard/dashboard.component";
 
 @Component({
   selector: 'app-login',
@@ -26,8 +27,7 @@ export class LoginComponent {
         if (res.message == "Authorized") {
           localStorage.setItem('data', JSON.stringify(res.result));
           localStorage.setItem('jwt', res.jwtToken)
-          // this.router.navigate(['/'])
-          location.reload();
+          this.router.navigate(['/'])
         } else {
           console.log(res.message)
         }

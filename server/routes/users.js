@@ -1,8 +1,26 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-const jwt = require('jsonwebtoken');
+const {sign} = require('jsonwebtoken');
+const fs = require('fs');
+const path = require('path');
 const passwordHash = require('password-hash');
+
+function saveImage (image, username) {
+  const imageData = Buffer.from(image, 'base64');
+  const fileName = `${username}-${Date.now()}.jpg`;
+  const dir = path.join(__dirname, '..', 'uploads', 'userImages');
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  fs.writeFile(path.join(dir, fileName), imageData, (error) => {
+    if (error) {
+      console.error('Error saving image:', error);
+      return false;
+    }
+  });
+  return fileName;
+}
 
 router.get('/all', async (req, res) => {
   let result = await User.find({status: 1})
@@ -16,21 +34,18 @@ router.get('/:id', async (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-    let result = await User.findOne({ email: req.body.email });
+    let user = req.body.user;
+    let result = await User.findOne({ email: user.email });
     let message = '';
     if (result) {
       message = 'User Already Exist!';
     }
     else {
+      user.username = user.email.split('@')[0];
+      user.password = passwordHash.generate(user.password);
+      user.image = saveImage(req.body.image, user.username);
+      result = await User.create(user);
       message = 'User Created Successfully!';
-      result = await User.create({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        username: req.body.email.split('@')[0],
-        email: req.body.email,
-        password: passwordHash.generate(req.body.password),
-        role: req.body.role
-      });
     }
     res.json({ result, message });
   } catch (error) {
@@ -51,12 +66,12 @@ router.post('/delete/:id', async (req, res) => {
 
 router.post('/update/:id', async (req, res) => {
   try {
-    let body = req.body;
-    if (body.password) {
-      body.password = passwordHash.generate(req.body.password);
+    let user = req.body.user;
+    if (user.password) {
+      user.password = passwordHash.generate(user.password);
     }
     let result = await User.findByIdAndUpdate(req.params.id, {
-      $set: body
+      $set: user
     }, { new: true });
     res.status(200).json({ result, message: 'User Updated Successfully' });
   } catch (error) {
@@ -83,7 +98,7 @@ router.post('/login', async (req, res) => {
 
     if (result) {
       if (passwordHash.verify(req.body.password, result.password)) {
-        let jwtToken = jwt.sign({ _id: result._id }, process.env.privateKey);
+        let jwtToken = sign({ _id: result["_id"] }, process.env.privateKey);
         res.json({ result, jwtToken: jwtToken, message: 'Authorized' });
       }
       else {
