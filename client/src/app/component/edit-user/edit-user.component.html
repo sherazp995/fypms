@@ -4,14 +4,16 @@
     <h1 class="h3 mb-0 text-gray-800">Edit Profile</h1>
   </div>
   <!-- Content Row -->
-  <div class="row container">
-    <form #registerForm="ngForm" class="user">
+  <div class="row container mw-100">
+    <form #updateForm="ngForm" class="col">
       <div class="form-group row">
-        <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="col-sm-6">
+          <label for="firstName">First Name</label>
           <input type="text" class="form-control" [(ngModel)]="user.firstName"
                  name="firstName" id="firstName" placeholder="First Name" pattern="^[a-zA-Z\s]+$" #firstName="ngModel"/>
         </div>
         <div class="col-sm-6">
+          <label for="lastName">Last Name</label>
           <input type="text" class="form-control" [(ngModel)]="user.lastName"
                  name="lastName" id="lastName" placeholder="Last Name" pattern="^[a-zA-Z\s]+$" #lastName="ngModel"/>
         </div>
@@ -23,7 +25,8 @@
         Last Name is can only be alphabets
       </div>
       <div class="form-group">
-        <input type="email" class="form-control" [(ngModel)]="user.email" name="email"
+        <label for="email">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" id="email"
                placeholder="Email Address" pattern="^[a-zA-Z]\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                #email="ngModel"/>
       </div>
@@ -31,11 +34,13 @@
         Enter a valid email
       </div>
       <div class="form-group row">
-        <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="col-sm-6">
+          <label for="password">Password</label>
           <input type="password" class="form-control" [(ngModel)]="user.password"
                  name="password" id="password" placeholder="Password" required minlength="8" #password="ngModel"/>
         </div>
         <div class="col-sm-6">
+          <label for="confirmPassword">Confirm Password</label>
           <input type="password" class="form-control" [(ngModel)]="user.confirmPassword"
                  name="confirmPassword" id="confirmPassword" placeholder="Repeat Password" required
                  #confirmPassword="ngModel"/>
@@ -48,19 +53,15 @@
         Enter a valid confirmPassword
       </div>
       <div class="form-group">
-        <input type="file" class="form-control" [(ngModel)]="user.image" accept=".jpg, .jpeg, .png"
-               (change)="onImageSelected($event)" name="image" #image="ngModel"/>
+        <label for="image">Upload Profile Picture</label>
+        <input type="file" class="form-control" id="image" accept=".jpg, .jpeg, .png"
+               (change)="onImageSelected($event)" name="image"/>
       </div>
-      <button (click)="update()" [disabled]="!registerForm.valid" class="btn btn-primary btn-user btn-block">
-        Register Account
+      <button (click)="update()" [disabled]="!updateForm.valid" class="btn btn-primary btn-block">
+        Update
       </button>
+      <hr/>
+      <a class="small btn btn-block btn-outline-danger" [routerLink]="['/login']">Cancel</a>
     </form>
-    <hr/>
-    <div class="text-center">
-      <a class="small" [routerLink]="['/forgot_password']">Update</a>
-    </div>
-    <div class="text-center">
-      <a class="small" [routerLink]="['/login']">Cancel</a>
-    </div>
   </div>
 </div>

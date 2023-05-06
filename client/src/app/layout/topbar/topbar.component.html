@@ -139,8 +139,9 @@
       <!-- Nav Item - User Information -->
       <li ngbDropdown class="nav-item no-arrow">
           <a class="nav-link" id="userDropdown" role="button" ngbDropdownToggle>
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.firstName}}</span>
-              <img class="img-profile rounded-circle" />
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.firstName}}</span>&nbsp;
+              <img src="{{profilePic}}" class="img-profile rounded-circle">
+              <i *ngIf="!profilePic" class="fa fa-user-alt rounded-circle"></i>
           </a>
           <!-- Dropdown - User Information -->
           <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end shadow animated--grow-in"

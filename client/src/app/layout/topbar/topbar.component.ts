@@ -10,9 +10,11 @@ import {AppService} from "../../services/app.service";
 })
 export class TopbarComponent {
   @Output() togglerEvent = new EventEmitter();
-  user: any
+  user: any;
+  profilePic: any;
   constructor(private apiServices: ApiService, private router:Router, private appServices: AppService) {
     this.user = appServices.get_user()
+    this.profilePic = appServices.getProfilePic(this.user.image);
   }
 
   toggleClick() {

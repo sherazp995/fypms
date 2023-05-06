@@ -9,7 +9,8 @@ import {AppService} from "../../services/app.service";
   styleUrls: ['./show-user.component.css']
 })
 export class ShowUserComponent {
-  user = {}
+  user: any;
+  imageURL: any;
   constructor(private route: ActivatedRoute, private apiServices: ApiService, private appServices: AppService){
     let id = this.get_id();
     if (id) {
@@ -19,6 +20,7 @@ export class ShowUserComponent {
     } else {
       this.user = this.appServices.get_user()
     }
+    this.imageURL = appServices.getProfilePic(this.user.image)
   }
 
   get_id(){

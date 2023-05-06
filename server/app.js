@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const auth = require("./middleware/authentication");
+const path = require('path');
 require('dotenv').config({ path: './config/config.env' });
 
 const indexRouter = require('./routes/index');
@@ -12,6 +13,7 @@ require('./db/conn');
 
 const app = express();
 
+app.use('/uploads/userImages', express.static(path.join(__dirname, 'uploads', 'userImages')));
 app.use(auth);
 
 // Add headers for all routes

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import {ApiService} from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
   user = {}
-  constructor() { }
+  constructor(private apiServices: ApiService) { }
 
   get_user() {
     this.user = JSON.parse(localStorage.getItem('data'))
@@ -23,5 +24,13 @@ export class AppService {
       };
       reader.onerror = (error) => reject(error);
     });
+  }
+
+  getProfilePic (image) {
+    if (image) {
+      return this.apiServices.imgURL + "userImages/" + image
+    } else {
+      return false
+    }
   }
 }

@@ -25,7 +25,6 @@ export class EditUserComponent {
 
   onImageSelected(event: any) {
     this.selectedImage = event.target.files[0];
-
   }
 
   get_id(){
