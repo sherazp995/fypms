@@ -17,7 +17,7 @@ const Project = new Schema({
         default: 1,
         type: Number
     },
-    file: String
+    project_file: String
 }, { timestamps: true })
 
 // Export Model

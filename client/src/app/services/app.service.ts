@@ -26,9 +26,17 @@ export class AppService {
     });
   }
 
-  getProfilePic (image) {
+  getProjectFile(file) {
+    if (file) {
+      return this.apiServices.uploadURL + "projects/" + file
+    } else {
+      return false
+    }
+  }
+
+  getProfilePic(image) {
     if (image) {
-      return this.apiServices.imgURL + "userImages/" + image
+      return this.apiServices.uploadURL + "userImages/" + image
     } else {
       return false
     }

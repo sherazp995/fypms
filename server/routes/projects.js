@@ -1,16 +1,24 @@
 const express = require('express');
-var router = express.Router();
-var Project = require('../models/project');
+const router = express.Router();
+const Project = require('../models/project');
+const path = require("path");
+const fs = require("fs");
 
-function normalize_values(data) {
-  for (let key in data) {
-    if (typeof data[key] === "object") {
-      data[key] = data[key].map(val => val.value).join(",")
-    }
+function uploadFile (file, username) {
+  const fileData = Buffer.from(file, 'base64');
+  const fileName = `${username}-${Date.now()}.pdf`;
+  const dir = path.join(__dirname, '..', 'uploads', 'projects');
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
   }
-  return data
+  fs.writeFile(path.join(dir, fileName), fileData, (error) => {
+    if (error) {
+      console.error('Error saving file:', error);
+      return false;
+    }
+  });
+  return fileName;
 }
-
 router.get('/all', async (req, res) => {
   try {
     let result = await Project.find();
@@ -23,15 +31,17 @@ router.get('/all', async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    let result = await Project.findOne({ title: req.body.project.title });
+    let project = req.body.project;
+    let user = req.body.user;
+    let result = await Project.findOne({ title: project.title });
     let message = '';
     if (result) {
       message = "Project already exists"
     } else {
       message = 'Project Created Successfully!';
-      result = await Project.create(normalize_values(req.body.project));
-      result.supervisorId = req.body.user._id;
-      result.save();
+      project.project_file = project.project_file ? uploadFile(project.project_file, user.username) : '';
+      project.supervisorId = user._id;
+      result = await Project.create(project);
     }
     res.status(200).json({result, message});
   } catch (error) {
@@ -42,8 +52,8 @@ router.post("/create", async (req, res) => {
 
 router.post('/delete/:id', async (req, res) => {
   try {
-    let result = await Project.findByIdAndUpdate(req.params.id, { $set: { status: 2 } }, { new: true });
-    res.status(200).json({ result, message: 'Project Deleted Successfully' });
+    await Project.deleteOne(req.params.id);
+    res.status(200).json({ message: 'Project Deleted Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
@@ -52,9 +62,9 @@ router.post('/delete/:id', async (req, res) => {
 
 router.post('/update/:id', async (req, res) => {
   try {
-    let body = req.body;
+    let project = req.body;
     let result = await Project.findByIdAndUpdate(req.params.id, {
-      $set: body
+      $set: project
     }, { new: true });
     res.status(200).json({ result, message: 'User Updated Successfully' });
   } catch (error) {

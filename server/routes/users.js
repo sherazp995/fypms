@@ -23,13 +23,14 @@ function saveImage (image, username) {
 }
 
 router.get('/all', async (req, res) => {
-  let result = await User.find({status: 1})
-  res.status(200).json({ users: result})
+  let result = await User.find()
+  res.status(200).json({result})
 });
 
 router.get('/:id', async (req, res) => {
+  console.log(req.params)
   let result = await User.findOne({ _id: req.params.id })
-  res.json({ user: result})
+  res.json({result})
 });
 
 router.post("/register", async (req, res) => {

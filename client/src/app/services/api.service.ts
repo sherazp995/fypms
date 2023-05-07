@@ -11,7 +11,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   url = environment.url;
-  imgURL = this.url + 'uploads/';
+  uploadURL = this.url + 'uploads/';
 
   register(data): Observable<any> {
     return this.http.post(this.url + 'users/register', data)
@@ -23,6 +23,10 @@ export class ApiService {
 
   all_users(): Observable<any> {
     return this.http.get(this.url + 'users/all')
+  }
+
+  user(id): Observable<any> {
+    return this.http.get(this.url + 'users/' + id)
   }
 
   project_by_supervisor(id): Observable<any> {

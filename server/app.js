@@ -14,18 +14,9 @@ require('./db/conn');
 const app = express();
 
 app.use('/uploads/userImages', express.static(path.join(__dirname, 'uploads', 'userImages')));
+app.use('/uploads/projects', express.static(path.join(__dirname, 'uploads', 'projects')));
+app.use(cors('*'));
 app.use(auth);
-
-// Add headers for all routes
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', '*');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-});
-
-app.use(cors());
 app.use(logger('dev'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));

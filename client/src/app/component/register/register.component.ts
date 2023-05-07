@@ -28,7 +28,6 @@ export class RegisterComponent {
 
   onImageSelected(event: any) {
       this.selectedImage = event.target.files[0]; // Store the selected image file
-
   }
 
   async signUp() {
