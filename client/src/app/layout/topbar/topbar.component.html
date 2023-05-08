@@ -140,7 +140,7 @@
       <li ngbDropdown class="nav-item no-arrow">
           <a class="nav-link" id="userDropdown" role="button" ngbDropdownToggle>
               <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.firstName}}</span>&nbsp;
-              <img src="{{profilePic}}" class="img-profile rounded-circle">
+              <img *ngIf="profilePic" src="{{profilePic}}" class="img-profile rounded-circle">
               <i *ngIf="!profilePic" class="fa fa-user-alt rounded-circle"></i>
           </a>
           <!-- Dropdown - User Information -->
