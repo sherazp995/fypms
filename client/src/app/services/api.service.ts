@@ -45,4 +45,7 @@ export class ApiService {
     return this.http.post(this.url + 'projects/create', data)
   }
 
+  all_groups(): Observable<any> {
+    return this.http.get(this.url + 'groups/all')
+  }
 }

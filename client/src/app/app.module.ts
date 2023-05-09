@@ -27,6 +27,8 @@ import { ComponentGuard } from './guards/component.guard';
 import { UsersComponent } from './component/users/users.component';
 import { EditUserComponent } from './component/edit-user/edit-user.component';
 import { ShowUserComponent } from './component/show-user/show-user.component';
+import { GroupsComponent } from './component/groups/groups.component';
+import { ShowGroupComponent } from './component/show-group/show-group.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { ShowUserComponent } from './component/show-user/show-user.component';
     ShowProjectComponent,
     UsersComponent,
     EditUserComponent,
-    ShowUserComponent
+    ShowUserComponent,
+    GroupsComponent,
+    ShowGroupComponent
   ],
   imports: [
     BrowserModule,

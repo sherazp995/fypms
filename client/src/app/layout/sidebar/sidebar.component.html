@@ -25,24 +25,32 @@
   <!-- Nav Item - Users -->
   <li [ngbNavItem]="2" *ngIf="user['role'] === 'admin'" class="nav-item">
       <a ngbNavLink class="nav-link" [routerLink]="['/users']">
-          <i class="fas fa-users"></i>
+          <i class="fas fa-user-circle"></i>
           <span>Users</span>
       </a>
   </li>
 
   <!-- Nav Item - Documents -->
   <li [ngbNavItem]="'3'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
-      <a ngbNavLink class="nav-link" [routerLink]="['/upload_project']">
-          <i class="fa fa-file"></i>
+      <a ngbNavLink class="nav-link" [routerLink]="['/projects/new']">
+          <i class="fa fa-file-alt"></i>
           <span>Upload Projects</span>
       </a>
   </li>
 
-  <!-- Nav Item - Projects -->
+  <!-- Nav Item - Protextjects -->
   <li [ngbNavItem]="'4'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/projects']">
-      <i class="fa fa-file"></i>
+      <i class="fa fa-files"></i>
       <span>All Projects</span>
+    </a>
+  </li>
+
+  <!-- Nav Item - Groups -->
+  <li [ngbNavItem]="'5'" class="nav-item">
+    <a ngbNavLink class="nav-link" [routerLink]="['/groups']">
+      <i class="fa fa-users"></i>
+      <span>All Groups</span>
     </a>
   </li>
 

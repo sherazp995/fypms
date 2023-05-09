@@ -1094,7 +1094,7 @@ body {
 }
 
 .sidebar #sidebarToggle {
-  font-family: "Font Awesome 5 Free", serif;
+  font-family: "Font Awesome 6 Pro", serif;
   width: 2.5rem;
   height: 2.5rem;
   text-align: center;
@@ -1542,7 +1542,7 @@ form.user .btn-user {
 
 .error {
   color: #5a5c69;
-  font-family: "Font Awesome 5 Free", serif;
+  font-family: "Font Awesome 6 Pro", serif;
   font-size: 7rem;
   position: relative;
   line-height: 1;

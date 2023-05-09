@@ -16,6 +16,8 @@ import {UsersComponent} from "./component/users/users.component";
 import {AdminGuard} from "./guards/admin.guard";
 import {ShowUserComponent} from "./component/show-user/show-user.component";
 import {EditUserComponent} from "./component/edit-user/edit-user.component";
+import { GroupsComponent } from './component/groups/groups.component';
+import { ShowGroupComponent } from './component/show-group/show-group.component';
 
 const routes: Routes = [
   {
@@ -33,25 +35,25 @@ const routes: Routes = [
         canActivate: [AdminGuard]
       },
       {
-        path: 'show_user/:id',
+        path: 'users/:id',
         component: ShowUserComponent,
         canActivate: [AdminGuard]
       },
       {
-        path: 'edit_user/:id',
+        path: 'users/:id/edit',
         component: EditUserComponent,
         canActivate: [AdminGuard]
       },
       {
-        path: 'my_profile',
+        path: 'profile',
         component: ShowUserComponent
       },
       {
-        path: 'edit_profile',
+        path: 'profile/edit',
         component: EditUserComponent
       },
       {
-        path: 'upload_project',
+        path: 'projects/new',
         component: UploadProjectComponent,
         canActivate: [SupervisorGuard]
       },
@@ -60,8 +62,16 @@ const routes: Routes = [
         component: ProjectsComponent
       },
       {
-        path: 'show_project/:id',
+        path: 'projects/:id',
         component: ShowProjectComponent
+      },
+      {
+        path: 'groups',
+        component: GroupsComponent
+      },
+      {
+        path: 'groups/:id',
+        component: ShowGroupComponent
       }
     ]
   },

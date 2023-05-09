@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+        <h1 class="h3 mb-0 text-gray-800">All Projects</h1>
+    </div>
+    <!-- Content Row -->
+    <div class="row">
+        <div class="col">
+            <table class="table ms-5">
+                <thead>
+                    <tr>
+                        <th class="w-50">
+                            Group Name
+                        </th>
+                        <th class="w-25">
+                            Status
+                        </th>
+                        <th class="w-25">
+                            Links
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let group of groups">
+                        <td>
+                            {{group.name}}
+                        </td>
+                        <td>
+                            <span [ngClass]="{'text-success': group.approved, 'text-warning': !group.approved}">
+                                {{ group.approved ? 'Approved' : 'Pending Approval' }}
+                            </span>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" [routerLink]="['/groups', group._id]"> view details</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
