@@ -15,7 +15,7 @@ import { NgTiltModule } from '@geometricpanda/angular-tilt';
 import { FormsModule } from '@angular/forms';
 import { UploadProjectComponent } from './component/upload-project/upload-project.component';
 import { TagInputModule } from 'ngx-chips';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ProjectsComponent } from './component/projects/projects.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShowProjectComponent } from './component/show-project/show-project.component';
@@ -29,6 +29,7 @@ import { EditUserComponent } from './component/edit-user/edit-user.component';
 import { ShowUserComponent } from './component/show-user/show-user.component';
 import { GroupsComponent } from './component/groups/groups.component';
 import { ShowGroupComponent } from './component/show-group/show-group.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ShowGroupComponent } from './component/show-group/show-group.component'
     NgTiltModule,
     FormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    FlashMessagesModule.forRoot()
   ],
   providers: [
     ApiService,
