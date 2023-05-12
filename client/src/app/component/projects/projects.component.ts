@@ -20,9 +20,6 @@ export class ProjectsComponent {
     } else {
       this.apiServices.all_projects().subscribe((res) => {
         this.projects = res.result
-        console.log(res)
-        // to show flash messages key is the flash type and value is flash message.
-        // appServices.showFlash({ warning: "welcome to my projects" });
       })
     }
   }

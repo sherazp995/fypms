@@ -45,6 +45,10 @@ export class ApiService {
     return this.http.post(this.url + 'projects/create', data)
   }
 
+  delete_project(id): Observable<any> {
+    return this.http.post(this.url + 'projects/delete', { id: id })
+  }
+
   all_groups(): Observable<any> {
     return this.http.get(this.url + 'groups/all')
   }

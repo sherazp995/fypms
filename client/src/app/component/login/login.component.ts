@@ -23,8 +23,7 @@ export class LoginComponent {
       this.login_object.password = this.login_object.password.trim();
 
       this.apiServices.login(this.login_object).subscribe((res) => {
-        console.log(res.message)
-        if (res.message == "Authorized") {
+        if (res.status == 200) {
           localStorage.setItem('data', JSON.stringify(res.result));
           localStorage.setItem('jwt', res.jwtToken)
           this.router.navigate(['/'])

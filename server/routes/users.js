@@ -24,13 +24,13 @@ function saveImage (image, username) {
 
 router.get('/all', async (req, res) => {
   let result = await User.find()
-  res.status(200).json({result})
+  res.json({ status: 200, result })
 });
 
 router.get('/:id', async (req, res) => {
   console.log(req.params)
   let result = await User.findOne({ _id: req.params.id })
-  res.json({result})
+  res.json({ status: 200, result })
 });
 
 router.post("/register", async (req, res) => {
@@ -48,7 +48,7 @@ router.post("/register", async (req, res) => {
       result = await User.create(user);
       message = 'User Created Successfully!';
     }
-    res.json({ result, message });
+    res.json({ status: 200, result, message });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
@@ -58,7 +58,7 @@ router.post("/register", async (req, res) => {
 router.post('/delete/:id', async (req, res) => {
   try {
     let result = await User.findByIdAndUpdate(req.params.id, { $set: { status: 2 } }, { new: true });
-    res.status(200).json({ result, message: 'User Deleted Successfully' });
+    res.json({ status: 200, result, message: 'User Deleted Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
@@ -74,7 +74,7 @@ router.post('/update/:id', async (req, res) => {
     let result = await User.findByIdAndUpdate(req.params.id, {
       $set: user
     }, { new: true });
-    res.status(200).json({ result, message: 'User Updated Successfully' });
+    res.json({ status: 200, result, message: 'User Updated Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
@@ -86,7 +86,7 @@ router.post('/verify/:id', async (req, res) => {
     let result = await User.findByIdAndUpdate(req.params.id, {
       $set: { status: 1 }
     }, { new: true });
-    res.status(200).json({ result, message: 'User Activated Successfully' });
+    res.json({ status: 200, result, message: 'User Activated Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
@@ -100,14 +100,14 @@ router.post('/login', async (req, res) => {
     if (result) {
       if (passwordHash.verify(req.body.password, result.password)) {
         let jwtToken = sign({ _id: result["_id"] }, process.env.privateKey);
-        res.json({ result, jwtToken, message: 'Successfully logged in' });
+        res.json({ status: 200, result, jwtToken, message: 'Successfully logged in' });
       }
       else {
-        res.status(500).json({ message: 'Incorrect password' });
+        res.json({ status: 500, message: 'Incorrect password' });
       }
     }
     else {
-      res.status(500).json({ message: 'User does not exist' });
+      res.json({ status: 500, message: 'User does not exist' });
     }
   } catch (error) {
     console.log(error);

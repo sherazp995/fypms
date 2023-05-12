@@ -3,6 +3,8 @@ const router = express.Router();
 const Project = require('../models/project');
 const path = require("path");
 const fs = require("fs");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/projects/" });
 
 function uploadFile (file, username) {
   const fileData = Buffer.from(file, 'base64');
@@ -46,13 +48,13 @@ router.post("/create", async (req, res) => {
     res.json({status: 200, result, message});
   } catch (error) {
     console.log(error);
-    res.json({ status: 500, message: 'Something went wrong' });
+    res.json({ status: 500, message: 'Something went wrong', error });
   }
 });
 
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete', async (req, res) => {
   try {
-    await Project.deleteOne(req.params.id);
+    await Project.findByIdAndDelete(req.body.id);
     res.json({ status: 200, message: 'Project Deleted Successfully' });
   } catch (error) {
     console.log(error);

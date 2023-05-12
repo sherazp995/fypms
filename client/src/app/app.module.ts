@@ -12,7 +12,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { RegisterComponent } from './component/register/register.component';
 import { PasswordComponent } from './component/password/password.component';
 import { NgTiltModule } from '@geometricpanda/angular-tilt';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UploadProjectComponent } from './component/upload-project/upload-project.component';
 import { TagInputModule } from 'ngx-chips';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -60,7 +60,8 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     FormsModule,
     NgbModule,
     HttpClientModule,
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [
     ApiService,
