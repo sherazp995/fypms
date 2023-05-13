@@ -6,7 +6,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   providedIn: 'root'
 })
 export class AppService {
-  user = {}
+  user:any = {}
   constructor(private apiServices: ApiService, private flashMessage: FlashMessagesService) { }
 
   get_user() {

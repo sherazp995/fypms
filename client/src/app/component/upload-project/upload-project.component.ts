@@ -21,6 +21,7 @@ export class UploadProjectComponent {
       description: ['', Validators.required],
       skills: [[], Validators.required],
       domain: ['', Validators.required],
+      user: ['', Validators.required],
       languages: [[], Validators.required],
       tools: [[], Validators.required],
       maxStudents: [1, Validators.required],
@@ -125,26 +126,33 @@ export class UploadProjectComponent {
   onFileSelected(event: any) {
     this.upload_file = event.target.files[0]; // Store the selected image file
   }
+  
+  toFormData(data) {
+    const formData = new FormData();
+    for(let key in data){
+      formData.append(key, data[key]);
+    }
+    return formData;
+  }
 
   async upload() {
     // Handle form submission here
+    let user = this.appServices.get_user();
     let formData = this.projectForm.value;
     formData.skills = this.skills;
     formData.languages = this.languages;
     formData.tools = this.tools;
+    formData.user = user._id;
     formData = this.normalize_values(formData)
-    formData.project_file = this.appServices.getBase64(this.upload_file)
-    console.log(formData);
-    // sdgazv
+    formData.project_file = this.upload_file
     // let file: any = null;
     // let project = this.normalize_values(this.upload_project);
-    let user = this.appServices.get_user();
     // if (this.upload_file) {
     //   project.project_file = this.upload_file
     // }
     // console.log(JSON.stringify(project))
     // console.log(project)
-    this.apiServices.upload_project({user, project: formData}).subscribe((res) => {
+    this.apiServices.upload_project(this.toFormData(formData)).subscribe((res) => {
       console.log(res)
       if (res.error) {
         this.appServices.showFlash({error: res.error.message})

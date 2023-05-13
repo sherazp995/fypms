@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Project = require('../models/project');
+const User = require('../models/user');
 const path = require("path");
 const fs = require("fs");
-const multer = require("multer");
-const upload = multer({ dest: "uploads/projects/" });
 
 function uploadFile (file, username) {
   const fileData = Buffer.from(file, 'base64');
@@ -33,19 +32,27 @@ router.get('/all', async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    let project = req.body.project;
-    let user = req.body.user;
+    let file = req.files.project_file;
+    let project = req.body;
+    let user = await User.findOne({_id: project.user})
+    const filename = path.join(__dirname, '..', 'uploads', 'projects', `${user.username}-${Date.now()}.${file.name.split('.')[1]}`);
+    if(file){
+      file.mv(filename, (err)=>{
+      if(err){
+        console.log(err)
+      }
+    });
+    }
     let result = await Project.findOne({ title: project.title });
     let message = '';
     if (result) {
       message = "Project already exists"
     } else {
       message = 'Project Created Successfully!';
-      project.project_file = project.project_file ? uploadFile(project.project_file, user.username) : '';
-      project.supervisorId = user._id;
+      project.project_file = file ? filename : '';
       result = await Project.create(project);
     }
-    res.json({status: 200, result, message});
+    res.json({status: 200});
   } catch (error) {
     console.log(error);
     res.json({ status: 500, message: 'Something went wrong', error });
