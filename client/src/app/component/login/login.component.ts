@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
 import {DashboardComponent} from "../dashboard/dashboard.component";
+import { AppService } from 'app/services/app.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import {DashboardComponent} from "../dashboard/dashboard.component";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private apiServices: ApiService, private router: Router) {  }
+  constructor(private apiServices: ApiService, private router: Router, private appServices: AppService) {  }
 
   login_object = {
     username: '',
@@ -24,7 +25,7 @@ export class LoginComponent {
 
       this.apiServices.login(this.login_object).subscribe((res) => {
         if (res.status == 200) {
-          localStorage.setItem('data', JSON.stringify(res.result));
+          this.appServices.set_user(res.result)
           localStorage.setItem('jwt', res.jwtToken)
           this.router.navigate(['/'])
         } else {

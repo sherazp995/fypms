@@ -142,23 +142,17 @@ export class UploadProjectComponent {
     formData.skills = this.skills;
     formData.languages = this.languages;
     formData.tools = this.tools;
-    formData.user = user._id;
+    formData.supervisor = user._id;
     formData = this.normalize_values(formData)
     formData.project_file = this.upload_file
-    // let file: any = null;
-    // let project = this.normalize_values(this.upload_project);
-    // if (this.upload_file) {
-    //   project.project_file = this.upload_file
-    // }
-    // console.log(JSON.stringify(project))
-    // console.log(project)
+
     this.apiServices.upload_project(this.toFormData(formData)).subscribe((res) => {
       console.log(res)
       if (res.error) {
         this.appServices.showFlash({error: res.error.message})
       } else {
         this.appServices.showFlash({success: res.message})
-        // this.router.navigate(['/projects'])
+        this.router.navigate(['/projects'])
       }
     })
   }

@@ -5,20 +5,20 @@ const User = require('../models/user');
 const path = require("path");
 const fs = require("fs");
 
+const UploadDIR = path.join(__dirname, '..', 'uploads', 'projects');
+
 function uploadFile (file, username) {
-  const fileData = Buffer.from(file, 'base64');
-  const fileName = `${username}-${Date.now()}.pdf`;
-  const dir = path.join(__dirname, '..', 'uploads', 'projects');
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  let filename = '', filePath = '';
+  if(file){
+    filename = `${username}-${Date.now()}${file.name.match(/\.[0-9a-z]+$/i)}`;
+    filePath = path.join(UploadDIR, filename);
+    file.mv(filePath, (err)=>{
+      if(err){
+        console.log(err)
+      }
+    });
   }
-  fs.writeFile(path.join(dir, fileName), fileData, (error) => {
-    if (error) {
-      console.error('Error saving file:', error);
-      return false;
-    }
-  });
-  return fileName;
+  return filename;
 }
 router.get('/all', async (req, res) => {
   try {
@@ -34,25 +34,29 @@ router.post("/create", async (req, res) => {
   try {
     let file = req.files.project_file;
     let project = req.body;
-    let user = await User.findOne({_id: project.user})
-    const filename = path.join(__dirname, '..', 'uploads', 'projects', `${user.username}-${Date.now()}.${file.name.split('.')[1]}`);
-    if(file){
-      file.mv(filename, (err)=>{
-      if(err){
-        console.log(err)
-      }
-    });
-    }
+    let user = await User.findOne({_id: project.supervisor})
+    let filename = uploadFile(file, user.username)
     let result = await Project.findOne({ title: project.title });
     let message = '';
     if (result) {
       message = "Project already exists"
     } else {
       message = 'Project Created Successfully!';
-      project.project_file = file ? filename : '';
+      project.project_file = filename;
       result = await Project.create(project);
     }
-    res.json({status: 200});
+    res.json({status: 200, message});
+  } catch (error) {
+    console.log(error);
+    res.json({ status: 500, message: 'Something went wrong', error });
+  }
+});
+
+router.post("/select", async (req, res) => {
+  try {
+    console.log(req.body)
+    let user = await User.findByIdAndUpdate(req.body.user_id, { $set: { project: req.body.project_id } }, { new: true })
+    res.json({status: 200, user, message: "Project selected Successfully"});
   } catch (error) {
     console.log(error);
     res.json({ status: 500, message: 'Something went wrong', error });
@@ -71,7 +75,13 @@ router.post('/delete', async (req, res) => {
 
 router.post('/update/:id', async (req, res) => {
   try {
+    let file = req.files.project_file;
     let project = req.body;
+    if (project.project_file){
+      fs.unlinkSync(path.join(UploadDIR, project.project_file));
+    }
+    let filename = uploadFile(file, user.username);
+    project.project_file = filename;
     let result = await Project.findByIdAndUpdate(req.params.id, {
       $set: project
     }, { new: true });

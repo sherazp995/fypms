@@ -5,7 +5,10 @@ const path = require('path');
 const Schema = mongoose.Schema;
 
 const Project = new Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     description: String,
     skills: String,
     domain: String,
@@ -13,7 +16,9 @@ const Project = new Schema({
     tools: String,
     supervisor: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true,
+        index: true
     },
     maxStudents: {
         default: 1,
@@ -21,19 +26,6 @@ const Project = new Schema({
     },
     project_file: String
 }, { timestamps: true })
-
-Project.pre('findByIdAndDelete', function(){
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    console.log('fiiiiiiiileeeeeeeeeeeee', this.project_file)
-    fs.unlinkSync(path.join(__dirname, '..', 'uploads', 'projects', this.project_file))
-});
 
 // Export Model
 module.exports = mongoose.model('Project', Project);

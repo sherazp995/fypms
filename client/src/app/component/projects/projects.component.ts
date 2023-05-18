@@ -9,7 +9,7 @@ import { AppService } from 'app/services/app.service';
 })
 export class ProjectsComponent {
   projects = []
-  user = {}
+  user: any = {}
 
   constructor(private apiServices: ApiService, private appServices: AppService) {
     this.user = appServices.get_user()
@@ -22,5 +22,11 @@ export class ProjectsComponent {
         this.projects = res.result
       })
     }
+  }
+
+  selectProject(project_id: string) {
+    this.apiServices.select_project({ project_id: project_id, user_id: this.user._id }).subscribe(res => {
+      this.appServices.set_user(res.user);
+    })
   }
 }
