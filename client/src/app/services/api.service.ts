@@ -29,6 +29,10 @@ export class ApiService {
     return this.http.get(this.url + 'users/' + id)
   }
 
+  students_by_project(id: string): Observable<any> {
+    return this.http.get(this.url + 'users/students_by_project/' + id)
+  }
+
   project_by_supervisor(id: string): Observable<any> {
     return this.http.get(this.url + 'projects/project_by_supervisor/' + id)
   }

@@ -17,6 +17,7 @@ router.post("/create", async (req, res) => {
     try {
         let group = req.body.group
         let result = await Group.findOne({ title: group.name });
+        await User.updateMany({_id: {$in: group.users}}, { $set: { group: result._id } }, {multi: true})
         let message = '';
         if (result) {
             message = "Group already exists"

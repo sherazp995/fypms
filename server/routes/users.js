@@ -33,6 +33,11 @@ router.get('/:id', async (req, res) => {
   res.json({ status: 200, result })
 });
 
+router.get('/students_by_project/:id', async (req, res) => {
+  let result = await User.find({ project: req.params.id })
+  res.json({ status: 200, result })
+});
+
 router.post("/register", async (req, res) => {
   try {
     let user = req.body.user;

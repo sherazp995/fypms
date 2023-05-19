@@ -29,16 +29,6 @@ export class UploadProjectComponent {
     });
   }
 
-  upload_project = {
-    title: '',
-    description: '',
-    skills: [],
-    domain: '',
-    languages: [],
-    tools: [],
-    maxStudents: 1,
-    project_file: null
-  }
   upload_file: File;
   domains: string[] = [];
   availableDomains: string[] = [
