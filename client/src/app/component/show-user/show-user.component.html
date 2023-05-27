@@ -6,7 +6,9 @@
   <!-- Content Row -->
   <div class="row container">
     <div class="col">
-      <div style="width: 200px; margin: auto"><img src="{{imageURL}}" class="mx-auto" width="200"></div>
+      <div style="width: 200px; margin: auto">
+        <img *ngIf="imageURL" src="{{imageURL}}" class="mx-auto" width="200">
+      </div>
       <div class="h2 text-center">{{ user.firstName }}</div>
       <div class="h4 mt-3">Father's Name</div>
       <div class="ms-3">{{ user.lastName }}</div>
