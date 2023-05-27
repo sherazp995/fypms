@@ -13,7 +13,7 @@ async function main() {
 // const mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost:27017/fypms').then((err) => {
 //     if (!err) {
-//         console.log("MongoDB Connection Successfull...");
+//         console.log("MongoDB Connection Successful...");
 //     }
 //     else {
 //         console.log("Error in DB Connection: " + JSON.stringify(err, undefined, 2))

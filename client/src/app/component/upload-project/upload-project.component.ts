@@ -11,10 +11,10 @@ import {AppService} from 'app/services/app.service'
 })
 export class UploadProjectComponent {
   projectForm!: FormGroup;
-  
+
   constructor(private formBuilder: FormBuilder, private apiServices: ApiService, private router: Router, private appServices: AppService) {
   }
-  
+
   ngOnInit(): void {
     this.projectForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -116,7 +116,7 @@ export class UploadProjectComponent {
   onFileSelected(event: any) {
     this.upload_file = event.target.files[0]; // Store the selected image file
   }
-  
+
   toFormData(data) {
     const formData = new FormData();
     for(let key in data){
