@@ -30,9 +30,18 @@ const User = new Schema({
         type: Number,
         default: 1 // 1 for active 2 for deleted 0 for not verified
     },
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Project',
+        index: true
+    },
     group: {
         type: Schema.Types.ObjectId,
-        ref: 'Group'
+        ref: 'Group',
+        index: true
+    },
+    image: {
+        type: String
     }
 }, { timestamps: true })
 

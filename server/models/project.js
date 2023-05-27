@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
+const fs = require('fs');
+const path = require('path');
 
 const Schema = mongoose.Schema;
 
 const Project = new Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     description: String,
     skills: String,
     domain: String,
@@ -11,13 +16,15 @@ const Project = new Schema({
     tools: String,
     supervisor: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true,
+        index: true
     },
     maxStudents: {
         default: 1,
         type: Number
     },
-    file: String
+    project_file: String
 }, { timestamps: true })
 
 // Export Model

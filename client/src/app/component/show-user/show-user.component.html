@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Project Details</h1>
+  </div>
+  <!-- Content Row -->
+  <div class="row container">
+    <div class="col">
+      <div style="width: 200px; margin: auto">
+        <img *ngIf="imageURL" src="{{imageURL}}" class="mx-auto" width="200">
+      </div>
+      <div class="h2 text-center">{{ user.firstName }}</div>
+      <div class="h4 mt-3">Father's Name</div>
+      <div class="ms-3">{{ user.lastName }}</div>
+      <div class="h4 mt-3">User Name</div>
+      <div class="ms-3">{{ user.username }}</div>
+      <div class="h4 mt-3">Email</div>
+      <div class="ms-3">{{ user.email }}</div>
+      <div class="h4 mt-3">Phone</div>
+      <div class="ms-3">{{ user.phoneNumber }}</div>
+      <button class="btn btn-primary mt-5" [routerLink]="userID ? ['/users', userID, 'edit'] : ['/profile/edit']">
+        Edit
+      </button>
+      <button class="btn btn-primary mt-5" [routerLink]="['/']">
+        Back
+      </button>
+    </div>
+  </div>
+</div>

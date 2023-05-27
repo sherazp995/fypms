@@ -982,11 +982,6 @@ body {
   max-width: 10rem;
 }
 
-.topbar .dropdown-list .dropdown-item:active {
-  background-color: #eaecf4;
-  color: #3a3b45;
-}
-
 @media (min-width: 576px) {
   .topbar .dropdown {
       position: relative;
@@ -1014,20 +1009,12 @@ body {
   color: #fff;
 }
 
-.topbar.navbar-dark .navbar-nav .nav-item .nav-link:active {
-  color: #fff;
-}
-
 .topbar.navbar-light .navbar-nav .nav-item .nav-link {
   color: #d1d3e2;
 }
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link:hover {
   color: #b7b9cc;
-}
-
-.topbar.navbar-light .navbar-nav .nav-item .nav-link:active {
-  color: #858796;
 }
 
 .sidebar {
@@ -1052,10 +1039,6 @@ body {
 .sidebar .nav-item .nav-link span {
   font-size: 0.65rem;
   display: block;
-}
-
-.sidebar .nav-item.active .nav-link {
-  font-weight: 700;
 }
 
 .sidebar .nav-item .collapse {
@@ -1110,19 +1093,8 @@ body {
   background-color: #eaecf4;
 }
 
-.sidebar .nav-item .collapse .collapse-inner .collapse-item:active,
-.sidebar .nav-item .collapsing .collapse-inner .collapse-item:active {
-  background-color: #dddfeb;
-}
-
-.sidebar .nav-item .collapse .collapse-inner .collapse-item.active,
-.sidebar .nav-item .collapsing .collapse-inner .collapse-item.active {
-  color: #4e73df;
-  font-weight: 700;
-}
-
 .sidebar #sidebarToggle {
-  font-family: "Font Awesome 5 Free", serif;
+  font-family: "Font Awesome 6 Pro", serif;
   width: 2.5rem;
   height: 2.5rem;
   text-align: center;
@@ -1393,23 +1365,8 @@ body {
   color: #fff;
 }
 
-.sidebar-dark .nav-item .nav-link:active,
-.sidebar-dark .nav-item .nav-link.active,
-.sidebar-dark .nav-item .nav-link:active i,
-.sidebar-dark .nav-item .nav-link.active i {
-  color: #4e73df;
-}
-
 .sidebar-dark .nav-item .nav-link[data-toggle="collapse"]::after {
   color: rgba(255, 255, 255, 0.5);
-}
-
-.sidebar-dark .nav-item.active .nav-link {
-  color: #4e73df;
-}
-
-.sidebar-dark .nav-item.active .nav-link i {
-  color: #4e73df;
 }
 
 .sidebar-dark #sidebarToggle {
@@ -1585,7 +1542,7 @@ form.user .btn-user {
 
 .error {
   color: #5a5c69;
-  font-family: "Font Awesome 5 Free", serif;
+  font-family: "Font Awesome 6 Pro", serif;
   font-size: 7rem;
   position: relative;
   line-height: 1;
@@ -1668,3 +1625,29 @@ body.sidebar-toggled footer.sticky-footer {
   height: 45px;
   overflow: hidden;
 }
+
+.navbar-nav .nav-link.active {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #4e73df;
+  outline: none;
+  border: none;
+}
+
+.navbar-nav .nav-link:hover {
+  border: none !important;
+}
+
+.navbar-nav .nav-link:focus {
+  border: none !important;
+}
+
+.navbar-nav .nav-link:focus-visible {
+  border: none !important;
+}
+
+.navbar-nav .nav-link:active {
+  border: none !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

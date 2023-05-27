@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Create Group</h1>
+    </div>
+    <!-- Content Row -->
+    <div class="row container mw-100">
+        <form [formGroup]="groupForm" (ngSubmit)="createGroup()">
+            <div class="form-group">
+                <label for="project">Project</label>
+                <div ngbDropdown>
+                    <input ngbDropdownToggle id="project" type="text" [formControl]="searchControl" autocomplete="off" class="form-control">
+                    <ul ngbDropdownMenu class="w-100" [style]="(filteredProjects| async)?.length > 0 ? '' : 'display: none;'">
+                        <li ngbDropdownItem *ngFor="let project of filteredProjects | async; index as i;" [value]="">
+                            <div role="button" (click)="selectProject(project)">
+                                {{ project.title }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="groupName">Group Name</label>
+                <input type="text" name="groupName" id="groupName" formControlName="name" class="form-control">
+            </div>
+        </form>
+    </div>
+    <table *ngIf="studentList?.length > 0" class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Sale Price</th>
+                <th>In Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of studentList; index as i">
+                <td>{{student.firstName + " - " + student.lastName}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.number}}</td>
+                <td>{{student.price}}</td>
+            </tr>
+        </tbody>
+    </table>       
+</div>

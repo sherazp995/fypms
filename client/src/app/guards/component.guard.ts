@@ -19,5 +19,5 @@ export class ComponentGuard implements CanActivateChild {
         return false;
       }
   }
-  
+
 }

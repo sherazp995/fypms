@@ -139,13 +139,14 @@
       <!-- Nav Item - User Information -->
       <li ngbDropdown class="nav-item no-arrow">
           <a class="nav-link" id="userDropdown" role="button" ngbDropdownToggle>
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">Sheraz</span>
-              <img class="img-profile rounded-circle" />
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.firstName}}</span>&nbsp;
+              <img *ngIf="profilePic" src="{{profilePic}}" class="img-profile rounded-circle">
+              <i *ngIf="!profilePic" class="fa fa-user-alt rounded-circle"></i>
           </a>
           <!-- Dropdown - User Information -->
           <div ngbDropdownMenu class="dropdown-menu dropdown-menu-end shadow animated--grow-in"
               aria-labelledby="userDropdown">
-              <a ngbDropdownItem>
+              <a ngbDropdownItem [routerLink]="['/profile']">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
               </a>

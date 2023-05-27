@@ -1,10 +1,10 @@
 // noinspection ExceptionCaughtLocallyJS
 
-const jwt = require('jsonwebtoken');
+const {verify} = require('jsonwebtoken');
 
 const auth = function (req, res, next) {
     try {
-        let token = jwt.verify(req.headers.accesstoken, process.env.privateKey)
+        let token = verify(req.headers.accesstoken, process.env.privateKey)
         if (token) {
             next();
         } else {

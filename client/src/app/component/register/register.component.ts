@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
+import {AppService} from "../../services/app.service";
 
 @Component({
   selector: 'app-register',
@@ -8,60 +9,36 @@ import { ApiService } from 'app/services/api.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  constructor(private apiServices: ApiService, private router: Router) {  }
+  registerObject: any;
+  selectedImage: File | null = null; // Variable to store the selected image file
 
-  registerObject = {
-    email: '',
-    firstName: '',
-    lastName: '',
-    password: '',
-    confirmPassword: '',
-    role: 'student'
+  constructor(private apiServices: ApiService, private router: Router, private appServices: AppService) {
+    this.registerObject = {
+      email: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      confirmPassword: '',
+      role: 'student',
+      image: ''
+    };
   }
 
-  users = ['student', 'supervisor']
+  users = ['student', 'supervisor'];
 
-  checkName() {
-    const re = /^[A-Za-z]+$/;
-    if(re.test(this.registerObject.firstName) && re.test(this.registerObject.lastName)){
-      return true;
-    }
-    else{
-      console.log("not valid")
-      return false;
-    }
+  onImageSelected(event: any) {
+      this.selectedImage = event.target.files[0]; // Store the selected image file
   }
 
-  validateEmail() {
-    const re = /^[a-zA-Z]\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if(re.test(this.registerObject.email)){
-      return true;
-    }
-    else{
-      console.log("not valid")
-      return false;
-    }
+  async signUp() {
+  try {
+    let image = await this.appServices.getBase64(this.selectedImage)
+    this.apiServices.register({user: this.registerObject, image: image}).subscribe((res) => {
+      console.log(res);
+      this.router.navigate(['/login']);
+    });
+  } catch (error) {
+    console.log(error.message)
   }
-
-  validatePassword() {
-    // const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    // if(re.test(this.register_object.email)){
-    //   return true;
-    // }
-    // else{
-    //   console.log("not valid")
-    //   return false;
-    // }
-    return true
-  }
-
-  signUp() {
-    if (this.validateEmail() && this.validatePassword()) {
-      this.apiServices.register(this.registerObject).subscribe((res) => {
-        this.router.navigate(['/login'])
-      })
-    } else {
-      console.log("invalid email or password")
-    }
   }
 }

@@ -7,11 +7,18 @@ import { RegisterComponent } from './component/register/register.component';
 import { UploadProjectComponent } from './component/upload-project/upload-project.component';
 import { AuthComponent } from './layout/auth/auth.component';
 import { MainComponent } from './layout/main/main.component';
-import {ProjectsComponent} from "./component/projects/projects.component";
+import { ProjectsComponent } from "./component/projects/projects.component";
 import { LoginGuard } from './guards/login.guard';
 import { ComponentGuard } from './guards/component.guard';
-import {ShowProjectComponent} from "./component/show-project/show-project.component";
+import { ShowProjectComponent } from "./component/show-project/show-project.component";
 import { SupervisorGuard } from './guards/supervisor.guard';
+import { UsersComponent } from "./component/users/users.component";
+import { AdminGuard } from "./guards/admin.guard";
+import { ShowUserComponent } from "./component/show-user/show-user.component";
+import { EditUserComponent } from "./component/edit-user/edit-user.component";
+import { GroupsComponent } from './component/groups/groups.component';
+import { ShowGroupComponent } from './component/show-group/show-group.component';
+import { CreateGroupComponent } from './component/create-group/create-group.component';
 
 const routes: Routes = [
   {
@@ -24,7 +31,30 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'upload_project',
+        path: 'users',
+        component: UsersComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'users/:id',
+        component: ShowUserComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'users/:id/edit',
+        component: EditUserComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'profile',
+        component: ShowUserComponent
+      },
+      {
+        path: 'profile/edit',
+        component: EditUserComponent
+      },
+      {
+        path: 'projects/new',
         component: UploadProjectComponent,
         canActivate: [SupervisorGuard]
       },
@@ -33,8 +63,20 @@ const routes: Routes = [
         component: ProjectsComponent
       },
       {
-        path: 'show_project/:id',
+        path: 'projects/:id',
         component: ShowProjectComponent
+      },
+      {
+        path: 'groups',
+        component: GroupsComponent
+      },
+      {
+        path: 'groups/new',
+        component: CreateGroupComponent
+      },
+      {
+        path: 'groups/:id',
+        component: ShowGroupComponent
       }
     ]
   },
@@ -60,7 +102,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

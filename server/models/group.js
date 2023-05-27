@@ -3,9 +3,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Group = new Schema({
+    name: String,
     project: {
         type: Schema.Types.ObjectId,
-        ref: 'Project'
+        ref: 'Project',
+        index: true
+    },
+    approved: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true })
 

@@ -19,9 +19,17 @@
       <div class="ms-3">{{ project['tools'] }}</div>
       <div class="h4 mt-3">Maximum Students Allowed</div>
       <div class="ms-3">{{ project['maxStudents'] || 0 }}</div>
-      <button class="btn btn-primary mt-5" [routerLink]="['/projects']">
-        Back
-      </button>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-primary mt-5" [routerLink]="['/projects']">
+          Back
+        </button>
+        <button class="btn btn-primary mt-5" (click)="downloadProject()">
+          Download File
+        </button>
+        <button class="btn btn-danger mt-5" (click)="deleteProject()">
+          Delete Project
+        </button>
+      </div>
     </div>
   </div>
 </div>

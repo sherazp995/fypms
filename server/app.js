@@ -3,42 +3,34 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const auth = require("./middleware/authentication");
+const path = require('path');
+const fileUpload = require('express-fileupload');
 require('dotenv').config({ path: './config/config.env' });
 
-const indexRouter = require('./routes/index');
+// const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
+const groupsRouter = require('./routes/groups');
 require('./db/conn');
 
 const app = express();
-// Add headers before the routes are defined
-app.use(function (req, res, next) {
 
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', '*');
-
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    // Pass to next layer of middleware
-    next();
-});
+app.use('/uploads/userImages', express.static(path.join(__dirname, 'uploads', 'userImages')));
+app.use('/uploads/projects', express.static(path.join(__dirname, 'uploads', 'projects')));
+app.use(cors('*'));
 app.use(auth);
-app.use(cors());
+app.use(fileUpload({
+  createParentPath: true,
+  preserveExtension: true
+}));
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
 
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
+app.use('/groups', groupsRouter)
 
 module.exports = app;

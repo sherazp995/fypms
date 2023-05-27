@@ -53,6 +53,12 @@
             <option *ngFor="let option of users" [value]="option" [selected]="option === 'Student'">{{option}}</option>
           </select>
         </div>
+        <div class="form-group">
+          <input type="file" class="form-control" [(ngModel)]="registerObject.image" accept=".jpg, .jpeg, .png" (change)="onImageSelected($event)" name="image" #image="ngModel" />
+        </div>
+        <div *ngIf="image.errors">
+          Enter a valid email
+        </div>
         <button (click)="signUp()" [disabled]="!registerForm.valid" class="btn btn-primary btn-user btn-block">
           Register Account
         </button>
