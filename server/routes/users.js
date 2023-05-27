@@ -100,14 +100,14 @@ router.post('/login', async (req, res) => {
     if (result) {
       if (passwordHash.verify(req.body.password, result.password)) {
         let jwtToken = sign({ _id: result["_id"] }, process.env.privateKey);
-        res.json({ result, jwtToken: jwtToken, message: 'Authorized' });
+        res.json({ result, jwtToken, message: 'Successfully logged in' });
       }
       else {
-        res.status(500).json({ message: 'Not Authorized' });
+        res.status(500).json({ message: 'Incorrect password' });
       }
     }
     else {
-      res.status(500).json({ message: 'Not Authorized' });
+      res.status(500).json({ message: 'User does not exist' });
     }
   } catch (error) {
     console.log(error);

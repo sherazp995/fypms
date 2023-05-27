@@ -22,10 +22,10 @@ function uploadFile (file, username) {
 router.get('/all', async (req, res) => {
   try {
     let result = await Project.find();
-    res.status(200).json({ result, message: 'Success' });
+    res.json({ status: 200, result });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    res.json({ status: 500, message: 'Something went wrong' });
   }
 });
 
@@ -43,20 +43,20 @@ router.post("/create", async (req, res) => {
       project.supervisorId = user._id;
       result = await Project.create(project);
     }
-    res.status(200).json({result, message});
+    res.json({status: 200, result, message});
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    res.json({ status: 500, message: 'Something went wrong' });
   }
 });
 
 router.post('/delete/:id', async (req, res) => {
   try {
     await Project.deleteOne(req.params.id);
-    res.status(200).json({ message: 'Project Deleted Successfully' });
+    res.json({ status: 200, message: 'Project Deleted Successfully' });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    res.json({ status: 500, message: 'Something went wrong' });
   }
 });
 
@@ -66,20 +66,20 @@ router.post('/update/:id', async (req, res) => {
     let result = await Project.findByIdAndUpdate(req.params.id, {
       $set: project
     }, { new: true });
-    res.status(200).json({ result, message: 'User Updated Successfully' });
+    res.json({ status: 200, result, message: 'User Updated Successfully' });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    res.json({ status: 500, message: 'Something went wrong' });
   }
 });
 
 router.get('/project_by_supervisor/:id', async (req, res) => {
   try {
     let result = await Project.find({ supervisorId: req.params.id });
-    res.status(200).json({ result, message: 'Success' });
+    res.json({ status: 200, result });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    res.json({ status: 500, message: 'Something went wrong' });
   }
 });
 
@@ -88,10 +88,10 @@ router.get('/:id', async (req, res) => {
   try {
     let result = await Project.findOne({ _id: req.params.id });
     console.log(result)
-    res.status(200).json({ result, message: 'Success' });
+    res.json({ status: 200, result });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    res.json({ status: 500, message: 'Something went wrong' });
   }
 });
 

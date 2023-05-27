@@ -9,13 +9,14 @@ import {AppService} from "../../services/app.service";
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent {
-  user: any;
+  user: any = {};
   selectedImage: File | null = null;
+  userID: any = null;
 
   constructor(private router: Router, private route: ActivatedRoute, private apiServices: ApiService, private appServices: AppService){
-    let id = this.get_id();
-    if (id) {
-      this.apiServices.project(id).subscribe((res) => {
+    this.userID = this.get_id();
+    if (this.userID) {
+      this.apiServices.user(this.userID).subscribe((res) => {
         this.user = res.result
       })
     } else {
@@ -35,12 +36,10 @@ export class EditUserComponent {
     try {
       let image = await this.appServices.getBase64(this.selectedImage)
       this.apiServices.register({user: this.user, image: image}).subscribe((res) => {
-        console.log(res);
-        let id = this.get_id();
-        if (id) {
-          this.router.navigate(['/show_user/', id]);
+        if (this.userID) {
+          this.router.navigate(['/users/', this.userID]);
         } else {
-          this.router.navigate(['/my_profile']);
+          this.router.navigate(['/profile']);
         }
       });
     } catch (error) {

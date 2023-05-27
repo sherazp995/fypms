@@ -6,9 +6,10 @@ const auth = require("./middleware/authentication");
 const path = require('path');
 require('dotenv').config({ path: './config/config.env' });
 
-const indexRouter = require('./routes/index');
+// const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
+const groupsRouter = require('./routes/groups');
 require('./db/conn');
 
 const app = express();
@@ -22,8 +23,9 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
 
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
+app.use('/groups', groupsRouter)
 
 module.exports = app;

@@ -11,10 +11,11 @@ import {AppService} from "../../services/app.service";
 export class ShowUserComponent {
   user: any = {};
   imageURL: any = '';
+  userID: any = null;
   constructor(private route: ActivatedRoute, private apiServices: ApiService, private appServices: AppService){
-    let id = this.get_id();
-    if (id) {
-      this.apiServices.user(id).subscribe((res) => {
+    this.userID = this.get_id();
+    if (this.userID) {
+      this.apiServices.user(this.userID).subscribe((res) => {
         this.user = res.result
         this.imageURL = appServices.getProfilePic(this.user.image)
       })

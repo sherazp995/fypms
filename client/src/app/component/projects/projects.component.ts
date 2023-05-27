@@ -13,13 +13,16 @@ export class ProjectsComponent {
 
   constructor(private apiServices: ApiService, private appServices: AppService) {
     this.user = appServices.get_user()
-    if (this.user['role'] == "Supervisor") {
+    if (this.user['role'] == "supervisor") {
       this.apiServices.project_by_supervisor(this.user['_id']).subscribe((res) => {
         this.projects = res.result
       })
     } else {
       this.apiServices.all_projects().subscribe((res) => {
         this.projects = res.result
+        console.log(res)
+        // to show flash messages key is the flash type and value is flash message.
+        // appServices.showFlash({ warning: "welcome to my projects" });
       })
     }
   }

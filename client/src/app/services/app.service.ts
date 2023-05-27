@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import {ApiService} from "./api.service";
+import { ApiService } from "./api.service";
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
   user = {}
-  constructor(private apiServices: ApiService) { }
+  constructor(private apiServices: ApiService, private flashMessage: FlashMessagesService) { }
 
   get_user() {
     this.user = JSON.parse(localStorage.getItem('data'))
@@ -39,6 +40,12 @@ export class AppService {
       return this.apiServices.uploadURL + "userImages/" + image
     } else {
       return false
+    }
+  }
+
+  showFlash(flash) {
+    for (let alert in flash) {
+      this.flashMessage.show(flash[alert], { cssClass: 'alert alert-' + alert, timeout: 4000 });
     }
   }
 }

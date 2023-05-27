@@ -13,9 +13,8 @@ export class ShowProjectComponent {
   constructor(private route: ActivatedRoute, private apiServices: ApiService, private appServices: AppService, private renderer: Renderer2){
     this.apiServices.project(this.get_id()).subscribe((res) => {
       this.project = res.result
-      console.log(this.project)
     })
-    }
+  }
 
   downloadProject(){
     let projectLink: any = this.appServices.getProjectFile(this.project.project_file)
