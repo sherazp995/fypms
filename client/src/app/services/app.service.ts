@@ -6,12 +6,16 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   providedIn: 'root'
 })
 export class AppService {
-  user = {}
+  user:any = {}
   constructor(private apiServices: ApiService, private flashMessage: FlashMessagesService) { }
 
   get_user() {
-    this.user = JSON.parse(localStorage.getItem('data'))
-    return this.user
+    this.user = JSON.parse(localStorage.getItem('data'));
+    return this.user;
+  }
+
+  set_user(user: any) {
+    localStorage.setItem('data', JSON.stringify(user));
   }
 
   getBase64(file: File): Promise<string> {
@@ -27,19 +31,19 @@ export class AppService {
     });
   }
 
-  getProjectFile(file) {
+  getProjectFile(file: string) {
     if (file) {
-      return this.apiServices.uploadURL + "projects/" + file
+      return this.apiServices.uploadURL + "projects/" + file;
     } else {
-      return false
+      return false;
     }
   }
 
-  getProfilePic(image) {
+  getProfilePic(image: string) {
     if (image) {
-      return this.apiServices.uploadURL + "userImages/" + image
+      return this.apiServices.uploadURL + "userImages/" + image;
     } else {
-      return false
+      return false;
     }
   }
 

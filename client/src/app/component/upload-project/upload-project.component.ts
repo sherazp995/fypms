@@ -1,4 +1,5 @@
-import {Component, ViewChild} from '@angular/core'
+import {Component} from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Router} from '@angular/router'
 import {ApiService} from 'app/services/api.service'
 import {AppService} from 'app/services/app.service'
@@ -9,21 +10,27 @@ import {AppService} from 'app/services/app.service'
   styleUrls: ['./upload-project.component.css']
 })
 export class UploadProjectComponent {
+  projectForm!: FormGroup;
 
-  constructor(private apiServices: ApiService, private router: Router, private appServices: AppService) {
+  constructor(private formBuilder: FormBuilder, private apiServices: ApiService, private router: Router, private appServices: AppService) {
   }
 
-  upload_project = {
-    title: '',
-    description: '',
-    skills: [],
-    domain: '',
-    languages: [],
-    tools: [],
-    maxStudents: 1,
-    project_file: ""
+  ngOnInit(): void {
+    this.projectForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      skills: [[], Validators.required],
+      domain: ['', Validators.required],
+      user: ['', Validators.required],
+      languages: [[], Validators.required],
+      tools: [[], Validators.required],
+      maxStudents: [1, Validators.required],
+      project_file: ['', Validators.required],
+    });
   }
+
   upload_file: File;
+  domains: string[] = [];
   availableDomains: string[] = [
     'Web Development',
     'Mobile App Development',
@@ -46,6 +53,7 @@ export class UploadProjectComponent {
     'IT Consulting',
     'IT Infrastructure Management'
   ]
+  skills: string[] = [];
   availableSkills: string[] = [
     "HTML","CSS","JavaScript","Python","Java","C#","C++","PHP","Ruby","Swift","Objective-C",
     "SQL","NoSQL","Git","Angular","React","Vue.js","Node.js","ASP.NET","Django","Flask","Spring","Android Development",
@@ -55,6 +63,7 @@ export class UploadProjectComponent {
     "Artificial Intelligence","Big Data","Data Visualization","DevOps","Linux Administration","Windows Server Administration",
     "Technical Writing","Troubleshooting","Teamwork","Communication Skills"
   ];
+  languages: string[] = [];
   availableLanguages: string[] = [
     "Java", "Python", "C++", "C#", "JavaScript", "Ruby", "Go", "Swift", "Kotlin", "TypeScript", "PHP", "Rust", "Perl", "Objective-C",
     "MATLAB", "Haskell", "Lua", "Shell scripting (Bash, PowerShell)", "Scala", "Groovy", "Dart", "Julia", "C", "HTML/CSS", "SQL",
@@ -65,6 +74,7 @@ export class UploadProjectComponent {
     "Smalltalk", "Dart", "Kotlin", "Swift", "R", "TypeScript", "CoffeeScript", "Assembly", "Verilog", "VHDL", "PL/SQL", "Transact-SQL",
     "PowerShell", "Bash", "Batch scripting"
   ];
+  tools: string[] = [];
   availableTools: string[] = [
     'Visual Studio Code',
     'IntelliJ IDEA',
@@ -95,7 +105,7 @@ export class UploadProjectComponent {
     let aa: any = {}
     for (let key in data) {
       if (typeof data[key] === "object") {
-        aa[key] = data[key].join(", ")
+        aa[key] = data[key].join(",")
       } else {
         aa[key] = data[key]
       }
@@ -107,15 +117,33 @@ export class UploadProjectComponent {
     this.upload_file = event.target.files[0]; // Store the selected image file
   }
 
-  async upload() {
-    let file: any = null;
-    let project = this.normalize_values(this.upload_project);
-    let user = this.appServices.get_user();
-    if (this.upload_file) {
-      project.project_file = await this.appServices.getBase64(this.upload_file)
+  toFormData(data) {
+    const formData = new FormData();
+    for(let key in data){
+      formData.append(key, data[key]);
     }
-    this.apiServices.upload_project({user, project}).subscribe((res) => {
-      this.router.navigate(['/projects'])
+    return formData;
+  }
+
+  async upload() {
+    // Handle form submission here
+    let user = this.appServices.get_user();
+    let formData = this.projectForm.value;
+    formData.skills = this.skills;
+    formData.languages = this.languages;
+    formData.tools = this.tools;
+    formData.supervisor = user._id;
+    formData = this.normalize_values(formData)
+    formData.project_file = this.upload_file
+
+    this.apiServices.upload_project(this.toFormData(formData)).subscribe((res) => {
+      console.log(res)
+      if (res.error) {
+        this.appServices.showFlash({error: res.error.message})
+      } else {
+        this.appServices.showFlash({success: res.message})
+        this.router.navigate(['/projects'])
+      }
     })
   }
 }

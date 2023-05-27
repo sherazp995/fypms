@@ -6,27 +6,25 @@
   <!-- Content Row -->
   <div class="row">
     <div class="col ms-4">
-      <form #projectForm="ngForm" id="project_upload_form">
+      <form [formGroup]="projectForm" enctype="multipart/form-data" id="project_upload_form">
         <div class="form-group">
           <label for="title">Project Title</label>
-          <input type="text" class="form-control" id="title" name="title" [(ngModel)]="upload_project.title"
-                 placeholder="Enter Title">
+          <input formControlName="title" type="text" class="form-control" id="title" name="title" placeholder="Enter Title">
         </div>
         <div class="form-group">
           <label for="description">Project Description</label>
-          <input type="text" class="form-control" id="description" name="description"
-                 [(ngModel)]="upload_project.description" placeholder="Enter Description">
+          <input type="text" class="form-control" id="description" name="description" formControlName="description" placeholder="Enter Description">
         </div>
         <div class="form-group">
           <label for="skills">Required Skills</label>
           <div ngbDropdown>
             <button ngbDropdownToggle id="skills" class="form-control text-start d-flex justify-content-between align-items-center">
-              <div>{{upload_project.skills.join(', ') || 'Select Skills'}}</div> <span class="caret"></span>
+              <div>{{skills.join(', ') || 'Select Skills'}}</div> <span class="caret"></span>
             </button>
-            <ul ngbDropdownMenu>
-              <li *ngFor="let skill of availableSkills">
-                <label role="button">
-                  <input type="checkbox" [value]="skill" (change)="toggleSelection(skill, upload_project.skills)" [checked]="upload_project.skills.includes(skill)">
+            <ul ngbDropdownMenu class="w-100">
+              <li ngbDropdownItem *ngFor="let skill of availableSkills">
+                <label role="button" class="w-100">
+                  <input type="checkbox" [value]="skill" (change)="toggleSelection(skill, skills)" [checked]="skills.includes(skill)">
                   {{ skill }}
                 </label>
               </li>
@@ -35,19 +33,19 @@
         </div>
         <div class="form-group">
           <label for="domain">Domain</label>
-          <input type="text" class="form-control" id="domain" name="domain" [(ngModel)]="upload_project.domain"
+          <input type="text" class="form-control" id="domain" name="domain" formControlName="domain"
                  placeholder="Enter Domain of Project">
         </div>
         <div class="form-group">
           <label for="languages">Programming Languages</label>
           <div ngbDropdown>
             <button ngbDropdownToggle id="languages" class="form-control text-start d-flex justify-content-between align-items-center">
-              <div>{{upload_project.languages.join(', ') || 'Select Languages'}}</div> <span class="caret"></span>
+              <div>{{languages.join(', ') || 'Select Languages'}}</div> <span class="caret"></span>
             </button>
-            <ul ngbDropdownMenu>
-              <li *ngFor="let language of availableLanguages">
-                <label role="button">
-                  <input type="checkbox" [value]="language" (change)="toggleSelection(language, upload_project.languages)" [checked]="upload_project.languages.includes(language)">
+            <ul ngbDropdownMenu class="w-100">
+              <li ngbDropdownItem *ngFor="let language of availableLanguages">
+                <label role="button" class="w-100">
+                  <input type="checkbox" [value]="language" (change)="toggleSelection(language, languages)" [checked]="languages.includes(language)">
                   {{ language }}
                 </label>
               </li>
@@ -58,12 +56,12 @@
           <label for="tools">Tools</label>
           <div ngbDropdown>
             <button ngbDropdownToggle id="tools" class="form-control text-start d-flex justify-content-between align-items-center">
-              <div>{{upload_project.tools.join(', ') || 'Select Allowed Tools'}}</div> <span class="caret"></span>
+              <div>{{tools.join(', ') || 'Select Allowed Tools'}}</div> <span class="caret"></span>
             </button>
-            <ul ngbDropdownMenu>
-              <li *ngFor="let tool of availableTools">
-                <label role="button">
-                  <input type="checkbox" [value]="tool" (change)="toggleSelection(tool, upload_project.tools)" [checked]="upload_project.tools.includes(tool)">
+            <ul ngbDropdownMenu class="w-100">
+              <li ngbDropdownItem *ngFor="let tool of availableTools">
+                <label role="button" class="w-100">
+                  <input type="checkbox" [value]="tool" (change)="toggleSelection(tool, tools)" [checked]="tools.includes(tool)">
                   {{ tool }}
                 </label>
               </li>
@@ -72,15 +70,14 @@
         </div>
         <div class="form-group">
           <label for="maxStudents">Maximum students allowed</label>
-          <input class="form-control" type="number" name="maxStudents" id="maxStudents" [(ngModel)]="upload_project.maxStudents">
+          <input class="form-control" type="number" name="maxStudents" id="maxStudents" formControlName="maxStudents">
         </div>
 <!--        When file uploading will be added-->
         <div class="form-group">
           <label for="project_file">Upload Project File</label>
           <br/>
           <div class="upload-container">
-            <input type="file" name="project_file" id="project_file" [(ngModel)]="upload_project.project_file" accept=".pdf" (change)="onFileSelected($event)"
-                   class="file-upload form-control"/>
+            <input type="file" name="project_file" id="project_file" formControlName="project_file" accept=".pdf" (change)="onFileSelected($event)" class="file-upload form-control"/>
           </div>
         </div>
         <button (click)="upload()" class="btn btn-primary">Submit</button>

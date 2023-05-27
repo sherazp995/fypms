@@ -38,7 +38,7 @@
       </a>
   </li>
 
-  <!-- Nav Item - Protextjects -->
+  <!-- Nav Item - Projects -->
   <li [ngbNavItem]="'4'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/projects']">
       <i class="fa fa-files"></i>
@@ -46,8 +46,16 @@
     </a>
   </li>
 
-  <!-- Nav Item - Groups -->
+  <!-- Nav Item - Projects -->
   <li [ngbNavItem]="'5'" class="nav-item">
+    <a ngbNavLink class="nav-link" [routerLink]="['/groups/new']">
+      <i class="fa fa-users-medical"></i>
+      <span>Create Groups</span>
+    </a>
+  </li>
+
+  <!-- Nav Item - Groups -->
+  <li [ngbNavItem]="'6'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/groups']">
       <i class="fa fa-users"></i>
       <span>All Groups</span>

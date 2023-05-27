@@ -13,11 +13,11 @@ export class ApiService {
   url = environment.url;
   uploadURL = this.url + 'uploads/';
 
-  register(data): Observable<any> {
+  register(data: any): Observable<any> {
     return this.http.post(this.url + 'users/register', data)
   }
 
-  login(data): Observable<any> {
+  login(data: any): Observable<any> {
     return this.http.post(this.url + 'users/login', data)
   }
 
@@ -25,24 +25,36 @@ export class ApiService {
     return this.http.get(this.url + 'users/all')
   }
 
-  user(id): Observable<any> {
+  user(id: string): Observable<any> {
     return this.http.get(this.url + 'users/' + id)
   }
 
-  project_by_supervisor(id): Observable<any> {
+  students_by_project(id: string): Observable<any> {
+    return this.http.get(this.url + 'users/students_by_project/' + id)
+  }
+
+  project_by_supervisor(id: string): Observable<any> {
     return this.http.get(this.url + 'projects/project_by_supervisor/' + id)
   }
 
-  project(id): Observable<any> {
+  project(id: string): Observable<any> {
     return this.http.get(this.url + 'projects/' + id)
+  }
+
+  select_project(data: any): Observable<any> {
+    return this.http.post(this.url + 'projects/select/', data)
   }
 
   all_projects(): Observable<any> {
     return this.http.get(this.url + 'projects/all')
   }
 
-  upload_project(data): Observable<any> {
+  upload_project(data: any): Observable<any> {
     return this.http.post(this.url + 'projects/create', data)
+  }
+
+  delete_project(id: string): Observable<any> {
+    return this.http.post(this.url + 'projects/delete', { id: id })
   }
 
   all_groups(): Observable<any> {

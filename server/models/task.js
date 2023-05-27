@@ -25,17 +25,20 @@ const Task = new Schema({
     supervisor: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+        required: true,
+        index: true
     },
     project: {
         type: Schema.Types.ObjectId,
         ref: 'Project',
-        required: true
+        required: true,
+        index: true
     },
     group: {
         type: Schema.Types.ObjectId,
         ref: 'Group',
-        required: true
+        required: true,
+        index: true
     },
     progress: {
         type: Number,
