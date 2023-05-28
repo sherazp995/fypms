@@ -5,7 +5,12 @@ const cors = require('cors');
 const auth = require("./middleware/authentication");
 const path = require('path');
 const fileUpload = require('express-fileupload');
-require('dotenv').config({ path: './config/config.env' });
+const dotenv = require('dotenv')
+
+dotenv.config({ path: './config/dev-config.env' });
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: './config/prod-config.env' });
+}
 
 // const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -15,6 +20,7 @@ require('./db/conn');
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist', 'client')));
 app.use('/uploads/userImages', express.static(path.join(__dirname, 'uploads', 'userImages')));
 app.use('/uploads/projects', express.static(path.join(__dirname, 'uploads', 'projects')));
 app.use(cors('*'));

@@ -5,7 +5,8 @@
   "main": "bin/www",
   "scripts": {
     "start": "node bin/www",
-    "dev": "nodemon bin/www"
+    "dev": "nodemon bin/www",
+    "prod": "SET NODE_ENV=production && node bin/www"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",

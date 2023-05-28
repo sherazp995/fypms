@@ -4,7 +4,11 @@ const {verify} = require('jsonwebtoken');
 
 const auth = function (req, res, next) {
     try {
-        let token = verify(req.headers.accesstoken, process.env.privateKey)
+        let accessToken = req.headers.accesstoken;
+        if (accessToken === undefined){
+            return res.redirect('/');
+        }
+        let token = verify(accessToken, process.env.privateKey)
         if (token) {
             next();
         } else {
@@ -12,7 +16,7 @@ const auth = function (req, res, next) {
             throw {name: 'JsonWebTokenError'};
         }
     } catch (error) {
-        console.log(req.originalUrl)
+        console.log(`${req.method} ${req.originalUrl}    ERROR`);
         if(req.originalUrl === '/users/login' || req.originalUrl === '/users/register'){
             next();
         } else if (error.name === 'JsonWebTokenError') {
