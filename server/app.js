@@ -7,12 +7,12 @@ const path = require('path');
 const fileUpload = require('express-fileupload');
 const dotenv = require('dotenv')
 
-dotenv.config({ path: './config/dev-config.env' });
 if (process.env.NODE_ENV === 'production') {
   dotenv.config({ path: './config/prod-config.env' });
+} else {
+  dotenv.config({ path: './config/dev-config.env' });
 }
 
-// const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
 const groupsRouter = require('./routes/groups');
@@ -34,7 +34,6 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cookieParser());
 
-// app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
 app.use('/groups', groupsRouter)

@@ -5,9 +5,9 @@ const {verify} = require('jsonwebtoken');
 const auth = function (req, res, next) {
     try {
         let accessToken = req.headers.accesstoken;
-        if (accessToken === undefined){
-            return res.redirect('/');
-        }
+        // if (accessToken === undefined){
+        //     return res.redirect('/');
+        // }
         let token = verify(accessToken, process.env.privateKey)
         if (token) {
             next();
