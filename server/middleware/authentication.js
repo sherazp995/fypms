@@ -1,13 +1,19 @@
 // noinspection ExceptionCaughtLocallyJS
-
+const path = require('path');
 const {verify} = require('jsonwebtoken');
 
 const auth = function (req, res, next) {
     try {
         let accessToken = req.headers.accesstoken;
-        // if (accessToken === undefined){
-        //     return res.redirect('/');
-        // }
+        if (accessToken === undefined){
+            if (req.path.match(/\.[a-zA-Z\d]+$/)){
+                let pathname = req.path.split('/');
+                filepath = path.join(__dirname, '..', '..', 'client', 'dist', 'client', pathname[pathname.length - 1])
+            } else {
+                filepath = path.join(__dirname, '..', '..', 'client', 'dist', 'client', 'index.html');
+            }
+            return res.sendFile(filepath);
+        }
         let token = verify(accessToken, process.env.privateKey)
         if (token) {
             next();

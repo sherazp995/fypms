@@ -33,25 +33,6 @@ input[type="button"].btn-block {
   width: 100%;
 }
 
-.jumbotron {
-  padding: 2rem 1rem;
-  margin-bottom: 2rem;
-  background-color: #eaecf4;
-  border-radius: 0.3rem;
-}
-
-@media (min-width: 576px) {
-  .jumbotron {
-      padding: 4rem 2rem;
-  }
-}
-
-.jumbotron-fluid {
-  padding-right: 0;
-  padding-left: 0;
-  border-radius: 0;
-}
-
 .mr-auto,
 .mx-auto {
   margin-right: auto !important;
@@ -123,35 +104,6 @@ body {
   color: #5a5c69 !important;
 }
 
-@-webkit-keyframes fadeIn {
-  0% {
-      opacity: 0;
-  }
-
-  100% {
-      opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-      opacity: 0;
-  }
-
-  100% {
-      opacity: 1;
-  }
-}
-
-.animated--fade-in {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-  -webkit-animation-duration: 200ms;
-  animation-duration: 200ms;
-  -webkit-animation-timing-function: cubic-bezier(0, 1, 0.4, 1);
-  animation-timing-function: cubic-bezier(0, 1, 0.4, 1);
-}
-
 .bg-gradient-primary {
   background-color: #4e73df;
   background-image: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
@@ -164,48 +116,6 @@ body {
   background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
   background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
   background: linear-gradient(-135deg, #c850c0, #4158d0);
-}
-
-.bg-gradient-secondary {
-  background-color: #858796;
-  background-image: linear-gradient(180deg, #858796 10%, #60616f 100%);
-  background-size: cover;
-}
-
-.bg-gradient-success {
-  background-color: #1cc88a;
-  background-image: linear-gradient(180deg, #1cc88a 10%, #13855c 100%);
-  background-size: cover;
-}
-
-.bg-gradient-info {
-  background-color: #36b9cc;
-  background-image: linear-gradient(180deg, #36b9cc 10%, #258391 100%);
-  background-size: cover;
-}
-
-.bg-gradient-warning {
-  background-color: #f6c23e;
-  background-image: linear-gradient(180deg, #f6c23e 10%, #dda20a 100%);
-  background-size: cover;
-}
-
-.bg-gradient-danger {
-  background-color: #e74a3b;
-  background-image: linear-gradient(180deg, #e74a3b 10%, #be2617 100%);
-  background-size: cover;
-}
-
-.bg-gradient-light {
-  background-color: #f8f9fc;
-  background-image: linear-gradient(180deg, #f8f9fc 10%, #c2cbe5 100%);
-  background-size: cover;
-}
-
-.bg-gradient-dark {
-  background-color: #5a5c69;
-  background-image: linear-gradient(180deg, #5a5c69 10%, #373840 100%);
-  background-size: cover;
 }
 
 .icon-circle {
@@ -767,6 +677,7 @@ form.user .btn-user {
 footer.sticky-footer {
   padding: 2rem 0;
   flex-shrink: 0;
+  bottom: 0;
 }
 
 footer.sticky-footer .copyright {
