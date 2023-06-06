@@ -7,11 +7,11 @@ const path = require('path');
 const fileUpload = require('express-fileupload');
 const dotenv = require('dotenv')
 
+let envPath = './config/dev-config.env';
 if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: './config/prod-config.env' });
-} else {
-  dotenv.config({ path: './config/dev-config.env' });
+  envPath = './config/prod-config.env';
 }
+dotenv.config({ path: envPath });
 
 const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
