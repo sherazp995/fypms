@@ -54,7 +54,6 @@ router.post("/create", async (req, res) => {
 
 router.post("/select", async (req, res) => {
   try {
-    console.log(req.body)
     let user = await User.findByIdAndUpdate(req.body.user_id, { $set: { project: req.body.project_id } }, { new: true })
     res.json({status: 200, user, message: "Project selected Successfully"});
   } catch (error) {
@@ -103,10 +102,8 @@ router.get('/project_by_supervisor/:id', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  console.log(req.params.id)
   try {
     let result = await Project.findOne({ _id: req.params.id });
-    console.log(result)
     res.json({ status: 200, result });
   } catch (error) {
     console.log(error);

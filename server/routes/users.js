@@ -28,7 +28,6 @@ router.get('/all', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  console.log(req.params)
   let result = await User.findOne({ _id: req.params.id })
   res.json({ status: 200, result })
 });
