@@ -49,7 +49,7 @@ router.post("/create", async (req, res) => {
       project.project_file = filename;
       result = await Project.create(project);
     }
-    getIO().emit('projectSelected', (await Project.find()));
+    getIO().emit('projectSelected', { project: result, user });
     res.json({status: 200, message});
   } catch (error) {
     console.log(error);
@@ -60,10 +60,10 @@ router.post("/create", async (req, res) => {
 router.post("/select", async (req, res) => {
   try {
     let project_id = req.body.project_id
-    await Project.findByIdAndUpdate(project_id, {$inc: {enrolledStudents: 1}})
+    let project = await Project.findByIdAndUpdate(project_id, {$inc: {enrolledStudents: 1}}, {new: true})
     let user = await User.findByIdAndUpdate(req.body.user_id, { $set: { project: project_id } }, { new: true })
-    getIO().emit('projectSelected', (await Project.find()));
-    res.json({status: 200, user, message: "Project selected Successfully"});
+    getIO().emit('projectSelected', { project, user });
+    res.json({status: 200, message: "Project selected Successfully"});
   } catch (error) {
     console.log(error);
     res.json({ status: 500, message: 'Something went wrong', error });
@@ -73,10 +73,10 @@ router.post("/select", async (req, res) => {
 router.post("/reject", async (req, res) => {
   try {
     let project_id = req.body.project_id
-    await Project.findByIdAndUpdate(project_id, {$inc: {enrolledStudents: -1}})
+    let project = await Project.findByIdAndUpdate(project_id, {$inc: {enrolledStudents: -1}}, {new: true})
     let user = await User.findByIdAndUpdate(req.body.user_id, { $set: { project: null } }, { new: true })
-    getIO().emit('projectSelected', (await Project.find()));
-    res.json({status: 200, user, message: "Project selected Successfully"});
+    getIO().emit('projectSelected', { project, user });
+    res.json({status: 200, message: "Project selected Successfully"});
   } catch (error) {
     console.log(error);
     res.json({ status: 500, message: 'Something went wrong', error });

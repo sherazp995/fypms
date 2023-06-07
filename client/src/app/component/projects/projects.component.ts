@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'app/services/api.service';
 import { AppService } from 'app/services/app.service';
-import { io } from 'socket.io-client';
 
 @Component({
   selector: 'app-projects',
@@ -9,12 +8,11 @@ import { io } from 'socket.io-client';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent {
-  projects = []
-  user: any = {}
-  socket: any;
+  projects: any = [];
+  user: any = {};
 
   constructor(private apiServices: ApiService, private appServices: AppService) {
-    this.socket = io();
+    appServices.connect_socket();
   }
 
   ngOnInit() {
@@ -28,24 +26,29 @@ export class ProjectsComponent {
         this.projects = res.result
       })
     }
-    this.socket.on('projectSelected', (data: any) => {
-      this.projects = data;
+    this.appServices.socket.on('projectSelected', (data: any) => {
+      this.updateProjectCount(data.project);
+      this.appServices.set_user(data.user);
+      this.user = this.appServices.get_user()
     });
+  }
+
+  updateProjectCount(project) {
+    var foundIndex = this.projects.findIndex(x => x._id == project._id);
+    this.projects[foundIndex] = project;
   }
 
   selectProject(project_id: string) {
     this.apiServices.select_project({ project_id: project_id, user_id: this.user._id }).subscribe(res => {
-      this.appServices.set_user(res.user);
     })
   }
 
   rejectProject(project_id: string) {
     this.apiServices.reject_project({ project_id: project_id, user_id: this.user._id }).subscribe(res => {
-      this.appServices.set_user(res.user);
     })
   }
 
   ngOnDestroy() {
-    this.socket.disconnect();
+    this.appServices.disconnect_socket()
   }  
 }

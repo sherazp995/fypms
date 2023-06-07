@@ -23,7 +23,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist', 'client')));
 app.use('/uploads/userImages', express.static(path.join(__dirname, 'uploads', 'userImages')));
 app.use('/uploads/projects', express.static(path.join(__dirname, 'uploads', 'projects')));
-app.use(cors('*'));
+app.use(cors());
 app.use(auth);
 app.use(fileUpload({
   createParentPath: true,

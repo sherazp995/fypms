@@ -13,6 +13,7 @@ export class CreateGroupComponent {
   projectList: any[] = []; 
   studentList: any[]; 
   selectedProject!: any;
+  selectedUsers: any[] = [];
   searchControl = new FormControl('', Validators.required);
   filteredProjects: Observable<any[]>;
 
@@ -36,8 +37,7 @@ export class CreateGroupComponent {
   ngOnInit() {
     this.groupForm = this.formBuilder.group({
       project: this.searchControl,
-      name: ['', Validators.required],
-      users: [[], Validators.required],
+      name: ['', Validators.required]
     });
   }
 
@@ -63,6 +63,15 @@ export class CreateGroupComponent {
     this.selectedProject = project;
     this.searchControl.setValue(project.title);
     this.getUsers();
+  }
+
+  addToGroup(user){
+    this.selectedUsers.push(user);
+  }
+
+  removeFromGroup(user){
+    const index = this.selectedUsers.indexOf(user);
+    this.selectedUsers = this.selectedUsers.splice(index, 1);
   }
 
   createGroup() {

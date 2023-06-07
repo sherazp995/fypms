@@ -3,20 +3,19 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AppService } from './app.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInspectorService {
 
-  constructor(private router: Router) { }
+  constructor(private appServices: AppService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token;
     token = localStorage.getItem('jwt')
     token = token || null
-    // console.log('interceptor', token);
-    // console.log(request)
     
     if (token) {
 
@@ -30,9 +29,7 @@ export class TokenInspectorService {
             tap(
                 (err) => {
                     if (err instanceof HttpErrorResponse && err.status === 401) {
-                        localStorage.removeItem('data')
-                        localStorage.removeItem('jwt')
-                        this.router.navigate(['/login']);
+                        this.appServices.logout();
                     }
                 }
             ),

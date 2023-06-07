@@ -5,17 +5,20 @@
   </div>
   <!-- Content Row -->
   <div class="row">
-    <div class="col">
-      <table class="table ms-5">
+    <div class="col mx-lg-5 mx-sm-1 table-responsive-lg">
+      <table class="table">
         <thead>
         <tr>
           <th class="w-50">
             User Name
           </th>
-          <th class="w-25">
-            Project Domain
+          <th>
+            User Email
           </th>
-          <th class="w-25">
+          <th>
+            Account
+          </th>
+          <th>
             Links
           </th>
         </tr>
@@ -23,13 +26,16 @@
         <tbody>
         <tr *ngFor="let user of users">
           <td>
-            {{user.firstName}}
+            {{user.firstName + ' - ' + user.lastName}}
           </td>
           <td>
-            {{user.lastName}}
+            {{user.email}}
           </td>
           <td>
-            <a class="btn btn-primary" [routerLink]="['/users', user._id]"> view details</a>
+            {{user.role}}
+          </td>
+          <td>
+            <a class="btn btn-primary" *ngIf="user._id !== myUser._id" [routerLink]="['/users', user._id]"> view details</a>
           </td>
         </tr>
         </tbody>

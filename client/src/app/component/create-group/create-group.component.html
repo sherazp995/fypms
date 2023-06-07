@@ -30,7 +30,6 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Phone Number</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -38,8 +37,9 @@
             <tr *ngFor="let student of studentList; index as i">
                 <td>{{student.firstName + " - " + student.lastName}}</td>
                 <td>{{student.email}}</td>
-                <td>{{student.number}}</td>
-                <td>{{student.price}}</td>
+                <td>
+                    <button (click)="''">Add to group</button>
+                </td>
             </tr>
         </tbody>
     </table>       

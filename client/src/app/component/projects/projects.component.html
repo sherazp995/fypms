@@ -38,6 +38,7 @@
             <a *ngIf="user.role !== 'student'" class="btn btn-primary" [routerLink]="['/projects', project._id]">View Details</a>&nbsp;
             <button *ngIf="!user.project && user.role === 'student'" class="btn btn-primary" (click)="selectProject(project._id)">Select Project</button>
             <button *ngIf="user.project === project._id && user.role === 'student'" class="btn btn-primary" (click)="rejectProject(project._id)">Reject Project</button>
+            <span *ngIf="user.project && user.project !== project._id && user.role === 'student'">Already selected a Project</span>
           </td>
         </tr>
         </tbody>
