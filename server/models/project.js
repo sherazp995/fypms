@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const fs = require('fs');
-const path = require('path');
 
 const Schema = mongoose.Schema;
 
@@ -22,6 +20,10 @@ const Project = new Schema({
     },
     maxStudents: {
         default: 1,
+        type: Number
+    },
+    enrolledStudents: {
+        default: 0,
         type: Number
     },
     project_file: String

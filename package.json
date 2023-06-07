@@ -2,7 +2,7 @@
   "scripts": {
     "install": "cd client && npm run install_packages && cd ../server && npm install",
     "build": "cd client && npm run build",
-    "dev": "cd server && nodemon bin/www",
-    "prod": "cd server && NODE_ENV=production nodemon bin/www"
+    "dev": "cd server && npm run dev",
+    "prod": "cd server && npm run prod"
   }
 }

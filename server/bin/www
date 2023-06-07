@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 const cluster = require('cluster');
+const { initializeSocket } = require('./../services/socket')
 const numCPUs = require('os').cpus().length;
 
 /**
@@ -22,16 +23,18 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+initializeSocket(server);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-if (cluster.isMaster) {
+
+if (process.env.NODE_ENV === 'production' && cluster.isMaster) {
   console.log(`Master ${process.pid} is running`, numCPUs);
   console.log("starting server on http://localhost:" + port)
  
   // Fork workers.
-  for (let i = 0; i < numCPUs || 1; i++) {
+  for (let i = 0; i < (numCPUs/2) || 1; i++) {
     cluster.fork();
   }
  
