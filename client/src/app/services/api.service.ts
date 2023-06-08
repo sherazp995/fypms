@@ -45,6 +45,10 @@ export class ApiService {
     return this.http.post(this.url + 'projects/select/', data)
   }
 
+  reject_project(data: any): Observable<any> {
+    return this.http.post(this.url + 'projects/reject/', data)
+  }
+
   all_projects(): Observable<any> {
     return this.http.get(this.url + 'projects/all')
   }

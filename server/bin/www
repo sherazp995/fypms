@@ -8,6 +8,7 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 const cluster = require('cluster');
+const { initializeSocket, setupMasterAdapter } = require('./../services/socket')
 const numCPUs = require('os').cpus().length;
 
 /**
@@ -26,20 +27,23 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
+
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`, numCPUs);
   console.log("starting server on http://localhost:" + port)
- 
+  setupMasterAdapter(server);
   // Fork workers.
-  for (let i = 0; i < numCPUs || 1; i++) {
+  for (let i = 0; i < (numCPUs || 1); i++) {
     cluster.fork();
   }
  
   // This event is first when worker died
   cluster.on('exit', (worker, code, signal) => {
-    console.log(`worker ${worker.process.pid} died`);
+    console.log(`worker ${worker.process.pid} died, restarting process`);
+    cluster.fork();
   });
 } else {
+  initializeSocket(server);
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);

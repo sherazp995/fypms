@@ -30,16 +30,16 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Sale Price</th>
-                <th>In Stock</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let student of studentList; index as i">
                 <td>{{student.firstName + " - " + student.lastName}}</td>
                 <td>{{student.email}}</td>
-                <td>{{student.number}}</td>
-                <td>{{student.price}}</td>
+                <td>
+                    <button (click)="''">Add to group</button>
+                </td>
             </tr>
         </tbody>
     </table>       

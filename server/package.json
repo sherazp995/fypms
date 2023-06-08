@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node bin/www",
     "dev": "nodemon bin/www",
-    "prod": "SET NODE_ENV=production && node bin/www"
+    "prod": "NODE_ENV=production node bin/www"
   },
   "dependencies": {
+    "@socket.io/sticky": "^1.0.3",
     "cluster": "^0.7.7",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -21,7 +22,9 @@
     "mongoose": "^7.0.0",
     "morgan": "^1.10.0",
     "os": "^0.1.2",
-    "password-hash": "^1.2.2"
+    "password-hash": "^1.2.2",
+    "socket.io": "^4.6.2",
+    "socket.io-redis": "^6.1.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"

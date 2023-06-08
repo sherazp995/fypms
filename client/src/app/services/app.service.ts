@@ -1,19 +1,43 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from "./api.service";
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { io } from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
-  user:any = {}
+  user:any = null;
+  socket: any;
+
   constructor(private apiServices: ApiService, private flashMessage: FlashMessagesService) { }
 
+  logout() {
+    localStorage.removeItem('data');
+    localStorage.removeItem('jwt');
+  }
+
   get_user() {
-    this.user = JSON.parse(localStorage.getItem('data'));
+    let data = localStorage.getItem('data');
+    if(data !== 'undefined'){
+      this.user = JSON.parse(data);
+    } else {
+      this.logout();
+    }
     return this.user;
   }
 
+  connect_socket(){
+    this.socket = io('http://localhost:4000', {
+      withCredentials: true,
+      transports: ['websocket', 'polling']
+    });
+  }
+
+  disconnect_socket(){
+    this.socket.disconnect();
+  }
+  
   set_user(user: any) {
     localStorage.setItem('data', JSON.stringify(user));
   }

@@ -7,11 +7,11 @@ const path = require('path');
 const fileUpload = require('express-fileupload');
 const dotenv = require('dotenv')
 
+let envPath = './config/dev-config.env';
 if (process.env.NODE_ENV === 'production') {
-  dotenv.config({ path: './config/prod-config.env' });
-} else {
-  dotenv.config({ path: './config/dev-config.env' });
+  envPath = './config/prod-config.env';
 }
+dotenv.config({ path: envPath });
 
 const usersRouter = require('./routes/users');
 const projectsRouter = require('./routes/projects');
@@ -23,7 +23,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist', 'client')));
 app.use('/uploads/userImages', express.static(path.join(__dirname, 'uploads', 'userImages')));
 app.use('/uploads/projects', express.static(path.join(__dirname, 'uploads', 'projects')));
-app.use(cors('*'));
+app.use(cors());
 app.use(auth);
 app.use(fileUpload({
   createParentPath: true,

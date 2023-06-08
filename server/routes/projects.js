@@ -4,6 +4,7 @@ const Project = require('../models/project');
 const User = require('../models/user');
 const path = require("path");
 const fs = require("fs");
+const { getIO } = require('../services/socket')
 
 const UploadDIR = path.join(__dirname, '..', 'uploads', 'projects');
 
@@ -32,10 +33,13 @@ router.get('/all', async (req, res) => {
 
 router.post("/create", async (req, res) => {
   try {
-    let file = req.files.project_file;
     let project = req.body;
-    let user = await User.findOne({_id: project.supervisor})
-    let filename = uploadFile(file, user.username)
+    let user = await User.findOne({_id: project.supervisor});
+    let filename = '';
+    if (req.files){
+      let file = req.files.project_file;
+      filename = uploadFile(file, user.username)
+    }
     let result = await Project.findOne({ title: project.title });
     let message = '';
     if (result) {
@@ -45,6 +49,7 @@ router.post("/create", async (req, res) => {
       project.project_file = filename;
       result = await Project.create(project);
     }
+    getIO().emit('projectSelected', { project: result, user });
     res.json({status: 200, message});
   } catch (error) {
     console.log(error);
@@ -54,9 +59,24 @@ router.post("/create", async (req, res) => {
 
 router.post("/select", async (req, res) => {
   try {
-    console.log(req.body)
-    let user = await User.findByIdAndUpdate(req.body.user_id, { $set: { project: req.body.project_id } }, { new: true })
-    res.json({status: 200, user, message: "Project selected Successfully"});
+    let project_id = req.body.project_id
+    let project = await Project.findByIdAndUpdate(project_id, {$inc: {enrolledStudents: 1}}, {new: true})
+    let user = await User.findByIdAndUpdate(req.body.user_id, { $set: { project: project_id } }, { new: true })
+    getIO().emit('projectSelected', { project, user });
+    res.json({status: 200, message: "Project selected Successfully"});
+  } catch (error) {
+    console.log(error);
+    res.json({ status: 500, message: 'Something went wrong', error });
+  }
+});
+
+router.post("/reject", async (req, res) => {
+  try {
+    let project_id = req.body.project_id
+    let project = await Project.findByIdAndUpdate(project_id, {$inc: {enrolledStudents: -1}}, {new: true})
+    let user = await User.findByIdAndUpdate(req.body.user_id, { $set: { project: null } }, { new: true })
+    getIO().emit('projectSelected', { project, user });
+    res.json({status: 200, message: "Project selected Successfully"});
   } catch (error) {
     console.log(error);
     res.json({ status: 500, message: 'Something went wrong', error });
@@ -103,10 +123,8 @@ router.get('/project_by_supervisor/:id', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  console.log(req.params.id)
   try {
     let result = await Project.findOne({ _id: req.params.id });
-    console.log(result)
     res.json({ status: 200, result });
   } catch (error) {
     console.log(error);
