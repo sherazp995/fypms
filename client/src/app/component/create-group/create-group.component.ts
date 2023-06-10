@@ -13,7 +13,7 @@ export class CreateGroupComponent {
   projectList: any[] = []; 
   studentList: any[]; 
   selectedProject!: any;
-  selectedUsers: any[] = [];
+  selectedStudents: any[] = [];
   searchControl = new FormControl('', Validators.required);
   filteredProjects: Observable<any[]>;
 
@@ -51,7 +51,6 @@ export class CreateGroupComponent {
   getUsers(): void{
     this.apiServices.students_by_project(this.selectedProject._id).subscribe(res => {
       this.studentList = res.result;
-      console.log(this.studentList);
     })
   }
 
@@ -66,12 +65,15 @@ export class CreateGroupComponent {
   }
 
   addToGroup(user){
-    this.selectedUsers.push(user);
+    const index = this.studentList.indexOf(user);
+    this.studentList.splice(index, 1);
+    this.selectedStudents.push(user);
   }
 
   removeFromGroup(user){
-    const index = this.selectedUsers.indexOf(user);
-    this.selectedUsers = this.selectedUsers.splice(index, 1);
+    const index = this.selectedStudents.indexOf(user);
+    this.selectedStudents.splice(index, 1);
+    this.studentList.push(user);
   }
 
   createGroup() {

@@ -1,11 +1,14 @@
-FROM node:14-slim
+FROM node as client
 WORKDIR /usr/src
 COPY client/ ./client/
-COPY server/ ./server/
-RUN cd client && npm run install_packages && npm run build
-RUN cd ../server && npm install
-RUN ls
+RUN npm install && npm run build
 
-EXPOSE 80
+FROM node
+WORKDIR /app
+COPY --from=client /usr/src/client/dist ./client/dist
+COPY server/ ./server
+RUN npm install
 
-CMD ["cd", "server && npm run prod"]
+EXPOSE 4000
+
+CMD ["npm", "run prod"]

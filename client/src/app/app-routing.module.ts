@@ -63,6 +63,11 @@ const routes: Routes = [
         component: ProjectsComponent
       },
       {
+        path: 'my_projects',
+        component: ProjectsComponent,
+        canActivate: [SupervisorGuard]
+      },
+      {
         path: 'projects/:id',
         component: ShowProjectComponent
       },
