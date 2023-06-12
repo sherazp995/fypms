@@ -36,9 +36,10 @@
           </td>
           <td>
             <a *ngIf="user.role !== 'student'" class="btn btn-primary" [routerLink]="['/projects', project._id]">View Details</a>&nbsp;
-            <button *ngIf="!user.project && user.role === 'student'" class="btn btn-primary" (click)="selectProject(project._id)">Select Project</button>
-            <button *ngIf="user.project === project._id && user.role === 'student'" class="btn btn-primary" (click)="rejectProject(project._id)">Reject Project</button>
-            <span *ngIf="user.project && user.project !== project._id && user.role === 'student'">Already selected a Project</span>
+            <button *ngIf="!user.project && (project.maxStudents - project.enrolledStudents || 0) != 0 && user.role === 'student'" class="btn btn-primary" (click)="selectProject(project._id, $event)">Select Project</button>
+            <button *ngIf="user.project === project._id && user.role === 'student'" class="btn btn-primary" (click)="rejectProject(project._id, $event)">Reject Project</button>
+            <span *ngIf="user.project && (project.maxStudents - project.enrolledStudents || 0) != 0 && user.project !== project._id && user.role === 'student'">Already selected a Project</span>
+            <span *ngIf="(project.maxStudents - project.enrolledStudents || 0) == 0 && user.project !== project._id && user.role === 'student'">Selection limit reached</span>
           </td>
         </tr>
         </tbody>

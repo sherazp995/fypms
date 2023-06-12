@@ -47,7 +47,15 @@
   </li>
 
   <!-- Nav Item - Projects -->
-  <li [ngbNavItem]="'5'" class="nav-item">
+  <li [ngbNavItem]="'5'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+    <a ngbNavLink class="nav-link" [routerLink]="['/my_projects']">
+      <i class="fa fa-files"></i>
+      <span>My Projects</span>
+    </a>
+  </li>
+
+  <!-- Nav Item - Projects -->
+  <li [ngbNavItem]="'6'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/groups/new']">
       <i class="fa fa-users-medical"></i>
       <span>Create Groups</span>
@@ -55,7 +63,7 @@
   </li>
 
   <!-- Nav Item - Groups -->
-  <li [ngbNavItem]="'6'" class="nav-item">
+  <li [ngbNavItem]="'7'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/groups']">
       <i class="fa fa-users"></i>
       <span>All Groups</span>

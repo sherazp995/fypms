@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node bin/www",
     "dev": "nodemon bin/www",
-    "prod": "NODE_ENV=production node bin/www"
+    "prod": "NODE_ENV=production nodemon bin/www"
   },
   "dependencies": {
     "@socket.io/sticky": "^1.0.3",

@@ -29,6 +29,10 @@ export class ApiService {
     return this.http.get(this.url + 'users/' + id)
   }
 
+  update_user(data: any, id: any): Observable<any> {
+    return this.http.post(this.url + 'users/update/' + id, data)
+  }
+
   students_by_project(id: string): Observable<any> {
     return this.http.get(this.url + 'users/students_by_project/' + id)
   }
@@ -63,5 +67,9 @@ export class ApiService {
 
   all_groups(): Observable<any> {
     return this.http.get(this.url + 'groups/all')
+  }
+
+  create_group(group: any): Observable<any> {
+    return this.http.post(this.url + 'groups/create', group)
   }
 }

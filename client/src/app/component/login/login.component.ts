@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
-import {DashboardComponent} from "../dashboard/dashboard.component";
 import { AppService } from 'app/services/app.service';
 
 @Component({
@@ -29,7 +28,7 @@ export class LoginComponent {
           localStorage.setItem('jwt', res.jwtToken)
           this.router.navigate(['/'])
         } else {
-          console.log(res.message)
+          this.appServices.showFlash({danger: res.message})
         }
       })
 

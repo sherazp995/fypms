@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
+import { AppService } from 'app/services/app.service';
 import { Observable, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs';
 
 @Component({
@@ -17,7 +19,7 @@ export class CreateGroupComponent {
   searchControl = new FormControl('', Validators.required);
   filteredProjects: Observable<any[]>;
 
-  constructor(private formBuilder: FormBuilder, private apiServices: ApiService) { 
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiServices: ApiService, private appServices: AppService) { 
     apiServices.all_projects().subscribe(res => {
       if(res) {
         this.projectList = res.result;
@@ -77,13 +79,15 @@ export class CreateGroupComponent {
   }
 
   createGroup() {
-    if (this.groupForm.invalid) {
+    if (this.groupForm.invalid && this.selectedStudents.length < 1) {
       return;
     }
-    // Get form values
-    // this.groupForm.value.project = this.selectedProject;
-    // const formValues = this.groupForm.value;
-   
-    // console.log(formValues)
+    let formData = this.groupForm.value;
+    formData.project = this.selectedProject._id;
+    formData.students = this.selectedStudents.map(s => s._id);
+    this.apiServices.create_group(formData).subscribe((res) => {
+      this.appServices.showFlash({success: res.message})
+      this.router.navigate(['/groups'])
+    });
   }
 }

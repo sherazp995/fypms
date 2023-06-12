@@ -23,6 +23,6 @@ export class TopbarComponent {
 
   signOut(){
     this.appServices.logout();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 }

@@ -32,9 +32,13 @@ export class RegisterComponent {
 
   async signUp() {
   try {
-    let image = await this.appServices.getBase64(this.selectedImage)
-    this.apiServices.register({user: this.registerObject, image: image}).subscribe((res) => {
-      console.log(res);
+    let formData = {user: this.registerObject}
+    if (this.selectedImage){
+      let image = await this.appServices.getBase64(this.selectedImage)
+      formData["image"] = image
+    }
+    this.apiServices.register(formData).subscribe((res) => {
+      this.appServices.showFlash({success: res.message})
       this.router.navigate(['/login']);
     });
   } catch (error) {
