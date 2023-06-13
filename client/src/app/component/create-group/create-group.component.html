@@ -9,8 +9,9 @@
             <div class="form-group">
                 <label for="project">Project</label>
                 <div ngbDropdown>
-                    <input ngbDropdownToggle id="project" type="text" [formControl]="searchControl" autocomplete="off" class="form-control">
-                    <ul ngbDropdownMenu class="w-100" [style]="(filteredProjects| async)?.length > 0 ? '' : 'display: none;'">
+                    <button ngbDropdownToggle class="form-control">{{ selectedProject ? selectedProject.title : "Select Your Project" }}</button>
+                    <input id="project" type="text" placeholder="Search Project" (click)="focused = focused ? false : true" [formControl]="searchControl" autocomplete="off" class="form-control">
+                    <ul ngbDropdownMenu [ngClass]="focused ? 'show' : ''" class="w-100" [style]="(filteredProjects| async)?.length > 0 ? '' : 'display: none;'">
                         <li ngbDropdownItem *ngFor="let project of filteredProjects | async; index as i;" [value]="">
                             <div role="button" (click)="selectProject(project)">
                                 {{ project.title }}

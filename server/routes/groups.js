@@ -9,8 +9,9 @@ router.get('/all', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-    let result = await Group.findOne({ _id: req.params.id })
-    res.json({result})
+    let result = await Group.findOne({ _id: req.params.id }).populate('project').exec();
+    let students = await User.find({group: req.params.id});
+    res.json({result, students})
 });
 
 router.post("/create", async (req, res) => {

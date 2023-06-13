@@ -1,1 +1,37 @@
-<p>show-group works!</p>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Group Details</h1>
+    </div>
+    <head>
+        <title>Project Details</title>
+      </head>
+    <!-- Content Row -->
+    <div class="row container">
+      <div>
+        <h2 class="project-name">{{ project.title }}</h2>
+      </div>
+      <div>
+        <h2>Members</h2>
+        <div class="list-group">
+          <div class="list-group-item member-item" *ngFor="let student of students">
+            <span class="member-name">{{ student.firstName }} {{ student.lastName }}</span>
+            <span class="member-id">(ID: 123)</span>
+          </div>
+      </div>
+      <div class="row justify-content-around align-items-center">
+          <h1 class="col-9">Tasks</h1>
+          <div class="col-2">
+            <button class="btn btn-primary">Add Task</button>
+          </div>
+      </div>
+        <ngb-accordion>
+            <ngb-panel *ngFor="let panel of panels" [title]="panel.title" [id]="panel.id">
+                <ng-template ngbPanelContent>
+                    <p>{{ panel.content }}</p>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+    </div>
+</div>

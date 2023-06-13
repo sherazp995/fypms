@@ -1,0 +1,14 @@
+.member-item {
+  display: flex;
+  justify-content: space-between;
+}
+.member-id {
+  font-weight: bold;
+}
+.project-name {
+  font-size: 32px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+}

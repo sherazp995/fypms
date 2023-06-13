@@ -12,6 +12,7 @@ import { Observable, debounceTime, distinctUntilChanged, map, startWith } from '
 })
 export class CreateGroupComponent {
   groupForm!: FormGroup;
+  focused: boolean = false;
   projectList: any[] = []; 
   studentList: any[]; 
   selectedProject!: any;

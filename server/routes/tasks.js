@@ -1,6 +1,6 @@
 const express = require('express');
-var router = express.Router();
-var Task = require('../models/task');
+const router = express.Router();
+const Task = require('../models/task');
 
 router.get('/all', async (req, res) => {
     try {
@@ -14,9 +14,10 @@ router.get('/all', async (req, res) => {
 
 router.post("/create", async (req, res) => {
     try {
-        let task = req.body.task
+        // Task is made unique by name, supervisor, group and project
+        let task = req.body.task;
         let result = await Task.findOne({ title: task.title });
-        task["supervisorId"] = req.body.user._id;
+        task.supervisor = req.body.user._id;
         let message = '';
         if (result) {
             message = "Task already exists"
@@ -47,7 +48,7 @@ router.post('/update/:id', async (req, res) => {
         let result = await Task.findByIdAndUpdate(req.params.id, {
             $set: body
         }, { new: true });
-        res.status(200).json({ result, message: 'User Updated Successfully' });
+        res.status(200).json({ result, message: 'Task Updated Successfully' });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Something went wrong' });
@@ -58,7 +59,6 @@ router.get('/:id', async (req, res) => {
     console.log(req.params.id)
     try {
         let result = await Task.findOne({ _id: req.params.id });
-        console.log(result)
         res.status(200).json({ result, message: 'Success' });
     } catch (error) {
         console.log(error);
