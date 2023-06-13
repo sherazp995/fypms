@@ -30,8 +30,9 @@ export class RegisterComponent {
       this.selectedImage = event.target.files[0]; // Store the selected image file
   }
 
-  async signUp() {
+  async signUp(event) {
   try {
+    this.appServices.disableClick(event);
     let formData = {user: this.registerObject}
     if (this.selectedImage){
       let image = await this.appServices.getBase64(this.selectedImage)

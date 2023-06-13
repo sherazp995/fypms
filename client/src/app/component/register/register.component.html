@@ -59,7 +59,7 @@
         <div *ngIf="image.errors">
           Enter a valid email
         </div>
-        <button (click)="signUp()" [disabled]="!registerForm.valid" class="btn btn-primary btn-user btn-block">
+        <button (click)="signUp($event)" [disabled]="!registerForm.valid" class="btn btn-primary btn-user btn-block">
           Register Account
         </button>
       </form>

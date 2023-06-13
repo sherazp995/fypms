@@ -66,13 +66,15 @@ export class CreateGroupComponent {
     this.getUsers();
   }
 
-  addToGroup(user){
+  addToGroup(user, event){
+    this.appServices.disableClick(event);
     const index = this.studentList.indexOf(user);
     this.studentList.splice(index, 1);
     this.selectedStudents.push(user);
   }
 
-  removeFromGroup(user){
+  removeFromGroup(user, event){
+    this.appServices.disableClick(event);
     const index = this.selectedStudents.indexOf(user);
     this.selectedStudents.splice(index, 1);
     this.studentList.push(user);

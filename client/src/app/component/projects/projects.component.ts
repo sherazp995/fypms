@@ -39,22 +39,14 @@ export class ProjectsComponent {
     this.projects[foundIndex] = project;
   }
 
-  onClick(event) {
-    const button = (event.srcElement.disabled === undefined) ? event.srcElement.parentElement : event.srcElement;
-    button.setAttribute('disabled', true);
-    setTimeout(function () {
-    button.removeAttribute('disabled');
-    }, 1000);
-  }
-
   selectProject(project_id: string, event) {
-    this.onClick(event);
+    this.appServices.disableClick(event);
     this.apiServices.select_project({ project_id: project_id, user_id: this.user._id }).subscribe(res => {
     })
   }
 
   rejectProject(project_id: string, event) {
-    this.onClick(event);
+    this.appServices.disableClick(event);
     this.apiServices.reject_project({ project_id: project_id, user_id: this.user._id }).subscribe(res => {
     })
   }

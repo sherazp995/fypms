@@ -17,7 +17,8 @@ export class LoginComponent {
     remember_me: false
   }
 
-  login() {
+  login(event) {
+    this.appServices.disableClick(event);
     if (this.login_object.username.trim() !== '' && this.login_object.password.trim() !== '') {
       this.login_object.username = this.login_object.username.trim();
       this.login_object.password = this.login_object.password.trim();

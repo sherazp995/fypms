@@ -39,7 +39,7 @@
                                 <td>{{student.firstName + " - " + student.lastName}}</td>
                                 <td>{{student.email}}</td>
                                 <td>
-                                    <button class="btn btn-danger" (click)="removeFromGroup(student)">Remove from group</button>
+                                    <button class="btn btn-danger" (click)="removeFromGroup(student, $event)">Remove from group</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -62,7 +62,7 @@
                     <td>{{student.firstName + " - " + student.lastName}}</td>
                     <td>{{student.email}}</td>
                     <td>
-                        <button class="btn btn-primary" (click)="addToGroup(student)">Add to group</button>
+                        <button class="btn btn-primary" (click)="addToGroup(student, $event)">Add to group</button>
                     </td>
                 </tr>
             </tbody>
