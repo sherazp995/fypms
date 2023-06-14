@@ -1,4 +1,4 @@
-<ul ngbNav #nav="ngbNav" [ngClass]="toggled ? '' : 'toggled'" class="nav-tabs navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" [ngClass]="toggled ? '' : 'toggled'" class="nav-tabs nav-pills navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" orientation="vertical">
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center">
       <div class="sidebar-brand-icon">
@@ -10,7 +10,7 @@
   <hr class="sidebar-divider my-0" />
 
   <!-- Nav Item - Dashboard -->
-  <li [ngbNavItem]="'1'" class="nav-item">
+  <li [ngbNavItem]="'/'" class="nav-item">
       <a ngbNavLink class="nav-link" [routerLink]="['/']">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
@@ -23,7 +23,7 @@
   <div class="sidebar-heading">Interface</div>
 
   <!-- Nav Item - Users -->
-  <li [ngbNavItem]="2" *ngIf="user['role'] === 'admin'" class="nav-item">
+  <li [ngbNavItem]="'/users'" *ngIf="user['role'] === 'admin'" class="nav-item">
       <a ngbNavLink class="nav-link" [routerLink]="['/users']">
           <i class="fas fa-user-circle"></i>
           <span>Users</span>
@@ -31,7 +31,7 @@
   </li>
 
   <!-- Nav Item - Documents -->
-  <li [ngbNavItem]="'3'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+  <li [ngbNavItem]="'/projects/new'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
       <a ngbNavLink class="nav-link" [routerLink]="['/projects/new']">
           <i class="fa fa-file-alt"></i>
           <span>Upload Projects</span>
@@ -39,7 +39,7 @@
   </li>
 
   <!-- Nav Item - Projects -->
-  <li [ngbNavItem]="'4'" class="nav-item">
+  <li [ngbNavItem]="'/projects'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/projects']">
       <i class="fa fa-files"></i>
       <span>All Projects</span>
@@ -47,7 +47,7 @@
   </li>
 
   <!-- Nav Item - Projects -->
-  <li [ngbNavItem]="'5'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+  <li [ngbNavItem]="'/my_projects'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/my_projects']">
       <i class="fa fa-files"></i>
       <span>My Projects</span>
@@ -55,7 +55,7 @@
   </li>
 
   <!-- Nav Item - Projects -->
-  <li [ngbNavItem]="'6'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+  <li [ngbNavItem]="'/groups/new'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/groups/new']">
       <i class="fa fa-users-medical"></i>
       <span>Create Groups</span>
@@ -63,7 +63,7 @@
   </li>
 
   <!-- Nav Item - Groups -->
-  <li [ngbNavItem]="'7'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+  <li [ngbNavItem]="'/groups'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/groups']">
       <i class="fa fa-users"></i>
       <span>All Groups</span>

@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component} from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { AppService } from 'app/services/app.service';
 
 @Component({
@@ -8,10 +8,18 @@ import { AppService } from 'app/services/app.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  toggled = true
-  user = {}
-  constructor(public route: ActivatedRoute, private appServices: AppService) { 
-    this.user = appServices.get_user();
+  toggled = true;
+  active: string;
+  user: any = {};
+  constructor(private appServices: AppService, private router: Router) { 
+    this.user = this.appServices.get_user();
+    this.active = this.router.url;
+    this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationStart) {
+        this.active = event.url;
+        console.log(this.active);
+      }
+    });
    }
   toggler () {
     this.toggled = !this.toggled
