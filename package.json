@@ -1,7 +1,7 @@
 {
   "main": "server/bin/www",
   "scripts": {
-    "start": "node server/bin/www",
+    "start": "cd server && npm start",
     "install": "cd client && npm run install_packages && cd ../server && npm install",
     "build": "cd client && npm run build",
     "dev": "cd server && npm run dev",

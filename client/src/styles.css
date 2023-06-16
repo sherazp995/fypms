@@ -725,27 +725,9 @@ body.sidebar-toggled footer.sticky-footer {
   overflow: hidden;
 }
 
-.navbar-nav .nav-link.active {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: #4e73df;
-  outline: none;
-  border: none;
-}
-
-.navbar-nav .nav-link:hover {
-  border: none !important;
-}
-
-.navbar-nav .nav-link:focus {
-  border: none !important;
-}
-
-.navbar-nav .nav-link:focus-visible {
-  border: none !important;
-}
-
-.navbar-nav .nav-link:active {
-  border: none !important;
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.active i {
+  color: rgba(255, 255, 255, 1);
 }
 
 html, body { height: calc(max(100%, 100vh)); }

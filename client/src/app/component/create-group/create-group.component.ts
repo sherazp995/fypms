@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
+import { AppService } from 'app/services/app.service';
 import { Observable, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs';
 
 @Component({
@@ -10,14 +12,15 @@ import { Observable, debounceTime, distinctUntilChanged, map, startWith } from '
 })
 export class CreateGroupComponent {
   groupForm!: FormGroup;
+  focused: boolean = false;
   projectList: any[] = []; 
   studentList: any[]; 
   selectedProject!: any;
-  selectedUsers: any[] = [];
+  selectedStudents: any[] = [];
   searchControl = new FormControl('', Validators.required);
   filteredProjects: Observable<any[]>;
 
-  constructor(private formBuilder: FormBuilder, private apiServices: ApiService) { 
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiServices: ApiService, private appServices: AppService) { 
     apiServices.all_projects().subscribe(res => {
       if(res) {
         this.projectList = res.result;
@@ -51,7 +54,6 @@ export class CreateGroupComponent {
   getUsers(): void{
     this.apiServices.students_by_project(this.selectedProject._id).subscribe(res => {
       this.studentList = res.result;
-      console.log(this.studentList);
     })
   }
 
@@ -65,23 +67,30 @@ export class CreateGroupComponent {
     this.getUsers();
   }
 
-  addToGroup(user){
-    this.selectedUsers.push(user);
+  addToGroup(user, event){
+    this.appServices.disableClick(event);
+    const index = this.studentList.indexOf(user);
+    this.studentList.splice(index, 1);
+    this.selectedStudents.push(user);
   }
 
-  removeFromGroup(user){
-    const index = this.selectedUsers.indexOf(user);
-    this.selectedUsers = this.selectedUsers.splice(index, 1);
+  removeFromGroup(user, event){
+    this.appServices.disableClick(event);
+    const index = this.selectedStudents.indexOf(user);
+    this.selectedStudents.splice(index, 1);
+    this.studentList.push(user);
   }
 
   createGroup() {
-    if (this.groupForm.invalid) {
+    if (this.groupForm.invalid && this.selectedStudents.length < 1) {
       return;
     }
-    // Get form values
-    // this.groupForm.value.project = this.selectedProject;
-    // const formValues = this.groupForm.value;
-   
-    // console.log(formValues)
+    let formData = this.groupForm.value;
+    formData.project = this.selectedProject._id;
+    formData.students = this.selectedStudents.map(s => s._id);
+    this.apiServices.create_group(formData).subscribe((res) => {
+      this.appServices.showFlash({success: res.message})
+      this.router.navigate(['/groups'])
+    });
   }
 }

@@ -30,11 +30,16 @@ export class RegisterComponent {
       this.selectedImage = event.target.files[0]; // Store the selected image file
   }
 
-  async signUp() {
+  async signUp(event) {
   try {
-    let image = await this.appServices.getBase64(this.selectedImage)
-    this.apiServices.register({user: this.registerObject, image: image}).subscribe((res) => {
-      console.log(res);
+    this.appServices.disableClick(event);
+    let formData = {user: this.registerObject}
+    if (this.selectedImage){
+      let image = await this.appServices.getBase64(this.selectedImage)
+      formData["image"] = image
+    }
+    this.apiServices.register(formData).subscribe((res) => {
+      this.appServices.showFlash({success: res.message})
       this.router.navigate(['/login']);
     });
   } catch (error) {

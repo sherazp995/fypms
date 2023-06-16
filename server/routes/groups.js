@@ -4,20 +4,20 @@ const Group = require('../models/group');
 const User = require('../models/user');
 
 router.get('/all', async (req, res) => {
-    let result = await Group.find({approved: true})
+    let result = await Group.find()
     res.status(200).json({result})
 });
 
 router.get('/:id', async (req, res) => {
-    let result = await Group.findOne({ _id: req.params.id })
-    res.json({result})
+    let result = await Group.findOne({ _id: req.params.id }).populate('project').exec();
+    let students = await User.find({group: req.params.id});
+    res.json({result, students})
 });
 
 router.post("/create", async (req, res) => {
     try {
-        let group = req.body.group
+        let group = req.body
         let result = await Group.findOne({ title: group.name });
-        await User.updateMany({_id: {$in: group.users}}, { $set: { group: result._id } }, {multi: true})
         let message = '';
         if (result) {
             message = "Group already exists"
@@ -25,6 +25,7 @@ router.post("/create", async (req, res) => {
             message = 'Group Created Successfully!';
             result = await Group.create(group);
         }
+        await User.updateMany({_id: {$in: group.students}}, { $set: { group: result._id } }, {multi: true})
         res.status(200).json({result, message});
     } catch (error) {
         console.log(error);

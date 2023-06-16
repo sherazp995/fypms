@@ -114,7 +114,7 @@ router.post('/update/:id', async (req, res) => {
 
 router.get('/project_by_supervisor/:id', async (req, res) => {
   try {
-    let result = await Project.find({ supervisorId: req.params.id });
+    let result = await Project.find({ supervisor: req.params.id });
     res.json({ status: 200, result });
   } catch (error) {
     console.log(error);

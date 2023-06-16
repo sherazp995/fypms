@@ -28,7 +28,7 @@ const User = new Schema({
     }, // admin, supervisor or student
     status: {
         type: Number,
-        default: 1 // 1 for active 2 for deleted 0 for not verified
+        default: 1 // 1 for active 2 for deleted 0 for inactive
     },
     project: {
         type: Schema.Types.ObjectId,

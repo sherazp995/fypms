@@ -5,59 +5,47 @@
   </div>
   <!-- Content Row -->
   <div class="row container mw-100">
-    <form #updateForm="ngForm" class="col">
+    <form [formGroup]="userForm" (ngSubmit)="update()" class="col">
       <div class="form-group row">
         <div class="col-sm-6">
           <label for="firstName">First Name</label>
-          <input type="text" class="form-control" [(ngModel)]="user.firstName"
-                 name="firstName" id="firstName" placeholder="First Name" pattern="^[a-zA-Z\s]+$" #firstName="ngModel"/>
+          <input type="text" class="form-control" formControlName="firstName"
+                 name="firstName" id="firstName" placeholder="First Name" pattern="^[a-zA-Z\s]+$"/>
         </div>
         <div class="col-sm-6">
           <label for="lastName">Last Name</label>
-          <input type="text" class="form-control" [(ngModel)]="user.lastName"
-                 name="lastName" id="lastName" placeholder="Last Name" pattern="^[a-zA-Z\s]+$" #lastName="ngModel"/>
+          <input type="text" class="form-control" formControlName="lastName"
+                 name="lastName" id="lastName" placeholder="Last Name" pattern="^[a-zA-Z\s]+$"/>
         </div>
-      </div>
-      <div *ngIf="firstName.errors">
-        First Name can only be alphabets
-      </div>
-      <div *ngIf="lastName.errors">
-        Last Name is can only be alphabets
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" [(ngModel)]="user.email" name="email" id="email"
-               placeholder="Email Address" pattern="^[a-zA-Z]\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-               #email="ngModel"/>
+        <input type="email" class="form-control" formControlName="email" name="email" id="email"
+               placeholder="Email Address" pattern="^[a-zA-Z]\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
       </div>
-      <div *ngIf="email.errors">
-        Enter a valid email
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" class="form-control" formControlName="phoneNumber" name="phoneNumber" id="phoneNumber"
+               placeholder="Enter Your Phone Number"/>
       </div>
       <div class="form-group row">
         <div class="col-sm-6">
           <label for="password">Password</label>
-          <input type="password" class="form-control" [(ngModel)]="user.password"
-                 name="password" id="password" placeholder="Password" required minlength="8" #password="ngModel"/>
+          <input type="password" class="form-control" formControlName="password"
+                 name="password" id="password" placeholder="(Unchanged)" minlength="8"/>
         </div>
         <div class="col-sm-6">
           <label for="confirmPassword">Confirm Password</label>
-          <input type="password" class="form-control" [(ngModel)]="user.confirmPassword"
-                 name="confirmPassword" id="confirmPassword" placeholder="Repeat Password" required
-                 #confirmPassword="ngModel"/>
+          <input type="password" class="form-control" formControlName="confirmPassword"
+                 name="confirmPassword" id="confirmPassword" placeholder="Repeat Password"/>
         </div>
-      </div>
-      <div *ngIf="password.model != '' && password.invalid">
-        Enter a valid Password
-      </div>
-      <div *ngIf="confirmPassword.model != '' && (confirmPassword.model !== password.model)">
-        Enter a valid confirmPassword
       </div>
       <div class="form-group">
         <label for="image">Upload Profile Picture</label>
         <input type="file" class="form-control" id="image" accept=".jpg, .jpeg, .png"
                (change)="onImageSelected($event)" name="image"/>
       </div>
-      <button (click)="update()" [disabled]="!updateForm.valid" class="btn btn-primary btn-block">
+      <button class="btn btn-primary btn-block">
         Update
       </button>
       <hr/>

@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/students_by_project/:id', async (req, res) => {
-  let result = await User.find({ project: req.params.id })
+  let result = await User.find({ project: req.params.id, group: null })
   res.json({ status: 200, result })
 });
 
@@ -48,7 +48,9 @@ router.post("/register", async (req, res) => {
     else {
       user.username = user.email.split('@')[0];
       user.password = passwordHash.generate(user.password);
-      user.image = saveImage(req.body.image, user.username);
+      if (req.body.image){
+        user.image = saveImage(req.body.image, user.username);
+      }
       result = await User.create(user);
       message = 'User Created Successfully!';
     }
@@ -75,22 +77,37 @@ router.post('/update/:id', async (req, res) => {
     if (user.password) {
       user.password = passwordHash.generate(user.password);
     }
+    if (req.body.image){
+      user.image = saveImage(req.body.image, user.username);
+    }
     let result = await User.findByIdAndUpdate(req.params.id, {
       $set: user
     }, { new: true });
-    res.json({ status: 200, result, message: 'User Updated Successfully' });
+    res.json({ status: 200, result, message: 'Updated Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });
   }
 });
 
-router.post('/verify/:id', async (req, res) => {
+router.post('/activate/:id', async (req, res) => {
   try {
     let result = await User.findByIdAndUpdate(req.params.id, {
       $set: { status: 1 }
     }, { new: true });
     res.json({ status: 200, result, message: 'User Activated Successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+});
+
+router.post('/deactivate/:id', async (req, res) => {
+  try {
+    let result = await User.findByIdAndUpdate(req.params.id, {
+      $set: { status: 0 }
+    }, { new: true });
+    res.json({ status: 200, result, message: 'User Deactivated Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Something went wrong' });

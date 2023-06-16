@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from "./api.service";
 import { FlashMessagesService } from 'angular2-flash-messages';
+import { environment } from 'environments/environment';
 import { io } from 'socket.io-client';
 
 @Injectable({
@@ -28,7 +29,7 @@ export class AppService {
   }
 
   connect_socket(){
-    this.socket = io('http://localhost:4000', {
+    this.socket = io(environment.url, {
       withCredentials: true,
       transports: ['websocket', 'polling']
     });
@@ -75,5 +76,13 @@ export class AppService {
     for (let alert in flash) {
       this.flashMessage.show(flash[alert], { cssClass: 'alert alert-' + alert, timeout: 4000 });
     }
+  }
+
+  disableClick(event) {
+    const button = (event.srcElement.disabled === undefined) ? event.srcElement.parentElement : event.srcElement;
+    button.setAttribute('disabled', true);
+    setTimeout(function () {
+    button.removeAttribute('disabled');
+    }, 1000);
   }
 }

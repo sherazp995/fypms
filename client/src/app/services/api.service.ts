@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment.development';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -27,6 +27,10 @@ export class ApiService {
 
   user(id: string): Observable<any> {
     return this.http.get(this.url + 'users/' + id)
+  }
+
+  update_user(data: any, id: any): Observable<any> {
+    return this.http.post(this.url + 'users/update/' + id, data)
   }
 
   students_by_project(id: string): Observable<any> {
@@ -63,5 +67,13 @@ export class ApiService {
 
   all_groups(): Observable<any> {
     return this.http.get(this.url + 'groups/all')
+  }
+
+  group(id: string): Observable<any> {
+    return this.http.get(this.url + 'groups/' + id)
+  }
+
+  create_group(group: any): Observable<any> {
+    return this.http.post(this.url + 'groups/create', group)
   }
 }

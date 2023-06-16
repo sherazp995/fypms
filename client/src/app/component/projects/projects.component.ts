@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
 import { AppService } from 'app/services/app.service';
 
@@ -11,13 +12,13 @@ export class ProjectsComponent {
   projects: any = [];
   user: any = {};
 
-  constructor(private apiServices: ApiService, private appServices: AppService) {
+  constructor(private router: Router, private apiServices: ApiService, private appServices: AppService) {
     appServices.connect_socket();
   }
 
   ngOnInit() {
     this.user = this.appServices.get_user()
-    if (this.user['role'] == "supervisor") {
+    if (this.router.url === '/my_projects') {
       this.apiServices.project_by_supervisor(this.user['_id']).subscribe((res) => {
         this.projects = res.result
       })
@@ -38,12 +39,14 @@ export class ProjectsComponent {
     this.projects[foundIndex] = project;
   }
 
-  selectProject(project_id: string) {
+  selectProject(project_id: string, event) {
+    this.appServices.disableClick(event);
     this.apiServices.select_project({ project_id: project_id, user_id: this.user._id }).subscribe(res => {
     })
   }
 
-  rejectProject(project_id: string) {
+  rejectProject(project_id: string, event) {
+    this.appServices.disableClick(event);
     this.apiServices.reject_project({ project_id: project_id, user_id: this.user._id }).subscribe(res => {
     })
   }

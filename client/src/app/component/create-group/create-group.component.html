@@ -9,8 +9,9 @@
             <div class="form-group">
                 <label for="project">Project</label>
                 <div ngbDropdown>
-                    <input ngbDropdownToggle id="project" type="text" [formControl]="searchControl" autocomplete="off" class="form-control">
-                    <ul ngbDropdownMenu class="w-100" [style]="(filteredProjects| async)?.length > 0 ? '' : 'display: none;'">
+                    <button ngbDropdownToggle class="form-control">{{ selectedProject ? selectedProject.title : "Select Your Project" }}</button>
+                    <input id="project" type="text" placeholder="Search Project" (click)="focused = focused ? false : true" [formControl]="searchControl" autocomplete="off" class="form-control">
+                    <ul ngbDropdownMenu [ngClass]="focused ? 'show' : ''" class="w-100" [style]="(filteredProjects| async)?.length > 0 ? '' : 'display: none;'">
                         <li ngbDropdownItem *ngFor="let project of filteredProjects | async; index as i;" [value]="">
                             <div role="button" (click)="selectProject(project)">
                                 {{ project.title }}
@@ -23,24 +24,49 @@
                 <label for="groupName">Group Name</label>
                 <input type="text" name="groupName" id="groupName" formControlName="name" class="form-control">
             </div>
+            <div class="form-group" *ngIf="selectedStudents?.length > 0">
+                <label for="students">Students</label>
+                <div id="students">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of selectedStudents; index as i">
+                                <td>{{student.firstName + " - " + student.lastName}}</td>
+                                <td>{{student.email}}</td>
+                                <td>
+                                    <button class="btn btn-danger" (click)="removeFromGroup(student, $event)">Remove from group</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <input type="submit" value="Create Group" class="btn btn-primary">
         </form>
-    </div>
-    <table *ngIf="studentList?.length > 0" class="table table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let student of studentList; index as i">
-                <td>{{student.firstName + " - " + student.lastName}}</td>
-                <td>{{student.email}}</td>
-                <td>
-                    <button (click)="''">Add to group</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>       
+        <hr/>
+        <table *ngIf="studentList?.length > 0" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let student of studentList; index as i">
+                    <td>{{student.firstName + " - " + student.lastName}}</td>
+                    <td>{{student.email}}</td>
+                    <td>
+                        <button class="btn btn-primary" (click)="addToGroup(student, $event)">Add to group</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>    
+    </div>   
 </div>
