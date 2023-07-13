@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
 import { AppService } from 'app/services/app.service';
+import { CreateTaskComponent } from '../create-task/create-task.component';
 
 @Component({
   selector: 'app-show-group',
@@ -12,6 +13,9 @@ export class ShowGroupComponent {
   group: any = {};
   project: any = {};
   students: any[] = [];
+  taskData: any;
+  @ViewChild(CreateTaskComponent) task: CreateTaskComponent;
+
   panels = [
     { title: 'Panel 1', content: 'Content for panel 1', id: 'panel1' },
     { title: 'Panel 2', content: 'Content for panel 2', id: 'panel2' },
@@ -23,6 +27,11 @@ export class ShowGroupComponent {
       this.project = this.group.project;
       this.students = res.students;
     })
+  }
+
+  addTask() {
+    this.taskData = {project: this.project._id, group: this.group._id, supervisor: this.appServices.get_user()._id}
+    this.task.addTask(this.taskData)
   }
 
   get_id(){

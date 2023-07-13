@@ -16,13 +16,12 @@
         <div class="list-group">
           <div class="list-group-item member-item" *ngFor="let student of students">
             <span class="member-name">{{ student.firstName }} {{ student.lastName }}</span>
-            <span class="member-id">(ID: 123)</span>
+            <button class="btn btn-primary" (click)="addTask()">Add Task</button>
           </div>
       </div>
       <div class="row justify-content-around align-items-center">
           <h1 class="col-9">Tasks</h1>
           <div class="col-2">
-            <button class="btn btn-primary">Add Task</button>
           </div>
       </div>
         <ngb-accordion>
@@ -35,3 +34,4 @@
     </div>
     </div>
 </div>
+<app-create-task></app-create-task>

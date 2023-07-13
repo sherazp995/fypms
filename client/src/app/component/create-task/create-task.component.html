@@ -1,0 +1,40 @@
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title">Create Task</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+        <form [formGroup]="taskForm" (ngSubmit)="createTask()" class="col">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" formControlName="title"
+                       name="title" id="title" placeholder="Enter Title"/>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" class="form-control" formControlName="description"
+                       name="description" id="description" placeholder="Enter Description"/>
+            </div>
+            <div class="form-group">
+                <label for="deadline">Deadline</label>
+				<div class="input-group">
+					<input
+						id="deadline"
+						class="form-control"
+						placeholder="yyyy-mm-dd"
+						name="dp"
+						ngbDatepicker
+						#dp="ngbDatepicker"
+					/>
+					<button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+				</div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+	</div>
+</ng-template>
