@@ -9,7 +9,7 @@ const passwordHash = require('password-hash');
 function saveImage (image, username) {
   const imageData = Buffer.from(image, 'base64');
   const fileName = `${username}-${Date.now()}.jpg`;
-  const dir = path.join(__dirname, '..', 'uploads', 'userImages');
+  const dir = path.join(process.env.ROOT_PATH, 'uploads', 'userImages');
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }

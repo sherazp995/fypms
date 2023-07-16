@@ -37,10 +37,6 @@ export class CreateTaskComponent {
   }
 
   createTask(){
-    console.log('create')
-    console.log('create')
-    console.log('create')
-    console.log('create')
-    console.log('create')
+    console.log(this.taskForm.value)
   }
 }

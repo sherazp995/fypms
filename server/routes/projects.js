@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const { getIO } = require('../services/socket')
 
-const UploadDIR = path.join(__dirname, '..', 'uploads', 'projects');
+const UploadDIR = path.join(process.env.ROOT_PATH, 'uploads', 'projects');
 
 function uploadFile (file, username) {
   let filename = '', filePath = '';
@@ -21,6 +21,7 @@ function uploadFile (file, username) {
   }
   return filename;
 }
+
 router.get('/all', async (req, res) => {
   try {
     let result = await Project.find();
@@ -83,9 +84,9 @@ router.post("/reject", async (req, res) => {
   }
 });
 
-router.post('/delete', async (req, res) => {
+router.post('/delete/:id', async (req, res) => {
   try {
-    await Project.findByIdAndDelete(req.body.id);
+    await Project.findByIdAndDelete(req.params.id);
     res.json({ status: 200, message: 'Project Deleted Successfully' });
   } catch (error) {
     console.log(error);

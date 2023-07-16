@@ -62,7 +62,7 @@ export class ApiService {
   }
 
   delete_project(id: string): Observable<any> {
-    return this.http.post(this.url + 'projects/delete', { id: id })
+    return this.http.post(this.url + 'projects/delete/' + id, '')
   }
 
   all_groups(): Observable<any> {
@@ -75,5 +75,17 @@ export class ApiService {
 
   create_group(group: any): Observable<any> {
     return this.http.post(this.url + 'groups/create', group)
+  }
+
+  task(id: string): Observable<any> {
+    return this.http.get(this.url + 'tasks/' + id)
+  }
+
+  create_task(task: any): Observable<any> {
+    return this.http.post(this.url + 'tasks/create', task)
+  }
+
+  upload_document(document: any): Observable<any> {
+    return this.http.post(this.url + 'documents/create', document)
   }
 }

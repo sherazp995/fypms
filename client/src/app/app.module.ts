@@ -40,7 +40,6 @@ import { ShowUserComponent } from './component/show-user/show-user.component';
 import { GroupsComponent } from './component/groups/groups.component';
 import { ShowGroupComponent } from './component/show-group/show-group.component';
 import { CreateGroupComponent } from './component/create-group/create-group.component';
-import { AddTaskComponent } from './component/add-task/add-task.component';
 import { CreateTaskComponent } from './component/create-task/create-task.component';
 
 @NgModule({
@@ -63,7 +62,6 @@ import { CreateTaskComponent } from './component/create-task/create-task.compone
     GroupsComponent,
     ShowGroupComponent,
     CreateGroupComponent,
-    AddTaskComponent,
     CreateTaskComponent
   ],
   imports: [

@@ -78,6 +78,13 @@ export class AppService {
     }
   }
 
+  uploadDocument(user: string, reference: string, type: string){
+    this.apiServices.upload_document({user, reference, type}).subscribe((res) => {
+      this.showFlash({success: "Document Uploaded Successfully"});
+      return res.result;
+    });
+  }
+
   disableClick(event) {
     const button = (event.srcElement.disabled === undefined) ? event.srcElement.parentElement : event.srcElement;
     button.setAttribute('disabled', true);
