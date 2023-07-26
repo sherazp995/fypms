@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ApiService } from 'app/services/api.service';
 
 @Component({
   selector: 'app-create-task',
@@ -8,11 +9,11 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./create-task.component.css']
 })
 export class CreateTaskComponent {
-	closeResult: string;
+	document: any = null;
   taskForm: any;
   @ViewChild('content', { static: true }) content: ElementRef;
   
-  constructor(private modalService: NgbModal, private formBuilder: FormBuilder) {
+  constructor(private modalService: NgbModal, private formBuilder: FormBuilder, private apiServices: ApiService) {
     this.ngOnInit();
   }
 
@@ -24,7 +25,13 @@ export class CreateTaskComponent {
       supervisor: ['', Validators.required],
       project: ['', Validators.required],
       group: [''],
+      totalMarks: [''],
+      questionDocument: [''],
     });
+  }
+
+  onFileSelected(event: any) {
+    this.document = event.target.files[0]; 
   }
 
   showForm(content) {
@@ -37,6 +44,20 @@ export class CreateTaskComponent {
   }
 
   createTask(){
+    let formData = this.taskForm.value
+    if(this.document) {
+      this.apiServices.upload_document(this.document).subscribe((response) => {
+        formData.questionDocument = response.result._id
+      });
+    } else {
+
+    }
     console.log(this.taskForm.value)
+  }
+
+  submitTask(task: any) {
+    this.apiServices.create_task(task).subscribe((response) => {
+      
+    });
   }
 }

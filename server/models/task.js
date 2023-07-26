@@ -20,6 +20,10 @@ const Task = new Schema({
         type: Date,
         required: true
     },
+    questionDocument: {
+        type: Schema.Types.ObjectId,
+        ref: 'Document',
+    },
     status: {
         type: String,
         required: true,
@@ -45,6 +49,11 @@ const Task = new Schema({
         index: true
     },
     progress: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    totalMarks: {
         type: Number,
         required: true,
         default: 0

@@ -18,6 +18,13 @@ const TaskResult = new Schema({
     ref: 'Group',
     required: true
   },
+  remarks: {
+    type: String,
+  },
+  markedDocument: {
+    type: Schema.Types.ObjectId,
+    ref: 'Document',
+  },
   score: {
     type: Number,
     required: true
