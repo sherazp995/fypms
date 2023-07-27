@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TagInputModule } from 'ngx-chips';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 
 // Services Imports
@@ -71,6 +71,7 @@ import { CreateTaskComponent } from './component/create-task/create-task.compone
     TagInputModule,
     NgTiltModule,
     FormsModule,
+    NgbTypeaheadModule,
     NgbModule,
     HttpClientModule,
     FlashMessagesModule.forRoot(),

@@ -4,32 +4,85 @@
     <h1 class="h3 mb-0 text-gray-800">Project Details</h1>
   </div>
   <!-- Content Row -->
-  <div class="row container">
+  <div class="row">
     <div class="col">
-      <div class="h2 text-center">{{ project['title'] }}</div>
-      <div class="h4 mt-3">Project Domain</div>
-      <div class="ms-3">{{ project['domain'] }}</div>
-      <div class="h4 mt-3">Project Description</div>
-      <div class="ms-3">{{ project['description'] }}</div>
-      <div class="h4 mt-3">Required Skills</div>
-      <div class="ms-3">{{ project['skills'] }}</div>
-      <div class="h4 mt-3">Programming Languages</div>
-      <div class="ms-3">{{ project['languages'] }}</div>
-      <div class="h4 mt-3">Allowed Tools</div>
-      <div class="ms-3">{{ project['tools'] }}</div>
-      <div class="h4 mt-3">Maximum Students Allowed</div>
-      <div class="ms-3">{{ project['maxStudents'] || 0 }}</div>
-      <div class="d-flex justify-content-between">
-        <button class="btn btn-primary mt-5" [routerLink]="['/projects']">
-          Back
-        </button>
-        <button class="btn btn-primary mt-5" (click)="downloadProject()">
-          Download File
-        </button>
-        <button class="btn btn-danger mt-5" (click)="deleteProject()">
-          Delete Project
-        </button>
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">{{ project['title'] }}</h2>
+          <p class="card-text">
+            <strong>Project Domain:</strong> {{ project['domain'] }}
+          </p>
+          <p class="card-text">
+            <strong>Project Description:</strong> {{ project['description'] }}
+          </p>
+          <p class="card-text">
+            <strong>Required Skills:</strong> {{ project['skills'] }}
+          </p>
+          <p class="card-text">
+            <strong>Programming Languages:</strong> {{ project['languages'] }}
+          </p>
+          <p class="card-text">
+            <strong>Allowed Tools:</strong> {{ project['tools'] }}
+          </p>
+          <p class="card-text">
+            <strong>Maximum Students Allowed:</strong> {{ project['maxStudents'] || 0 }}
+          </p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-primary mt-3" [routerLink]="['/projects']">
+              Back
+            </button>
+            <button class="btn btn-primary mt-3" (click)="downloadProject()">
+              Download File
+            </button>
+            <button class="btn btn-danger mt-3" (click)="deleteProject()">
+              Delete Project
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab Panels for Groups and Tasks -->
+  <ul class="nav nav-tabs mt-4">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#groups">Groups</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#tasks">Tasks</a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <!-- Groups Tab Panel -->
+    <div id="groups" class="tab-pane fade show active mt-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title row">
+            <h4 class="col-9">Groups</h4>
+            <div class="col-2">
+              <button class="btn btn-primary" (click)="addTask()">Add Task for all Groups</button>
+            </div>
+          </div>
+          <ul *ngFor="let group of groups">
+            <li>{{group.name}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tasks Tab Panel -->
+    <div id="tasks" class="tab-pane fade mt-4">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Tasks </h4>
+          <ul *ngFor="let task of groups">
+            <li>{{task.title}}</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<app-create-task></app-create-task>
+

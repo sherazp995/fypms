@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Task = require('../models/task');
+const Group = require('../models/group');
 
 router.get('/all', async (req, res) => {
     try {
@@ -15,15 +16,19 @@ router.get('/all', async (req, res) => {
 router.post("/create", async (req, res) => {
     try {
         // Task is made unique by name, supervisor, group and project
-        let task = req.body.task;
+        let task = req.body;
         let result = await Task.findOne({ title: task.title });
-        task.supervisor = req.body.user._id;
         let message = '';
         if (result) {
             message = "Task already exists"
         } else {
             message = 'Task Created Successfully!';
-            result = await Task.create(task);
+            if(task.group){
+                result = await Task.create(task);
+            } else {
+                groups = await Group.find({project: task.project})
+                result = await Task.create(groups.map((g) => {task.group = g._id; return task;}))
+            }
         }
         res.status(200).json({result, message});
     } catch (error) {

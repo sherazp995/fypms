@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Group = require('../models/group');
 const User = require('../models/user');
+const Task = require('../models/task');
 
 router.get('/all', async (req, res) => {
     let result = await Group.find()
@@ -11,7 +12,8 @@ router.get('/all', async (req, res) => {
 router.get('/:id', async (req, res) => {
     let result = await Group.findOne({ _id: req.params.id }).populate('project').exec();
     let students = await User.find({group: req.params.id});
-    res.json({result, students})
+    let tasks = await Task.find({group: req.params.id});
+    res.json({result, students, tasks})
 });
 
 router.post("/create", async (req, res) => {

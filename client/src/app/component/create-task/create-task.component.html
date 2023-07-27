@@ -22,7 +22,9 @@
 						id="deadline"
 						class="form-control"
 						placeholder="yyyy-mm-dd"
-						name="dp"
+						name="deadline"
+                        (dateSelect)="onDateSelect($event)"
+                        formControlName="deadline"
 						ngbDatepicker
 						#dp="ngbDatepicker"
 					/>

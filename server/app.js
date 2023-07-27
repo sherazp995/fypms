@@ -27,6 +27,7 @@ const app = express();
 app.use(express.static(path.join(process.env.ROOT_PATH, '..', 'client', 'dist', 'client')));
 app.use('/uploads/userImages', express.static(path.join(process.env.ROOT_PATH, 'uploads', 'userImages')));
 app.use('/uploads/projects', express.static(path.join(process.env.ROOT_PATH, 'uploads', 'projects')));
+app.use('/uploads/documents', express.static(path.join(process.env.ROOT_PATH, 'uploads', 'documents')));
 app.use(cors());
 app.use(auth);
 app.use(fileUpload({

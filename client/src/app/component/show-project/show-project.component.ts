@@ -1,7 +1,8 @@
-import { Component,Renderer2  } from '@angular/core';
+import { Component,Renderer2, ViewChild  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
 import {AppService} from "../../services/app.service";
+import { CreateTaskComponent } from '../create-task/create-task.component';
 
 @Component({
   selector: 'app-show-project',
@@ -10,9 +11,12 @@ import {AppService} from "../../services/app.service";
 })
 export class ShowProjectComponent {
   project: any = {};
+  groups: any[];
+  @ViewChild(CreateTaskComponent) task: CreateTaskComponent;
   constructor(private route: ActivatedRoute, private apiServices: ApiService, private appServices: AppService, private renderer: Renderer2, private router: Router){
     this.apiServices.project(this.get_id()).subscribe((res) => {
       this.project = res.result
+      this.groups = res.groups
     })
   }
 
@@ -24,6 +28,10 @@ export class ShowProjectComponent {
     link.setAttribute('download', this.project.project_file);
     link.click();
     link.remove();
+  }
+  
+  addTask() {
+    this.task.addTask({project: this.project._id, supervisor: this.appServices.get_user()._id})
   }
 
   deleteProject(){

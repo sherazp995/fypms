@@ -13,6 +13,7 @@ export class ShowGroupComponent {
   group: any = {};
   project: any = {};
   students: any[] = [];
+  tasks: any[] = [];
   taskData: any;
   @ViewChild(CreateTaskComponent) task: CreateTaskComponent;
 
@@ -26,12 +27,17 @@ export class ShowGroupComponent {
       this.group = res.result;
       this.project = this.group.project;
       this.students = res.students;
+      this.tasks = res.tasks;
     })
   }
 
   addTask() {
     this.taskData = {project: this.project._id, group: this.group._id, supervisor: this.appServices.get_user()._id}
     this.task.addTask(this.taskData)
+  }
+  
+  addToTasks(task) {
+    this.tasks.push(task)
   }
 
   get_id(){

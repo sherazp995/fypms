@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'app/services/api.service';
 import { AppService } from 'app/services/app.service';
-import { Observable, debounceTime, distinctUntilChanged, map, startWith } from 'rxjs';
+import { Observable, OperatorFunction, debounceTime, map } from 'rxjs';
 
 @Component({
   selector: 'app-create-group',
@@ -12,13 +12,9 @@ import { Observable, debounceTime, distinctUntilChanged, map, startWith } from '
 })
 export class CreateGroupComponent {
   groupForm!: FormGroup;
-  focused: boolean = false;
   projectList: any[] = []; 
   studentList: any[]; 
-  selectedProject!: any;
   selectedStudents: any[] = [];
-  searchControl = new FormControl('', Validators.required);
-  filteredProjects: Observable<any[]>;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private apiServices: ApiService, private appServices: AppService) { 
     apiServices.all_projects().subscribe(res => {
@@ -26,46 +22,29 @@ export class CreateGroupComponent {
         this.projectList = res.result;
       }
     })
-    this.filteredProjects = this.searchControl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(300), // Adjust debounce time as needed
-      distinctUntilChanged(),
-      map(value => {
-        return this.filterProjects(value!)
-      })
-    );
   }
-
 
   ngOnInit() {
     this.groupForm = this.formBuilder.group({
-      project: this.searchControl,
+      project: ['', Validators.required],
       name: ['', Validators.required]
     });
   }
 
-  filterProjects(value: string): any[] {
-    const filterValue = value.toLowerCase();
-    let project1 = this.groupForm.get('project');
-    project1.setValue(value);
-    return this.projectList.filter(project => project.title.toLowerCase().includes(filterValue) && ![project1.value].includes(project.title));
-  }
-
-  getUsers(): void{
-    this.apiServices.students_by_project(this.selectedProject._id).subscribe(res => {
+  getUsers(project: any): void{
+    this.apiServices.students_by_project(project.item._id).subscribe(res => {
       this.studentList = res.result;
     })
   }
 
-  displayproject(project: any): any {
-    return project ? project.title : '';
-  }
-
-  selectProject(project: any): void {
-    this.selectedProject = project;
-    this.searchControl.setValue(project.title);
-    this.getUsers();
-  }
+  search: OperatorFunction<string, readonly any[]> = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(200),
+    map((term) =>
+      term === '' ? this.projectList : this.projectList.filter((v) => v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10),
+    ),
+  );
+  formatter = (x: any) => x.title;
 
   addToGroup(user, event){
     this.appServices.disableClick(event);
@@ -86,8 +65,9 @@ export class CreateGroupComponent {
       return;
     }
     let formData = this.groupForm.value;
-    formData.project = this.selectedProject._id;
+    formData.project = formData.project._id
     formData.students = this.selectedStudents.map(s => s._id);
+    console.log(formData)
     this.apiServices.create_group(formData).subscribe((res) => {
       this.appServices.showFlash({success: res.message})
       this.router.navigate(['/groups'])

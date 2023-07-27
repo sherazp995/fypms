@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Project = require('../models/project');
 const User = require('../models/user');
+const Group = require('../models/group');
+const Task = require('../models/task');
 const path = require("path");
 const fs = require("fs");
 const { getIO } = require('../services/socket')
@@ -126,7 +128,8 @@ router.get('/project_by_supervisor/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     let result = await Project.findOne({ _id: req.params.id });
-    res.json({ status: 200, result });
+    let groups = await Group.find({project: req.params.id})
+    res.json({ status: 200, result, groups, tasks});
   } catch (error) {
     console.log(error);
     res.json({ status: 500, message: 'Something went wrong' });

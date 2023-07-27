@@ -8,21 +8,27 @@
         <form [formGroup]="groupForm" (ngSubmit)="createGroup()">
             <div class="form-group">
                 <label for="project">Project</label>
-                <div ngbDropdown>
-                    <button ngbDropdownToggle class="form-control">{{ selectedProject ? selectedProject.title : "Select Your Project" }}</button>
-                    <input id="project" type="text" placeholder="Search Project" (click)="focused = focused ? false : true" [formControl]="searchControl" autocomplete="off" class="form-control">
-                    <ul ngbDropdownMenu [ngClass]="focused ? 'show' : ''" class="w-100" [style]="(filteredProjects| async)?.length > 0 ? '' : 'display: none;'">
-                        <li ngbDropdownItem *ngFor="let project of filteredProjects | async; index as i;" [value]="">
-                            <div role="button" (click)="selectProject(project)">
-                                {{ project.title }}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <ng-template #rt let-r="result" let-t="term">
+                    <ngb-highlight [result]="r.title" [term]="t"></ngb-highlight>
+                </ng-template>
+                <input
+                    id="project"
+                    type="text"
+                    class="form-control"
+                    style="width: 100% !important;"
+                    name="project"
+                    placeholder="Search for Your Project"
+                    formControlName="project"
+                    [ngbTypeahead]="search"
+                    [inputFormatter]="formatter"
+                    [resultTemplate]="rt"
+                    [editable]="false"
+                    (selectItem)="getUsers($event)"
+                />
             </div>
             <div class="form-group">
                 <label for="groupName">Group Name</label>
-                <input type="text" name="groupName" id="groupName" formControlName="name" class="form-control">
+                <input type="text" name="groupName" id="groupName" formControlName="name" class="form-control" placeholder="Enter a group name">
             </div>
             <div class="form-group" *ngIf="selectedStudents?.length > 0">
                 <label for="students">Students</label>
