@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Timetable</h1>
+    </div>
+    <!-- Content Row -->
+    <div class="row container mw-100">
+      <form [formGroup]="timetableForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="title">Event Title</label>
+          <input type="text" id="title" class="form-control" formControlName="title" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" class="form-control" formControlName="description"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="startTime">Start Time</label>
+          <input type="datetime-local" id="startTime" class="form-control" formControlName="startTime" required>
+        </div>
+        <div class="form-group">
+          <label for="endTime">End Time</label>
+          <input type="datetime-local" id="endTime" class="form-control" formControlName="endTime" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Event</button>
+        <button type="button" class="btn btn-secondary" (click)="clearForm()">Clear</button>
+      </form>
+      <hr>
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let event of timetableEvents">
+              <td>{{ event.title }}</td>
+              <td>{{ event.description }}</td>
+              <td>{{ event.startTime | date: 'short' }}</td>
+              <td>{{ event.endTime | date: 'short' }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteEvent(event._id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

@@ -20,6 +20,8 @@ const groupsRouter = require('./routes/groups');
 const tasksRouter = require('./routes/tasks');
 const documentsRouter = require('./routes/documents');
 const taskResultsRouter = require('./routes/taskResults');
+const timetablesRouter = require('./routes/timetables');
+const meetingsRouter = require('./routes/meetings');
 require('./db/conn');
 
 const app = express();
@@ -45,5 +47,7 @@ app.use('/groups', groupsRouter);
 app.use('/tasks', tasksRouter);
 app.use('/documents', documentsRouter);
 app.use('/taskResults', taskResultsRouter);
+app.use('/timetables', timetablesRouter);
+app.use('/meetings', meetingsRouter);
 
 module.exports = app;

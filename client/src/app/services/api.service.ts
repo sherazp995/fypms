@@ -25,6 +25,10 @@ export class ApiService {
     return this.http.get(this.url + 'users/all')
   }
 
+  find_users(data: any): Observable<any> {
+    return this.http.post(this.url + 'users/find', data)
+  }
+
   user(id: string): Observable<any> {
     return this.http.get(this.url + 'users/' + id)
   }
@@ -117,4 +121,27 @@ export class ApiService {
     return this.http.post(this.url + 'taskResults/create', task)
   }
 
+  timetable() {
+    return this.http.get(this.url + 'timetables/all')
+  }
+
+  create_timetable_event(data: any) {
+    return this.http.post(this.url + 'timetables/create', data)
+  }
+
+  delete_timetable_event(id: any) {
+    return this.http.post(this.url + 'timetables/' + id, '')
+  }
+
+  meetings() {
+    return this.http.get(this.url + 'meetings/all')
+  }
+
+  create_meeting(data: any) {
+    return this.http.post(this.url + 'meetings/create', data)
+  }
+
+  delete_meeting(id: any) {
+    return this.http.post(this.url + 'meetings/' + id, '')
+  }
 }

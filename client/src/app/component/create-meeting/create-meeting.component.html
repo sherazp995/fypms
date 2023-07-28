@@ -1,0 +1,76 @@
+<!-- create-meeting.component.html -->
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Create Meeting</h1>
+    </div>
+    <!-- Content Row -->
+    <div class="row container mw-100">
+        <form [formGroup]="meetingForm" (ngSubmit)="createMeeting()">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" formControlName="title" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" formControlName="description" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date</label>
+                <input type="datetime-local" id="startDate" formControlName="startDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date</label>
+                <input type="datetime-local" id="endDate" formControlName="endDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" formControlName="location" class="form-control" required>
+            </div>
+            <div class="form-group" *ngIf="selectedStudents?.length > 0">
+                <label for="students">Participants</label>
+                <div id="students">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let student of selectedStudents; index as i">
+                                <td>{{student.firstName + " - " + student.lastName}}</td>
+                                <td>{{student.email}}</td>
+                                <td>
+                                    <button class="btn btn-danger" (click)="removeFromMeeting(student, $event)">Remove from group</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+        <hr/>
+        <table *ngIf="studentList?.length > 0" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let student of studentList; index as i">
+                    <td>{{student.firstName + " - " + student.lastName}}</td>
+                    <td>{{student.email}}</td>
+                    <td>
+                        <button class="btn btn-primary" (click)="addToMeeting(student, $event)">Add to group</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>    
+    </div>
+</div>

@@ -32,6 +32,11 @@ router.get('/:id', async (req, res) => {
   res.json({ status: 200, result })
 });
 
+router.post('/find', async (req, res) => {
+  let result = await User.find(req.body)
+  res.json({ status: 200, result })
+});
+
 router.get('/students_by_project/:id', async (req, res) => {
   let result = await User.find({ project: req.params.id, group: null })
   res.json({ status: 200, result })

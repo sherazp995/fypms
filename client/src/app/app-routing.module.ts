@@ -20,6 +20,8 @@ import { GroupsComponent } from './component/groups/groups.component';
 import { ShowGroupComponent } from './component/show-group/show-group.component';
 import { CreateGroupComponent } from './component/create-group/create-group.component';
 import { ShowTaskComponent } from './component/show-task/show-task.component';
+import { TimetableComponent } from './component/timetable/timetable.component';
+import { CreateMeetingComponent } from './component/create-meeting/create-meeting.component';
 
 const routes: Routes = [
   {
@@ -87,6 +89,14 @@ const routes: Routes = [
       {
         path: 'tasks/:id',
         component: ShowTaskComponent
+      },
+      {
+        path: 'timetable',
+        component: TimetableComponent
+      },
+      {
+        path: 'meetings/new',
+        component: CreateMeetingComponent
       },
     ]
   },

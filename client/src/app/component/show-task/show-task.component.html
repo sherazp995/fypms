@@ -21,14 +21,13 @@
   
       <!-- Task Result Card (Right Sidebar) -->
       <div class="col-md-4">
-        <div class="card">
+        <div class="card" *ngIf="!!taskResult._id">
           <div class="card-body">
             <h5 class="card-title">Task Result</h5>
             <p class="card-text">Supervisor: {{ taskResult?.supervisor }}</p>
             <p class="card-text">Group: {{ taskResult?.group }}</p>
             <p class="card-text">Remarks: {{ taskResult?.remarks }}</p>
             <p class="card-text">Score: {{ taskResult?.score }}</p>
-            <!-- You can include other task result details here -->
           </div>
         </div>
       </div>
@@ -36,7 +35,7 @@
       <div class="col-md-8">
         <form [formGroup]="groupForm" (ngSubmit)="submitTask()" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="document">Upload Document:</label>
+            <label for="document">{{documents.length > 0 ? 'Upload Revision' : 'Upload Document:'}}</label>
             <input type="file" formControlName="document" id="document" name="document" class="form-control" (change)="onFileSelected($event)" />
           </div>
           <button type="submit" class="btn btn-primary">Submit Work</button>
@@ -47,9 +46,10 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Your Uploaded Documents</h5>
-            <div *ngFor="let doc of documents">
+            <div *ngFor="let doc of documents;index as i">
               <p class="card-text">Name: {{ doc?.name }} 
-                <button>Download File {{doc.path}}</button>
+                <a [href]="doc.path" target="_blank" class="btn btn-primary">Download File</a>
+                {{i == (documents.length -1) ? "Latest File" : ""}}
               </p>
             </div>
           </div>
