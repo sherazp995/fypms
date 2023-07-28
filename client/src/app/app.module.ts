@@ -41,6 +41,7 @@ import { GroupsComponent } from './component/groups/groups.component';
 import { ShowGroupComponent } from './component/show-group/show-group.component';
 import { CreateGroupComponent } from './component/create-group/create-group.component';
 import { CreateTaskComponent } from './component/create-task/create-task.component';
+import { ShowTaskComponent } from './component/show-task/show-task.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { CreateTaskComponent } from './component/create-task/create-task.compone
     GroupsComponent,
     ShowGroupComponent,
     CreateGroupComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    ShowTaskComponent
   ],
   imports: [
     BrowserModule,

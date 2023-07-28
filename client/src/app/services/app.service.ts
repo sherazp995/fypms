@@ -13,34 +13,49 @@ export class AppService {
 
   constructor(private apiServices: ApiService, private flashMessage: FlashMessagesService) { }
 
+  userLoggedIn(): boolean {
+    return (!!this.getUser()._id && !!this.getJwt());
+  }
+  
+  getUser() {
+    this.user = JSON.parse(localStorage.getItem('data') || '{}');
+    return this.user;
+  }
+
+  updateUser(user: any) {
+    this.user = user;
+    localStorage.setItem('data', JSON.stringify(user));
+    return this.user;
+  }
+
+  getJwt(){
+    return localStorage.getItem('jwt');
+  }
+
+  updateJwt(jwt: any) {
+    localStorage.setItem('jwt', jwt);
+    return jwt;
+  }
+
+  login(response: any) {
+    this.updateJwt(response.jwtToken)
+    this.updateUser(response.result);
+  }
+
   logout() {
     localStorage.removeItem('data');
     localStorage.removeItem('jwt');
   }
 
-  get_user() {
-    let data = localStorage.getItem('data');
-    if(data !== 'undefined'){
-      this.user = JSON.parse(data);
-    } else {
-      this.logout();
-    }
-    return this.user;
-  }
-
-  connect_socket(){
+  connectSocket(){
     this.socket = io(environment.url, {
       withCredentials: true,
       transports: ['websocket', 'polling']
     });
   }
 
-  disconnect_socket(){
+  disconnectSocket(){
     this.socket.disconnect();
-  }
-  
-  set_user(user: any) {
-    localStorage.setItem('data', JSON.stringify(user));
   }
 
   getBase64(file: File): Promise<string> {

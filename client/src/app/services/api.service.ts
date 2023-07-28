@@ -53,6 +53,10 @@ export class ApiService {
     return this.http.post(this.url + 'projects/reject/', data)
   }
 
+  find_projects(data: any): Observable<any> {
+    return this.http.post(this.url + 'projects/find', data)
+  }
+
   all_projects(): Observable<any> {
     return this.http.get(this.url + 'projects/all')
   }
@@ -77,8 +81,16 @@ export class ApiService {
     return this.http.post(this.url + 'groups/create', group)
   }
 
+  find_groups(data: any): Observable<any> {
+    return this.http.post(this.url + 'groups/find', data)
+  }
+
   task(id: string): Observable<any> {
     return this.http.get(this.url + 'tasks/' + id)
+  }
+
+  find_tasks(data: any): Observable<any> {
+    return this.http.post(this.url + 'tasks/find', data)
   }
 
   create_task(task: any): Observable<any> {
@@ -88,4 +100,21 @@ export class ApiService {
   upload_document(document: any): Observable<any> {
     return this.http.post(this.url + 'documents/create', document)
   }
+
+  find_documents(data: any): Observable<any> {
+    return this.http.post(this.url + 'documents/find', data)
+  }
+
+  task_result(id: string): Observable<any> {
+    return this.http.get(this.url + 'taskResults/' + id)
+  }
+
+  find_task_results(data: any): Observable<any> {
+    return this.http.post(this.url + 'taskResults/find', data)
+  }
+
+  create_task_result(task: any): Observable<any> {
+    return this.http.post(this.url + 'taskResults/create', task)
+  }
+
 }

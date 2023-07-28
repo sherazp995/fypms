@@ -36,7 +36,9 @@
           [id]="task._id"
         >
           <ng-template ngbPanelContent>
-            <p>{{ task.description }}</p>
+            <p>{{ task.description }}
+              <a [routerLink]="['/tasks/' + task._id]"> show task</a>
+            </p>
           </ng-template>
         </ngb-panel>
       </ngb-accordion>

@@ -12,7 +12,7 @@ export class GroupsComponent {
   user = {}
 
   constructor(private apiServices: ApiService, private appServices: AppService) {
-    this.user = appServices.get_user()
+    this.user = appServices.getUser()
     // if (this.user['role'] == "supervisor") {
       this.apiServices.all_groups().subscribe((res) => {
         this.groups = res.result

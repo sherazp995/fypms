@@ -19,6 +19,7 @@ import { EditUserComponent } from "./component/edit-user/edit-user.component";
 import { GroupsComponent } from './component/groups/groups.component';
 import { ShowGroupComponent } from './component/show-group/show-group.component';
 import { CreateGroupComponent } from './component/create-group/create-group.component';
+import { ShowTaskComponent } from './component/show-task/show-task.component';
 
 const routes: Routes = [
   {
@@ -82,7 +83,11 @@ const routes: Routes = [
       {
         path: 'groups/:id',
         component: ShowGroupComponent
-      }
+      },
+      {
+        path: 'tasks/:id',
+        component: ShowTaskComponent
+      },
     ]
   },
   {

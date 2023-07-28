@@ -12,7 +12,7 @@ export class SupervisorGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let data = this.appServices.get_user()
+      let data = this.appServices.getUser()
       if (data && (data["role"] == "supervisor" || data["role"] == "admin")) {
           return true;
       } else {

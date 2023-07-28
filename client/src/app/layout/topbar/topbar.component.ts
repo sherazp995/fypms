@@ -13,7 +13,7 @@ export class TopbarComponent {
   user: any;
   profilePic: any;
   constructor(private apiServices: ApiService, private router:Router, private appServices: AppService) {
-    this.user = appServices.get_user()
+    this.user = appServices.getUser()
     this.profilePic = appServices.getProfilePic(this.user.image);
   }
 

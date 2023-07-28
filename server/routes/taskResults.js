@@ -23,6 +23,15 @@ router.get('/all', async (req, res) => {
   }
 });
 
+router.post('/find', async (req, res) => {
+  try {
+    const taskResults = await TaskResult.find(req.body);
+    res.json({result: taskResults});
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Get a Task Result by ID
 router.get('/:id', async (req, res) => {
   try {

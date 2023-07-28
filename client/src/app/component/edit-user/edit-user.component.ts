@@ -36,7 +36,7 @@ export class EditUserComponent {
         this.userForm.patchValue(this.user);
       });
     } else {
-      this.user = this.appServices.get_user();
+      this.user = this.appServices.getUser();
       delete this.user.password;
       this.userForm.patchValue(this.user);
     }
@@ -62,7 +62,7 @@ export class EditUserComponent {
         if (this.userID) {
           this.router.navigate(['/users/', this.userID]);
         } else {
-          this.appServices.set_user(res.result);
+          this.appServices.updateUser(res.result);
           this.router.navigate(['/profile']);
         }
       });

@@ -11,8 +11,7 @@ export class ComponentGuard implements CanActivateChild {
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let data = this.appServices.get_user()
-      if (data && data["_id"]) {
+      if (this.appServices.userLoggedIn()) {
           return true;
       } else {
         this._router.navigate(['/login'])

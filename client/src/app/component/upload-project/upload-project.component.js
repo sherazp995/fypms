@@ -172,7 +172,7 @@ var UploadProjectComponent = /** @class */ (function () {
             var user, formData;
             var _this = this;
             return __generator(this, function (_a) {
-                user = this.appServices.get_user();
+                user = this.appServices.getUser();
                 formData = this.projectForm.value;
                 formData.skills = this.skills;
                 formData.languages = this.languages;

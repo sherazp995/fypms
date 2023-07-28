@@ -9,6 +9,11 @@ router.get('/all', async (req, res) => {
     res.status(200).json({result})
 });
 
+router.post('/find', async (req, res) => {
+    let result = await Group.find(req.body)
+    res.status(200).json({result})
+});
+
 router.get('/:id', async (req, res) => {
     let result = await Group.findOne({ _id: req.params.id }).populate('project').exec();
     let students = await User.find({group: req.params.id});

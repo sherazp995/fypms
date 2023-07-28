@@ -15,7 +15,7 @@ export class UsersComponent {
   // students: any[];
 
   constructor(private apiServices: ApiService, private appServices: AppService) {
-    this.myUser = this.appServices.get_user();
+    this.myUser = this.appServices.getUser();
     this.apiServices.all_users().subscribe((res) => {
       this.users = res.result
       // this.admins = this.users.filter((user) => user.role === 'admin')

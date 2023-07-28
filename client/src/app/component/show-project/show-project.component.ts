@@ -31,7 +31,7 @@ export class ShowProjectComponent {
   }
   
   addTask() {
-    this.task.addTask({project: this.project._id, supervisor: this.appServices.get_user()._id})
+    this.task.addTask({project: this.project._id, supervisor: this.appServices.getUser()._id})
   }
 
   deleteProject(){

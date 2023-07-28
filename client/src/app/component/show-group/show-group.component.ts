@@ -32,7 +32,7 @@ export class ShowGroupComponent {
   }
 
   addTask() {
-    this.taskData = {project: this.project._id, group: this.group._id, supervisor: this.appServices.get_user()._id}
+    this.taskData = {project: this.project._id, group: this.group._id, supervisor: this.appServices.getUser()._id}
     this.task.addTask(this.taskData)
   }
   

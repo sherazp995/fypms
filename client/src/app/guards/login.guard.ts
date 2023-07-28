@@ -12,8 +12,7 @@ export class LoginGuard implements CanActivateChild {
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      let data = this.appServices.get_user()
-      if (data && data["_id"]) {
+      if (this.appServices.userLoggedIn()) {
           this._router.navigate(['/'])
           return false;
       } else {

@@ -25,8 +25,7 @@ export class LoginComponent {
 
       this.apiServices.login(this.login_object).subscribe((res) => {
         if (res.status == 200) {
-          this.appServices.set_user(res.result)
-          localStorage.setItem('jwt', res.jwtToken)
+          this.appServices.login(res)
           this.router.navigate(['/'])
         } else {
           this.appServices.showFlash({danger: res.message})

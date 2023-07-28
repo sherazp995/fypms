@@ -13,23 +13,31 @@ router.get('/all', async (req, res) => {
     }
 });
 
+router.post('/find', async (req, res) => {
+    try {
+        let result = await Task.find(req.body);
+        res.status(200).json({ result, message: 'Success' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Something went wrong' });
+    }
+});
+
 router.post("/create", async (req, res) => {
     try {
-        // Task is made unique by name, supervisor, group and project
+        // Task is made unique by title, supervisor, group and project
         let task = req.body;
-        let result = await Task.findOne({ title: task.title });
-        let message = '';
-        if (result) {
-            message = "Task already exists"
+        let result = null;
+        let message = 'Task Created Successfully!';
+        if(!!task.group){
+            result = await Task.create(task);
         } else {
-            message = 'Task Created Successfully!';
-            if(task.group){
-                result = await Task.create(task);
-            } else {
-                groups = await Group.find({project: task.project})
-                result = await Task.create(groups.map((g) => {task.group = g._id; return task;}))
-            }
+            delete task.group;
+            groups = await Group.find({project: task.project})
+            let tasks = groups.map((g) => {return {group: g._id.toString(), ...task}});
+            result = await Task.create(tasks);
         }
+        
         res.status(200).json({result, message});
     } catch (error) {
         console.log(error);

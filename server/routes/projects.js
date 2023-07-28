@@ -3,7 +3,6 @@ const router = express.Router();
 const Project = require('../models/project');
 const User = require('../models/user');
 const Group = require('../models/group');
-const Task = require('../models/task');
 const path = require("path");
 const fs = require("fs");
 const { getIO } = require('../services/socket')
@@ -27,6 +26,16 @@ function uploadFile (file, username) {
 router.get('/all', async (req, res) => {
   try {
     let result = await Project.find();
+    res.json({ status: 200, result });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: 500, message: 'Something went wrong' });
+  }
+});
+
+router.post('/find', async (req, res) => {
+  try {
+    let result = await Project.find(req.body);
     res.json({ status: 200, result });
   } catch (error) {
     console.log(error);
@@ -129,7 +138,7 @@ router.get('/:id', async (req, res) => {
   try {
     let result = await Project.findOne({ _id: req.params.id });
     let groups = await Group.find({project: req.params.id})
-    res.json({ status: 200, result, groups, tasks});
+    res.json({ status: 200, result, groups});
   } catch (error) {
     console.log(error);
     res.json({ status: 500, message: 'Something went wrong' });

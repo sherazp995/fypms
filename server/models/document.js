@@ -11,7 +11,7 @@ const Document = new Schema({
     },
     type: {
         type: String,
-        enum: ["group", "project", "task"],
+        // enum: ["group", "project", "task"],
         required: true
     }, // group, project or task
     reference: {

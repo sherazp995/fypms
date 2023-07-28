@@ -128,7 +128,7 @@ export class UploadProjectComponent {
   async upload(event) {
     // Handle form submission here
     this.appServices.disableClick(event);
-    let user = this.appServices.get_user();
+    let user = this.appServices.getUser();
     let formData = this.projectForm.value;
     formData.skills = this.skills;
     formData.languages = this.languages;

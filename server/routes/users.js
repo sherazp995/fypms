@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/students_by_project/:id', async (req, res) => {
-  let result = await User.find({ project: req.params.id })
+  let result = await User.find({ project: req.params.id, group: null })
   res.json({ status: 200, result })
 });
 

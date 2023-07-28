@@ -20,7 +20,7 @@ export class ShowUserComponent {
         this.imageURL = appServices.getProfilePic(this.user.image)
       })
     } else {
-      this.user = this.appServices.get_user()
+      this.user = this.appServices.getUser()
       this.imageURL = appServices.getProfilePic(this.user.image)
     }
   }

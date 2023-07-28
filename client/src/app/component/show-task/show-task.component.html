@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
+      <h1 class="h3 mb-0 text-gray-800">Task Details</h1>
+    </div>
+    <!-- Content Row -->
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Task Details Card -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">{{ task.title }}</h5>
+            <p class="card-text">{{ task.description }}</p>
+            <p class="card-text">Start Date: {{ task.startDate | date }}</p>
+            <p class="card-text">Deadline: {{ task.deadline | date }}</p>
+            <p class="card-text">Status: {{ task.status }}</p>
+            <!-- You can include other task details here -->
+          </div>
+        </div>
+      </div>
+  
+      <!-- Task Result Card (Right Sidebar) -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Task Result</h5>
+            <p class="card-text">Supervisor: {{ taskResult?.supervisor }}</p>
+            <p class="card-text">Group: {{ taskResult?.group }}</p>
+            <p class="card-text">Remarks: {{ taskResult?.remarks }}</p>
+            <p class="card-text">Score: {{ taskResult?.score }}</p>
+            <!-- You can include other task result details here -->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <form [formGroup]="groupForm" (ngSubmit)="submitTask()" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="document">Upload Document:</label>
+            <input type="file" formControlName="document" id="document" name="document" class="form-control" (change)="onFileSelected($event)" />
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Work</button>
+        </form>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Your Uploaded Documents</h5>
+            <div *ngFor="let doc of documents">
+              <p class="card-text">Name: {{ doc?.name }} 
+                <button>Download File {{doc.path}}</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

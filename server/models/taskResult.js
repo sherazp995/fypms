@@ -27,7 +27,6 @@ const TaskResult = new Schema({
   },
   score: {
     type: Number,
-    required: true
   }
 }, { timestamps: true });
 

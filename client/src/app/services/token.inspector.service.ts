@@ -13,15 +13,17 @@ export class TokenInspectorService {
   constructor(private appServices: AppService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let token;
-    token = localStorage.getItem('jwt')
-    token = token || null
-    
+    let token!: any, user: any = {};
+    token = this.appServices.getJwt();
+    token = token || null;
+    user = this.appServices.getUser() || user;
+        
     if (token) {
 
         let tokenizedReq = request.clone({
             setHeaders: {
-                accesstoken: token
+                accesstoken: token,
+                accessid: user._id
             }
         })
         return next.handle(tokenizedReq)

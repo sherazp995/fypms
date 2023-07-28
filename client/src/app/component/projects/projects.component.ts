@@ -13,11 +13,11 @@ export class ProjectsComponent {
   user: any = {};
 
   constructor(private router: Router, private apiServices: ApiService, private appServices: AppService) {
-    appServices.connect_socket();
+    appServices.connectSocket();
   }
 
   ngOnInit() {
-    this.user = this.appServices.get_user()
+    this.user = this.appServices.getUser()
     if (this.router.url === '/my_projects') {
       this.apiServices.project_by_supervisor(this.user['_id']).subscribe((res) => {
         this.projects = res.result
@@ -29,8 +29,7 @@ export class ProjectsComponent {
     }
     this.appServices.socket.on('projectSelected', (data: any) => {
       this.updateProjectCount(data.project);
-      this.appServices.set_user(data.user);
-      this.user = this.appServices.get_user()
+      this.user = this.appServices.updateUser(data.user)
     });
   }
 
@@ -52,6 +51,6 @@ export class ProjectsComponent {
   }
 
   ngOnDestroy() {
-    this.appServices.disconnect_socket()
+    this.appServices.disconnectSocket()
   }  
 }

@@ -12,7 +12,7 @@ export class SidebarComponent {
   active: string;
   user: any = {};
   constructor(private appServices: AppService, private router: Router) { 
-    this.user = this.appServices.get_user();
+    this.user = this.appServices.getUser();
     this.active = this.router.url;
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationStart) {

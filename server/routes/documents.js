@@ -28,6 +28,9 @@ router.post('/create', async (req, res) => {
     const {fileName, filePath} = uploadFile(file);
     doc.name = fileName;
     doc.path = filePath;
+    if(!doc.group){
+      delete doc.group;
+    }
     const document = new Document(doc);
     const savedDocument = await document.save();
     res.json({result: savedDocument});
@@ -40,6 +43,15 @@ router.post('/create', async (req, res) => {
 router.get('/all', async (req, res) => {
   try {
     const documents = await Document.find();
+    res.json({result: documents});
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post('/find', async (req, res) => {
+  try {
+    const documents = await Document.find(req.body);
     res.json({result: documents});
   } catch (error) {
     res.status(500).json({ error: error.message });
