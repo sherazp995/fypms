@@ -70,6 +70,22 @@
     </a>
   </li>
 
+  <!-- Nav Item - Timetable -->
+  <li [ngbNavItem]="'/timetable'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+    <a ngbNavLink class="nav-link" [routerLink]="['/timetable']">
+      <i class="fa fa-calendar-alt"></i>
+      <span>Timetable</span>
+    </a>
+  </li>
+
+  <!-- Nav Item - Meetings -->
+  <li [ngbNavItem]="'/meetings/new'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+    <a ngbNavLink class="nav-link" [routerLink]="['/meetings/new']">
+      <i class="fa fa-calendar-plus"></i>
+      <span>Schedule a meeting</span>
+    </a>
+  </li>
+
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block" />
 

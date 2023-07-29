@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">All Messages</h1>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <!-- Display the list of users with messages -->
+            <div *ngIf="usersWithMessages.length > 0">
+              <div class="user" *ngFor="let user of usersWithMessages">
+                <a routerLink="/messages/show/{{ user._id }}">
+                  <strong>{{ user.firstName }}</strong>
+                </a>
+                <!-- <p *ngIf="user.messages.length === 0" class="small-text">No messages.</p> -->
+              </div>
+            </div>
+            <!-- Show a loading message while fetching users with messages -->
+            <div *ngIf="isLoading" class="text-center mt-3">
+              <span class="spinner-border text-primary" role="status" aria-hidden="true"></span>
+              Loading...
+            </div>
+            <!-- Show a message if there are no users with messages -->
+            <div *ngIf="usersWithMessages.length === 0 && !isLoading" class="text-center mt-3">
+              No users with messages.
+            </div>
+            <!-- Display the list of users with messages -->
+            <div *ngIf="usersWithoutMessages.length > 0">
+              <div class="user" *ngFor="let user of usersWithoutMessages">
+                <a routerLink="/messages/{{ user._id }}">
+                  <strong>{{ user.firstName }}</strong>
+                </a>
+                <!-- <p *ngIf="user.messages?.length === 0" class="small-text">No messages.</p> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <!-- Add your Show Messages component here (if needed) -->
+        <!-- Example: <app-show-messages></app-show-messages> -->
+      </div>
+    </div>
+  </div>
+  

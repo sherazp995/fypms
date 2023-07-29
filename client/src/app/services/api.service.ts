@@ -144,4 +144,20 @@ export class ApiService {
   delete_meeting(id: any) {
     return this.http.post(this.url + 'meetings/' + id, '')
   }
+
+  getAllMessages(): Observable<any> {
+    return this.http.get(this.url + `messages/all`);
+  }
+
+  usersWithoutMessages(): Observable<any> {
+    return this.http.get(this.url + `messages/users`);
+  }
+
+  getMessages(id: string, page: number = 0): Observable<any> {
+    return this.http.get(this.url + `messages/user/${id}?page=${page}`);
+  }
+
+  sendMessage(messageData: any) {
+    return this.http.post(this.url + `messages/send`, messageData);
+  }
 }

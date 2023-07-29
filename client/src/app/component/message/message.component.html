@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Messages</h1>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div *ngIf="messages.length > 0">
+              <div *ngFor="let message of messages" class="custom-message">
+                <div *ngIf="isSentByUser(message); else receivedMessage" class="sent-message">
+                  <p>{{ message.content }}</p>
+                  <div *ngIf="message.attachments?.length > 0" class="attachment">
+                    <ul>
+                      <li *ngFor="let attachment of message.attachments">
+                        <a [href]="attachment.path" target="_blank">{{ attachment.name }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <ng-template #receivedMessage>
+                  <div class="received-message">
+                    <div class="avatar">
+                      <img [src]="message.senderAvatar" alt="{{ message.senderName }}" />
+                    </div>
+                    <div class="message-content">
+                      <strong>{{ message.senderName }}</strong>
+                      <p>{{ message.content }}</p>
+                      <div *ngIf="message.attachments?.length > 0" class="attachment">
+                        <ul>
+                          <li *ngFor="let attachment of message.attachments">
+                            <a [href]="attachment.url" target="_blank">{{ attachment.name }}</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+            <div *ngIf="isLoading" class="text-center mt-3">
+              <span class="spinner-border text-primary" role="status" aria-hidden="true"></span>
+              Loading...
+            </div>
+            <div *ngIf="messages.length === 0 && !isLoading" class="text-center mt-3">
+              No messages available.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Send Message</h5>
+            <form (ngSubmit)="sendMessage()" #messageForm="ngForm">
+              <div class="form-group">
+                <label for="messageContent">Message:</label>
+                <textarea
+                  id="messageContent"
+                  class="form-control"
+                  name="messageContent"
+                  [(ngModel)]="newMessage.content"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label for="attachments">Attachment:</label>
+                <input type="file" id="attachments" name="attachments" (change)="onFileSelected($event)" />
+              </div>
+              <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

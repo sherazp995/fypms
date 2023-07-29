@@ -22,6 +22,8 @@ import { CreateGroupComponent } from './component/create-group/create-group.comp
 import { ShowTaskComponent } from './component/show-task/show-task.component';
 import { TimetableComponent } from './component/timetable/timetable.component';
 import { CreateMeetingComponent } from './component/create-meeting/create-meeting.component';
+import { MessageComponent } from './component/message/message.component';
+import { AllMessagesComponent } from './component/all-messages/all-messages.component';
 
 const routes: Routes = [
   {
@@ -97,6 +99,14 @@ const routes: Routes = [
       {
         path: 'meetings/new',
         component: CreateMeetingComponent
+      },
+      {
+        path: 'messages',
+        component: AllMessagesComponent
+      },
+      {
+        path: 'messages/:id',
+        component: MessageComponent
       },
     ]
   },
