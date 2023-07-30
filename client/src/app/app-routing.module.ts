@@ -102,11 +102,13 @@ const routes: Routes = [
       },
       {
         path: 'messages',
-        component: AllMessagesComponent
-      },
-      {
-        path: 'messages/:id',
-        component: MessageComponent
+        component: AllMessagesComponent,
+        children: [
+          {
+            path: ':id',
+            component: MessageComponent
+          },
+        ]
       },
     ]
   },

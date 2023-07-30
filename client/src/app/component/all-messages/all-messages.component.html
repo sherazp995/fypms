@@ -1,42 +1,66 @@
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">All Messages</h1>
     <div class="row">
-      <div class="col-md-4">
-        <div class="card mb-4">
-          <div class="card-body">
-            <!-- Display the list of users with messages -->
-            <div *ngIf="usersWithMessages.length > 0">
-              <div class="user" *ngFor="let user of usersWithMessages">
-                <a routerLink="/messages/show/{{ user._id }}">
-                  <strong>{{ user.firstName }}</strong>
-                </a>
-                <!-- <p *ngIf="user.messages.length === 0" class="small-text">No messages.</p> -->
+      <div class="col-12">
+        <div class="messaging">
+          <div class="inbox_msg">
+            <div class="inbox_people">
+              <div class="headind_srch">
+                <div class="recent_heading">
+                  <h4>Recent</h4>
+                </div>
+                <div class="srch_bar">
+                  <div class="stylish-input-group">
+                    <input type="text" class="search-bar"  placeholder="Search" >
+                    <span class="input-group-addon">
+                    <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                    </span> </div>
+                </div>
               </div>
+              <div class="inbox_chat">
+            <div *ngIf="usersWithMessages.length > 0">
+              <div *ngFor="let user of usersWithMessages; index as i">
+                <div *ngIf="user._id !== currentUser._id" class="chat_list {{selectedUser == user._id ? 'active_chat' : ''}}"  routerLink="/messages/{{user._id}}" role="button">
+                  <div class="chat_people">
+                    <div class="chat_img text-center"> 
+                      <img
+                      *ngIf="!!user.image"
+                      class="rounded-circle"
+                      alt="..."
+                      [src]="user.image"
+                    />
+                    <i
+                      *ngIf="!user.image"
+                      class="fas fa-user-circle rounded-circle placeholder-icon fa-2x"
+                    ></i>
+                    </div>
+                    <div class="chat_ib">
+                      <h5>{{ user.firstName }} {{ user.lastName }} <span class="chat_date">{{ user.messages[0]?.createdAt | date: 'medium' || ''}}</span></h5>
+                      <p>
+                        <ng-container *ngIf="user.messages?.length > 0; else noMessages">
+                          {{ user.messages[0].content }}
+                        </ng-container>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noMessages>
+                No messages
+              </ng-template>
             </div>
-            <!-- Show a loading message while fetching users with messages -->
             <div *ngIf="isLoading" class="text-center mt-3">
               <span class="spinner-border text-primary" role="status" aria-hidden="true"></span>
               Loading...
             </div>
-            <!-- Show a message if there are no users with messages -->
             <div *ngIf="usersWithMessages.length === 0 && !isLoading" class="text-center mt-3">
               No users with messages.
             </div>
-            <!-- Display the list of users with messages -->
-            <div *ngIf="usersWithoutMessages.length > 0">
-              <div class="user" *ngFor="let user of usersWithoutMessages">
-                <a routerLink="/messages/{{ user._id }}">
-                  <strong>{{ user.firstName }}</strong>
-                </a>
-                <!-- <p *ngIf="user.messages?.length === 0" class="small-text">No messages.</p> -->
               </div>
             </div>
+            <router-outlet></router-outlet>
           </div>
         </div>
-      </div>
-      <div class="col-md-8">
-        <!-- Add your Show Messages component here (if needed) -->
-        <!-- Example: <app-show-messages></app-show-messages> -->
       </div>
     </div>
   </div>

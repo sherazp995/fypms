@@ -1,49 +1,61 @@
-// routes/messages.js
 const express = require('express');
 const router = express.Router();
 const Message = require('../models/message');
 const User = require('../models/user');
-// Add any required middlewares for authentication and authorization
+
 router.get('/all', async (req, res) => {
     try {
+      const currentUserId = req.headers.accessid;
         const usersWithMessages = await User.aggregate([
-            {
-              $lookup: {
-                from: 'messages', // The collection name for messages
-                localField: '_id',
-                foreignField: 'sender',
-                as: 'messages'
-              }
-            },
-            {
-              $unwind: '$messages' // Unwind the messages array
-            },
-            {
-              $sort: { 'messages.createdAt': -1 } // Sort messages by createdAt in descending order (latest first)
-            },
-            {
-              $group: {
-                _id: '$_id',
-                name: { $first: '$name' }, // Keep the user's name
-                id: { $first: '$_id' }, // Keep the user's _id
-                latestMessage: { $first: '$messages' } // Get the first (latest) message in each group
-              }
-            },
-            {
-              $project: {
-                _id: 0,
-                id: 1,
-                name: 1,
-                latestMessage: {
-                  _id: 1,
-                  sender: 1,
-                  content: 1,
-                  createdAt: 1
-                }
-              }
+          {
+            $match: {
+              status: 1,
+              _id: { $ne: currentUserId } 
             }
-          ]);
-
+          },
+          {
+            $lookup: {
+              from: 'messages',
+              let: { userId: '$_id' },
+              pipeline: [
+                {
+                  $match: {
+                    $expr: {
+                      $or: [
+                        { $eq: ['$sender', '$$userId'] },
+                        { $eq: ['$receiver', '$$userId'] } 
+                      ]
+                    }
+                  }
+                },
+                {
+                  $sort: { createdAt: -1 }
+                },
+                {
+                  $limit: 1
+                }
+              ],
+              as: 'messages'
+            }
+          },
+          {
+            $project: {
+              username: 1,
+              firstName: 1,
+              lastName: 1,
+              email: 1,
+              phoneNumber: 1,
+              role: 1,
+              status: 1,
+              project: 1,
+              group: 1,
+              image: 1,
+              messages: 1 
+            }
+          }
+        ]);
+        
+        
         res.status(200).json({ result: usersWithMessages });
     } catch (error) {
         console.error('Error fetching users with messages:', error);
@@ -72,33 +84,23 @@ router.post('/send', async (req, res) => {
     }
 });
 
-router.get('/users', async (req, res) => {
-    try {
-        const users = await User.find().select('_id firstName lastName');
-        res.status(200).json({result: users});
-    } catch (error) {
-        console.error('Error fetching users without messages:', error);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
-
 // Get all messages for a user
 router.get('/user/:id', async (req, res) => {
     try {
         const userId = req.params.id;
+        const currentUserId = req.headers.accessid;
         const page = parseInt(req.query.page) || 1;
         const perPage = 20;
+        const user = await User.findOne({_id: userId})
 
-        // Find and paginate messages where the user is either the sender or the receiver
         const messages = await Message.find({
-            $or: [{ sender: userId }, { receiver: userId }],
-        })
-            .sort({ createdAt: -1 })
-            .skip((page - 1) * perPage)
-            .limit(perPage)
-            .populate('attachment');
+            $or: [{ sender: userId, receiver: currentUserId }, { sender: currentUserId, receiver: userId }],
+        }).sort({ createdAt: -1 })
+          .skip((page - 1) * perPage)
+          .limit(perPage)
+          .populate('attachment');
 
-        res.status(200).json({ result: messages });
+        res.status(200).json({ result: messages, user });
     } catch (error) {
         console.error('Error fetching users without messages:', error);
         res.status(500).json({ error: 'Failed to fetch messages' });

@@ -1,75 +1,90 @@
-<div class="container-fluid">
-    <h1 class="h3 mb-4 text-gray-800">Messages</h1>
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card mb-4">
-          <div class="card-body">
-            <div *ngIf="messages.length > 0">
-              <div *ngFor="let message of messages" class="custom-message">
-                <div *ngIf="isSentByUser(message); else receivedMessage" class="sent-message">
-                  <p>{{ message.content }}</p>
-                  <div *ngIf="message.attachments?.length > 0" class="attachment">
-                    <ul>
-                      <li *ngFor="let attachment of message.attachments">
-                        <a [href]="attachment.path" target="_blank">{{ attachment.name }}</a>
-                      </li>
-                    </ul>
-                  </div>
+<div class="mesgs">
+  <div class="msg_history">
+    <div *ngIf="messages.length > 0">
+      <div *ngFor="let message of messages">
+        <div
+          *ngIf="isSentByUser(message); else receivedMessage"
+          class="outgoing_msg"
+        >
+          <div class="sent_msg">
+            <p>{{ message.content }}</p>
+            <div *ngIf="!!message.attachment" class="attachment">
+              <a [href]="message.attachment.path" target="_blank">{{
+                message.attachment.name
+              }}</a>
+            </div>
+            <span class="time_date">{{
+              message.createdAt | date : "medium"
+            }}</span>
+          </div>
+        </div>
+        <ng-template #receivedMessage>
+          <div class="incoming_msg">
+            <div class="incoming_msg_img">
+              <img
+                *ngIf="!!messageUser.image"
+                class="rounded-circle"
+                alt="..."
+                [src]="messageUser.image"
+              />
+              <i
+                *ngIf="!messageUser.image"
+                class="fas fa-user-circle rounded-circle placeholder-icon fa-2x"
+              ></i>
+            </div>
+            <div class="received_msg">
+              <div class="received_withd_msg">
+                <p>{{ message.content }}</p>
+                <div *ngIf="!!message.attachment" class="attachment">
+                  <a [href]="message.attachment.url" target="_blank">{{
+                    message.attachment.name
+                  }}</a>
                 </div>
-                <ng-template #receivedMessage>
-                  <div class="received-message">
-                    <div class="avatar">
-                      <img [src]="message.senderAvatar" alt="{{ message.senderName }}" />
-                    </div>
-                    <div class="message-content">
-                      <strong>{{ message.senderName }}</strong>
-                      <p>{{ message.content }}</p>
-                      <div *ngIf="message.attachments?.length > 0" class="attachment">
-                        <ul>
-                          <li *ngFor="let attachment of message.attachments">
-                            <a [href]="attachment.url" target="_blank">{{ attachment.name }}</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </ng-template>
+                <span class="time_date">{{
+                  message.createdAt | date : "medium"
+                }}</span>
               </div>
-            </div>
-            <div *ngIf="isLoading" class="text-center mt-3">
-              <span class="spinner-border text-primary" role="status" aria-hidden="true"></span>
-              Loading...
-            </div>
-            <div *ngIf="messages.length === 0 && !isLoading" class="text-center mt-3">
-              No messages available.
             </div>
           </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Send Message</h5>
-            <form (ngSubmit)="sendMessage()" #messageForm="ngForm">
-              <div class="form-group">
-                <label for="messageContent">Message:</label>
-                <textarea
-                  id="messageContent"
-                  class="form-control"
-                  name="messageContent"
-                  [(ngModel)]="newMessage.content"
-                  required
-                ></textarea>
-              </div>
-              <div class="form-group">
-                <label for="attachments">Attachment:</label>
-                <input type="file" id="attachments" name="attachments" (change)="onFileSelected($event)" />
-              </div>
-              <button type="submit" class="btn btn-primary">Send</button>
-            </form>
-          </div>
-        </div>
+        </ng-template>
       </div>
     </div>
+    <div *ngIf="isLoading" class="text-center mt-3">
+      <span class="spinner-border text-primary" role="status" aria-hidden="true"></span>
+      Loading...
+    </div>
+    <div *ngIf="messages.length === 0 && !isLoading" class="text-center mt-3">
+      No messages.
+    </div>
   </div>
-  
+  <div class="type_msg">
+    <div class="input_msg_write">
+      <form (ngSubmit)="sendMessage()" #messageForm="ngForm">
+        <textarea
+          type="text"
+          class="write_msg"
+          id="messageContent"
+          name="messageContent"
+          [(ngModel)]="newMessage.content"
+          required
+          placeholder="Type a message"
+        ></textarea>
+        <div class="upload-btn">
+          <label for="attachment" role="button">
+            <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+          </label>
+          <input
+            type="file"
+            id="attachment"
+            name="attachment"
+            (change)="onFileSelected($event)"
+            class="d-hidden"
+          />
+        </div>
+        <button class="msg_send_btn" type="submit">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

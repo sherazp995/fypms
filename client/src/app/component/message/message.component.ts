@@ -15,12 +15,14 @@ export class MessageComponent {
   userId: string;
   newMessage: any = {};
   currentUser:any = this.appServices.getUser()
+  messageUser: any = {};
 
   constructor(private apiServices: ApiService, private route: ActivatedRoute, private appServices: AppService) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      this.messages = [];
       this.userId = params['id'];
       this.newMessage.receiver = this.userId;
       this.newMessage.sender = this.currentUser._id;
@@ -32,8 +34,8 @@ export class MessageComponent {
     this.isLoading = true;
     this.apiServices.getMessages(this.userId, this.currentPage).subscribe(
       (data) => {
-        console.log(data.result)
         this.messages = data.result.reverse().concat(this.messages);
+        this.messageUser = data.user;
         this.isLoading = false;
       },
       (error) => {

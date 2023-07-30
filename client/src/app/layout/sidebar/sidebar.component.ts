@@ -17,7 +17,6 @@ export class SidebarComponent {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationStart) {
         this.active = event.url;
-        console.log(this.active);
       }
     });
    }

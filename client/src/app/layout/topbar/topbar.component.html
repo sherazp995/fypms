@@ -12,16 +12,12 @@
       </div>
   </div>
 
-  <!-- Topbar Navbar -->
   <ul class="navbar-nav ml-auto">
-      <!-- Nav Item - Alerts -->
       <li ngbDropdown class="nav-item dropdown no-arrow mx-1">
           <a class="nav-link dropdown-toggle" id="alertsDropdown" role="button" ngbDropdownToggle>
               <i class="fas fa-bell fa-fw"></i>
-              <!-- Counter - Alerts -->
-              <span class="badge badge-danger badge-counter">3+</span>
+              <span class="badge badge-danger badge-counter bg-danger">3+</span>
           </a>
-          <!-- Dropdown - Alerts -->
           <div ngbDropdownMenu class="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
               aria-labelledby="alertsDropdown">
               <h6 class="dropdown-header">Alerts Center</h6>
@@ -63,74 +59,38 @@
           </div>
       </li>
 
-      <!-- Nav Item - Messages -->
       <li ngbDropdown class="nav-item no-arrow mx-1">
           <a class="nav-link" id="messagesDropdown" role="button" ngbDropdownToggle>
               <i class="fas fa-envelope fa-fw"></i>
-              <!-- Counter - Messages -->
-              <span class="badge badge-danger badge-counter">7</span>
+              <span class="badge badge-danger badge-counter bg-danger">7</span>
           </a>
-          <!-- Dropdown - Messages -->
           <div ngbDropdownMenu class="dropdown-list dropdown-menu dropdown-menu-end shadow animated--grow-in"
               aria-labelledby="messagesDropdown">
               <h6 class="dropdown-header">Message Center</h6>
-              <a ngbDropdownItem class="dropdown-item d-flex align-items-center">
-                  <div class="dropdown-list-image mr-3">
-                      <img class="rounded-circle" alt="..." />
-                      <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                      <div class="text-truncate">
-                          Hi there! I am wondering if you can help me with a
-                          problem I've been having.
-                      </div>
-                      <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-              </a>
-              <a ngbDropdownItem class="dropdown-item d-flex align-items-center">
-                  <div class="dropdown-list-image mr-3">
-                      <img class="rounded-circle" alt="..." />
-                      <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                      <div class="text-truncate">
-                          I have the photos that you ordered last month, how would
-                          you like them sent to you?
-                      </div>
-                      <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-              </a>
-              <a ngbDropdownItem class="dropdown-item d-flex align-items-center">
-                  <div class="dropdown-list-image mr-3">
-                      <img class="rounded-circle" alt="..." />
-                      <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                      <div class="text-truncate">
-                          Last month's report looks great, I am very happy with
-                          the progress so far, keep up the good work!
-                      </div>
-                      <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-              </a>
-              <a ngbDropdownItem class="dropdown-item d-flex align-items-center">
-                  <div class="dropdown-list-image mr-3">
-                      <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                          alt="..." />
-                      <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                      <div class="text-truncate">
-                          Am I a good boy? The reason I ask is because someone
-                          told me that people say this to all dogs, even if they
-                          aren't good...
-                      </div>
-                      <div class="small text-gray-500">
-                          Chicken the Dog · 2w
-                      </div>
-                  </div>
-              </a>
-              <a ngbDropdownItem class="dropdown-item text-center small text-gray-500">Read More Messages</a>
+              <div *ngIf="usersWithMessages.length > 0">
+                <div *ngFor="let user of usersWithMessages">
+                    <a ngbDropdownItem role="button" *ngIf="user.messages?.length > 0 && user._id !== currentUser._id" class="dropdown-item d-flex align-items-center">
+                        <div class="dropdown-list-image mr-3">
+                            <img class="rounded-circle" [src]="user.image" alt="..." />
+                            <div class="status-indicator bg-success"></div>
+                            <!-- success, warning and danger can be used -->
+                        </div>
+                        <div class="font-weight-bold">
+                            <div class="text-truncate">
+                                <ng-container>
+                                    {{ user.messages[0].content }}
+                                  </ng-container>
+                            </div>
+                            <div class="small text-gray-500">
+                                <ng-container>
+                                    {{ user.firstName }} {{ user.lastName }} · {{ user.messages[0]?.createdAt | date: 'short' || ''}}
+                                  </ng-container>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+              </div>
+              <a ngbDropdownItem role="button" class="dropdown-item text-center small text-gray-500" [routerLink]="['/messages']">Read More Messages</a>
           </div>
       </li>
 
@@ -139,7 +99,7 @@
       <!-- Nav Item - User Information -->
       <li ngbDropdown class="nav-item no-arrow">
           <a class="nav-link" id="userDropdown" role="button" ngbDropdownToggle>
-              <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.firstName}}</span>&nbsp;
+              <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{currentUser.firstName}}</span>&nbsp;
               <img *ngIf="profilePic" src="{{profilePic}}" class="img-profile rounded-circle">
               <i *ngIf="!profilePic" class="fa fa-user-alt rounded-circle"></i>
           </a>

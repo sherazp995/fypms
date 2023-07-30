@@ -10,11 +10,27 @@ import {AppService} from "../../services/app.service";
 })
 export class TopbarComponent {
   @Output() togglerEvent = new EventEmitter();
-  user: any;
+  usersWithMessages: any[] = [];
+  currentUser: any;
   profilePic: any;
   constructor(private apiServices: ApiService, private router:Router, private appServices: AppService) {
-    this.user = appServices.getUser()
-    this.profilePic = appServices.getProfilePic(this.user.image);
+    this.currentUser = appServices.getUser()
+    this.profilePic = appServices.getProfilePic(this.currentUser.image);
+  }
+
+  ngOnInit(): void {
+    this.loadLatestMessages();
+  }
+
+  loadLatestMessages() {
+    this.apiServices.getAllMessages().subscribe(
+      (data) => {
+        this.usersWithMessages = data.result;
+      },
+      (error) => {
+        console.log('Error fetching messages:', error);
+      }
+    );
   }
 
   toggleClick() {
