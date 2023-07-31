@@ -9,23 +9,23 @@
       <table class="table">
         <thead>
         <tr>
-          <th class="w-50">
+          <th class="w-50" scope="col">
             User Name
           </th>
-          <th>
+          <th scope="col">
             User Email
           </th>
-          <th>
+          <th scope="col">
             Account
           </th>
-          <th>
+          <th scope="col">
             Links
           </th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let user of users">
-          <td>
+          <td scope="row">
             {{user.firstName + ' - ' + user.lastName}}
           </td>
           <td>

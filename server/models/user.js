@@ -42,6 +42,9 @@ const User = new Schema({
     },
     image: {
         type: String
+    },
+    skypeId: {
+        type: String
     }
 }, { timestamps: true })
 

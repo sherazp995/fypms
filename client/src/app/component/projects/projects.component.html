@@ -9,23 +9,23 @@
       <table class="table ms-5">
         <thead>
         <tr>
-          <th>
+          <th scope="col">
             Project Title
           </th>
-          <th>
+          <th scope="col">
             Project Domain
           </th>
-          <th>
+          <th scope="col">
             Remaining Students
           </th>
-          <th>
+          <th scope="col">
             Links
           </th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let project of projects">
-          <td>
+          <td scope="row">
             {{project.title}}
           </td>
           <td>

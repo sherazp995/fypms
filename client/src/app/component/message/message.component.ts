@@ -30,6 +30,26 @@ export class MessageComponent {
     });
   }
 
+  audioCall() {
+    this.checkSkypeId(() => window.open(`skype:${this.messageUser.skypeId}?call`))
+  }
+
+  videoCall() {
+    this.checkSkypeId(() => window.open(`skype:${this.messageUser.skypeId}?call&video=true`))
+  }
+
+  checkSkypeId(cb) {
+    if (!!this.currentUser.skypeId){
+      if (!!this.messageUser.skypeId) {
+        cb();
+      } else {
+        this.appServices.showFlash({danger: "The user don't have a skype ID in their profile."})
+      }
+    } else {
+      this.appServices.showFlash({danger: "You don't have a skype ID in your profile."})
+    }
+  }
+
   fetchMessages(): void {
     this.isLoading = true;
     this.apiServices.getMessages(this.userId, this.currentPage).subscribe(

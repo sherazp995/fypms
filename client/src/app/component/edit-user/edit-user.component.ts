@@ -23,6 +23,7 @@ export class EditUserComponent {
       phoneNumber: [''],
       password: [''],
       confirmPassword: [''],
+      skypeId: ['']
     });
     
   }
