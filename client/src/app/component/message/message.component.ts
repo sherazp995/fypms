@@ -28,6 +28,11 @@ export class MessageComponent {
       this.newMessage.sender = this.currentUser._id;
       this.fetchMessages();
     });
+    this.appServices.socket.on('messageSent', (data: any) => {
+      if (data.receiver === this.currentUser._id) {
+        this.messages = this.messages.concat(data.message)
+      }
+    });
   }
 
   audioCall() {
@@ -83,7 +88,6 @@ export class MessageComponent {
     if (!this.newMessage.content.trim()) {
       return;
     }
-    console.log(this.newMessage)
     this.apiServices.sendMessage(this.newMessage).subscribe(
       (response: any) => {
         this.newMessage.content = '';

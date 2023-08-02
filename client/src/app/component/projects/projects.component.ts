@@ -13,7 +13,6 @@ export class ProjectsComponent {
   user: any = {};
 
   constructor(private router: Router, private apiServices: ApiService, private appServices: AppService) {
-    appServices.connectSocket();
   }
 
   ngOnInit() {
@@ -49,8 +48,4 @@ export class ProjectsComponent {
     this.apiServices.reject_project({ project_id: project_id, user_id: this.user._id }).subscribe(res => {
     })
   }
-
-  ngOnDestroy() {
-    this.appServices.disconnectSocket()
-  }  
 }
