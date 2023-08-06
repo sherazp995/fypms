@@ -65,7 +65,7 @@
             </div>
           </div>
           <ul *ngFor="let group of groups">
-            <li>{{group.name}}</li>
+            <li>{{group.name}} <a class="ms-5 btn btn-primary" [routerLink]="['/groups/' + group._id]"> View Group</a></li>
           </ul>
         </div>
       </div>
