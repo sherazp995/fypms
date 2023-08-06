@@ -98,3 +98,9 @@
   height: 100%;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+  .width-100-small {
+    width: 100%;
+  }
+}

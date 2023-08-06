@@ -58,3 +58,13 @@ img{ max-width:100%;}
 .inbox_chat { height: 550px; overflow-y: scroll;}
 
 .active_chat{ background:#ebebeb;}
+
+@media only screen and (max-width: 600px) {
+  .hide-on-small {
+    display: none;
+  }
+
+  .width-100-small {
+    width: 100%;
+  }
+}

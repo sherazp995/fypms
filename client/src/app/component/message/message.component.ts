@@ -88,7 +88,6 @@ export class MessageComponent {
     if (!this.newMessage.content.trim()) {
       return;
     }
-    console.log(this.newMessage)
     if (this.newMessage.attachment) {
       let formData = new FormData;
       formData.append('type', 'message')
@@ -106,7 +105,7 @@ export class MessageComponent {
       (response: any) => {
         this.newMessage.content = '';
         this.newMessage.attachment = null;
-        this.messages = this.messages.concat(response.result);
+        this.messages = this.messages.concat([response.result]);
       },
       (error) => {
         console.error('Error sending message:', error);
