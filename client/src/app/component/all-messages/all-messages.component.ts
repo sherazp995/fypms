@@ -28,12 +28,20 @@ export class AllMessagesComponent {
 
   ngOnInit(): void {
     this.loadLatestMessages();
+    this.appService.socket.on('messageSent', (data: any) => {
+      if ([data.receiver, data.sender].includes(this.currentUser._id)) {
+        var foundIndex = this.usersWithMessages.findIndex(x => [data.receiver, data.sender].includes(x._id));
+        let user = this.usersWithMessages[foundIndex];
+        user.messages = [data.message];
+        this.usersWithMessages[foundIndex] = user;
+      }
+    });
   }
 
   loadLatestMessages() {
     this.apiService.getAllMessages().subscribe(
       (data) => {
-        this.usersWithMessages = data.result;
+        this.usersWithMessages = data.result.filter(x => x._id !== this.currentUser._id);
         this.isLoading = false;
       },
       (error) => {

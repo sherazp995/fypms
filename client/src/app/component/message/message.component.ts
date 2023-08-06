@@ -28,6 +28,31 @@ export class MessageComponent {
       this.newMessage.sender = this.currentUser._id;
       this.fetchMessages();
     });
+    this.appServices.socket.on('messageSent', (data: any) => {
+      if (data.receiver === this.currentUser._id) {
+        this.messages = this.messages.concat(data.message)
+      }
+    });
+  }
+
+  audioCall() {
+    this.checkSkypeId(() => window.open(`skype:${this.messageUser.skypeId}?call`))
+  }
+
+  videoCall() {
+    this.checkSkypeId(() => window.open(`skype:${this.messageUser.skypeId}?call&video=true`))
+  }
+
+  checkSkypeId(cb) {
+    if (!!this.currentUser.skypeId){
+      if (!!this.messageUser.skypeId) {
+        cb();
+      } else {
+        this.appServices.showFlash({danger: "The user don't have a skype ID in their profile."})
+      }
+    } else {
+      this.appServices.showFlash({danger: "You don't have a skype ID in your profile."})
+    }
   }
 
   fetchMessages(): void {

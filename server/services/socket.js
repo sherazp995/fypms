@@ -24,7 +24,6 @@ function initializeSocket(server) {
     console.log('New client connected');
     
     socket.on('projectSelected', (data) => {
-      console.log('Received custom event:', data);
       socket.broadcast.emit('projectSelected', data);
     });
   });

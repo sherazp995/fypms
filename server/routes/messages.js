@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Message = require('../models/message');
 const User = require('../models/user');
+const { getIO } = require('../services/socket')
 
 router.get('/all', async (req, res) => {
     try {
@@ -76,7 +77,7 @@ router.post('/send', async (req, res) => {
         });
 
         const savedMessage = await message.save();
-
+        getIO().emit('messageSent', { message: savedMessage, receiver, sender });
         res.status(201).json({ result: savedMessage });
     } catch (error) {
         console.log(error)
