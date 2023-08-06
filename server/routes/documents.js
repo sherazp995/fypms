@@ -6,7 +6,6 @@ const path = require("path");
 const UploadDIR = path.join(process.env.ROOT_PATH, 'uploads', 'documents');
 
 function uploadFile (file) {
-  console.log(file)
   let fileName = '', filePath = '';
   if(file){
     fileName = `document-${Date.now()}${file.name.match(/\.[0-9a-z]+$/i)}`;

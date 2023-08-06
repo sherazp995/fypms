@@ -67,7 +67,6 @@ export class CreateGroupComponent {
     let formData = this.groupForm.value;
     formData.project = formData.project._id
     formData.students = this.selectedStudents.map(s => s._id);
-    console.log(formData)
     this.apiServices.create_group(formData).subscribe((res) => {
       this.appServices.showFlash({success: res.message})
       this.router.navigate(['/groups'])

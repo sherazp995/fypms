@@ -33,7 +33,7 @@ if (cluster.isMaster) {
   console.log("starting server on http://localhost:" + port)
   setupMasterAdapter(server);
   // Fork workers.
-  for (let i = 0; i < (1); i++) {
+  for (let i = 0; i < (numCPUs || 1); i++) {
     cluster.fork();
   }
  

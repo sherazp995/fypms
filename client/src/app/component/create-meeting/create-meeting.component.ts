@@ -34,7 +34,6 @@ export class CreateMeetingComponent {
   getUsers(): void{
     this.apiService.find_users({supervisor: this.supervisor._id}).subscribe(res => {
       this.studentList = res.result;
-      console.log(this.studentList)
     })
   }
 
@@ -60,7 +59,6 @@ export class CreateMeetingComponent {
     formData.participants = this.selectedStudents.map(s => s._id.toString())
 
     this.apiService.create_meeting(this.meetingForm.value).subscribe((res) => {
-      console.log('Meeting created successfully:', res);
     }, (error) => {
       console.error('Error creating meeting:', error);
     });

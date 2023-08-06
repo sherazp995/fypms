@@ -138,7 +138,6 @@ export class UploadProjectComponent {
     formData.project_file = this.upload_file
 
     this.apiServices.upload_project(this.toFormData(formData)).subscribe((res) => {
-      console.log(res)
       if (res.error) {
         this.appServices.showFlash({error: res.error.message})
       } else {

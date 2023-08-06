@@ -75,7 +75,7 @@
                             <div class="status-indicator bg-success"></div>
                             <!-- success, warning and danger can be used -->
                         </div>
-                        <div class="font-weight-bold">
+                        <div [routerLink]="['/messages/' + user._id]" class="font-weight-bold">
                             <div class="text-truncate">
                                 <ng-container>
                                     {{ user.messages[0].content }}
