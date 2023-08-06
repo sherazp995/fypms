@@ -121,6 +121,10 @@ export class ApiService {
     return this.http.post(this.url + 'taskResults/create', task)
   }
 
+  upate_task_result(id: string, task: any): Observable<any> {
+    return this.http.post(this.url + 'taskResults/update/' + id, task)
+  }
+
   timetable() {
     return this.http.get(this.url + 'timetables/all')
   }
@@ -147,10 +151,6 @@ export class ApiService {
 
   getAllMessages(): Observable<any> {
     return this.http.get(this.url + `messages/all`);
-  }
-
-  usersWithoutMessages(): Observable<any> {
-    return this.http.get(this.url + `messages/users`);
   }
 
   getMessages(id: string, page: number = 0): Observable<any> {

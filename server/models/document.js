@@ -11,9 +11,9 @@ const Document = new Schema({
     },
     type: {
         type: String,
-        // enum: ["group", "project", "task", "message"],
+        // enum: ["group", "project", "task", "result", "message"],
         required: true
-    }, // group, project, task or message
+    }, // group, project, task, result or message
     reference: {
         type: Schema.Types.ObjectId,
         ref: 'type',

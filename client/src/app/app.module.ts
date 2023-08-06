@@ -46,6 +46,7 @@ import { TimetableComponent } from './component/timetable/timetable.component';
 import { CreateMeetingComponent } from './component/create-meeting/create-meeting.component';
 import { MessageComponent } from './component/message/message.component';
 import { AllMessagesComponent } from './component/all-messages/all-messages.component';
+import { CreateResultComponent } from './component/create-result/create-result.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { AllMessagesComponent } from './component/all-messages/all-messages.comp
     TimetableComponent,
     CreateMeetingComponent,
     MessageComponent,
-    AllMessagesComponent
+    AllMessagesComponent,
+    CreateResultComponent
   ],
   imports: [
     BrowserModule,
