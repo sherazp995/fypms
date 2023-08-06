@@ -64,6 +64,19 @@ export class MessageComponent {
       return;
     }
     console.log(this.newMessage)
+    if (this.newMessage.attachment) {
+      let formData = new FormData;
+      formData.append('type', 'message')
+      formData.append('document', this.newMessage.attachment, this.newMessage.attachment.name)
+      this.apiServices.upload_document(formData).subscribe((res) => {
+        this.newMessage.attachment = res.result._id;
+        this.send();
+      });
+    } else {
+      this.send();
+    }
+  }
+  send() {
     this.apiServices.sendMessage(this.newMessage).subscribe(
       (response: any) => {
         this.newMessage.content = '';
@@ -75,7 +88,6 @@ export class MessageComponent {
       }
     );
   }
-
   onFileSelected(event: any): void {
     this.newMessage.attachment = event.target.files[0];
   }

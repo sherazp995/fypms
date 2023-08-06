@@ -21,13 +21,14 @@
   
       <!-- Task Result Card (Right Sidebar) -->
       <div class="col-md-4">
-        <div class="card" *ngIf="!!taskResult._id">
+        <div class="card">
           <div class="card-body">
             <h5 class="card-title">Task Result</h5>
-            <p class="card-text">Supervisor: {{ taskResult?.supervisor }}</p>
-            <p class="card-text">Group: {{ taskResult?.group }}</p>
-            <p class="card-text">Remarks: {{ taskResult?.remarks }}</p>
-            <p class="card-text">Score: {{ taskResult?.score }}</p>
+            <p class="card-text" *ngIf="!!taskResult._id">Supervisor: {{ taskResult?.supervisor }}</p>
+            <p class="card-text" *ngIf="!!taskResult._id">Group: {{ taskResult?.group }}</p>
+            <p class="card-text" *ngIf="!!taskResult._id">Remarks: {{ taskResult?.remarks }}</p>
+            <p class="card-text" *ngIf="!!taskResult._id">Score: {{ taskResult?.score }}</p>
+            <button *ngIf="!taskResult._id" class="btn btn-primary">Make Result</button>
           </div>
         </div>
       </div>
