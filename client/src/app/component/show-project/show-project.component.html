@@ -49,7 +49,7 @@
       <a class="nav-link active" data-bs-toggle="tab" href="#groups">Groups</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="tab" href="#tasks">Tasks</a>
+      <a class="nav-link" data-bs-toggle="tab" href="#documents">Documents</a>
     </li>
   </ul>
 
@@ -72,12 +72,17 @@
     </div>
 
     <!-- Tasks Tab Panel -->
-    <div id="tasks" class="tab-pane fade mt-4">
+    <div id="documents" class="tab-pane fade mt-4">
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Tasks </h4>
-          <ul *ngFor="let task of groups">
-            <li>{{task.title}}</li>
+          <div class="card-title row">
+            <h4 class="col-9">Documents </h4>
+            <div class="col-2">
+              <button class="btn btn-primary" (click)="addDocument(content)">Upload helping Material</button>
+            </div>
+          </div>
+          <ul *ngFor="let document of documents">
+            <li>{{document.name}} <a href="{{document.path}}" target="_blank" class="float-end"><i role="button" class="fa fa-download"></i></a></li>
           </ul>
         </div>
       </div>
@@ -86,3 +91,23 @@
 </div>
 <app-create-task></app-create-task>
 
+<ng-template #content let-modal>
+  <form [formGroup]="documentForm" (ngSubmit)="submitDocument()" class="col">
+		<div class="modal-header">
+			<h4 class="modal-title">Upload Document</h4>
+			<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+		</div>
+		<div class="modal-body">
+            <div class="form-group">
+                <label for="document">Upload Document:</label>
+                <input type="file" class="form-control" formControlName="document"
+                       name="document" id="document" (change)="onFileSelected($event)" placeholder="Upload Document"/>
+            </div>
+		</div>
+		<div class="modal-footer">
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+		</div>
+	</form>
+</ng-template>
