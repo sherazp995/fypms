@@ -18,6 +18,8 @@ export class ShowTaskComponent {
   documents: any[] = [];
   groupForm: FormGroup;
   newResult: any = {};
+  currentUser: any = {};
+  noSubmission: boolean = false;
   @ViewChild(CreateResultComponent) result: CreateResultComponent;
 
   constructor(
@@ -25,7 +27,9 @@ export class ShowTaskComponent {
     private apiService: ApiService,
     private appServices: AppService,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+    this.currentUser = appServices.getUser();
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -46,6 +50,7 @@ export class ShowTaskComponent {
   fetchTaskDetails(): void {
     this.apiService.task(this.taskId).subscribe((res) => {
       this.task = res.result;
+      this.noSubmission = (Date.parse(this.task.deadline) < new Date().getTime());
       this.newResult = {
         task: this.taskId,
         supervisor: this.task.supervisor,

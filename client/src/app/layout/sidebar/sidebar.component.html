@@ -39,7 +39,7 @@
   </li>
 
   <!-- Nav Item - Projects -->
-  <li [ngbNavItem]="'/projects'" class="nav-item">
+  <li [ngbNavItem]="'/projects'" *ngIf="user['role'] === 'admin' || user['role'] === 'student'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/projects']">
       <i class="fa fa-files"></i>
       <span>All Projects</span>
@@ -54,6 +54,14 @@
     </a>
   </li>
 
+  <!-- Nav Item - Project -->
+  <li [ngbNavItem]="'/my_project'" *ngIf="user['role'] === 'student'" class="nav-item">
+    <a ngbNavLink class="nav-link" [routerLink]="['/my_project']">
+      <i class="fa fa-file"></i>
+      <span>My Project</span>
+    </a>
+  </li>
+
   <!-- Nav Item - Projects -->
   <li [ngbNavItem]="'/groups/new'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/groups/new']">
@@ -63,15 +71,31 @@
   </li>
 
   <!-- Nav Item - Groups -->
-  <li [ngbNavItem]="'/groups'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+  <li [ngbNavItem]="'/groups'" *ngIf="user['role'] === 'admin'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/groups']">
       <i class="fa fa-users"></i>
       <span>All Groups</span>
     </a>
   </li>
 
+  <!-- Nav Item - My Groups -->
+  <li [ngbNavItem]="'/my_groups'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+    <a ngbNavLink class="nav-link" [routerLink]="['/my_groups']">
+      <i class="fa fa-users"></i>
+      <span>My Groups</span>
+    </a>
+  </li>
+
+  <!-- Nav Item - My Group -->
+  <li [ngbNavItem]="'/my_group'" *ngIf="user['role'] === 'student'" class="nav-item">
+    <a ngbNavLink class="nav-link" [routerLink]="['/my_group']">
+      <i class="fa fa-users"></i>
+      <span>My Group</span>
+    </a>
+  </li>
+
   <!-- Nav Item - Timetable -->
-  <li [ngbNavItem]="'/timetable'" *ngIf="user['role'] === 'supervisor' || user['role'] === 'admin'" class="nav-item">
+  <li [ngbNavItem]="'/timetable'" class="nav-item">
     <a ngbNavLink class="nav-link" [routerLink]="['/timetable']">
       <i class="fa fa-calendar-alt"></i>
       <span>Timetable</span>

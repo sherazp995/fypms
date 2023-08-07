@@ -54,6 +54,7 @@ router.post('/update/:id', async (req, res) => {
     }
     res.json({result: taskResult});
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 });

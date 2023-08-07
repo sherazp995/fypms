@@ -56,7 +56,7 @@ export class CreateResultComponent {
       fileData.append('document', this.document, this.document.name);
       fileData.append('type', 'result')
       this.apiServices.upload_document(fileData).subscribe((response) => {
-        formData.questionDocument = response.result._id;
+        formData.markedDocument = response.result._id;
         this.submitResult(formData);
       });
     } else {

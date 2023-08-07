@@ -16,15 +16,15 @@ export class ProjectsComponent {
   }
 
   ngOnInit() {
-    this.user = this.appServices.getUser()
+    this.user = this.appServices.getUser();
     if (this.router.url === '/my_projects') {
       this.apiServices.project_by_supervisor(this.user['_id']).subscribe((res) => {
-        this.projects = res.result
-      })
+        this.projects = res.result;
+      });
     } else {
       this.apiServices.all_projects().subscribe((res) => {
-        this.projects = res.result
-      })
+        this.projects = res.result;
+      });
     }
     this.appServices.socket.on('projectSelected', (data: any) => {
       this.updateProjectCount(data.project);

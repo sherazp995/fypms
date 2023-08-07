@@ -65,7 +65,7 @@ const routes: Routes = [
       },
       {
         path: 'projects',
-        component: ProjectsComponent
+        component: ProjectsComponent,
       },
       {
         path: 'my_projects',
@@ -73,12 +73,17 @@ const routes: Routes = [
         canActivate: [SupervisorGuard]
       },
       {
+        path: 'my_project',
+        component: ShowProjectComponent,
+      },
+      {
         path: 'projects/:id',
         component: ShowProjectComponent
       },
       {
         path: 'groups',
-        component: GroupsComponent
+        component: GroupsComponent,
+        canActivate: [AdminGuard]
       },
       {
         path: 'groups/new',
@@ -86,6 +91,14 @@ const routes: Routes = [
       },
       {
         path: 'groups/:id',
+        component: ShowGroupComponent
+      },
+      {
+        path: 'my_groups',
+        component: GroupsComponent
+      },
+      {
+        path: 'my_group',
         component: ShowGroupComponent
       },
       {

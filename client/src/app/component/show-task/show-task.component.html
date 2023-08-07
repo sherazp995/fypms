@@ -5,7 +5,7 @@
     </div>
     <!-- Content Row -->
     <div class="row">
-      <div class="col-md-8">
+      <div class="{{currentUser.role === 'student' && !taskResult._id ? 'col-md-12': 'col-md-8' }}">
         <!-- Task Details Card -->
         <div class="card mb-4">
           <div class="card-body">
@@ -14,27 +14,28 @@
             <p class="card-text">Start Date: {{ task.startDate | date }}</p>
             <p class="card-text">Deadline: {{ task.deadline | date }}</p>
             <p class="card-text">Status: {{ task.status }}</p>
+            <p class="card-text" *ngIf="task.questionDocument">Question Document: <a class="btn btn-primary" target="_blank" href="{{ task.questionDocument.path }}">Download</a></p>
             <!-- You can include other task details here -->
           </div>
         </div>
       </div>
   
       <!-- Task Result Card (Right Sidebar) -->
-      <div class="col-md-4">
+      <div class="{{currentUser.role === 'student' && !taskResult._id ? 'd-none': 'col-md-4' }}">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Task Result</h5>
             <p class="card-text" *ngIf="!!taskResult._id">Remarks: {{ taskResult?.remarks }}</p>
             <p class="card-text" *ngIf="!!taskResult._id">Score: {{ taskResult?.score }}</p>
+            <p class="card-text" *ngIf="!!taskResult._id && !!taskResult.markedDocument">Marked Document: <a class="btn btn-primary" target="_blank" href="{{ taskResult?.markedDocument.path }}">Download</a></p>
             <p class="card-text"></p>
-            <p class="card-text"></p>
-            <button *ngIf="!taskResult._id" class="btn btn-primary" (click)="makeResult()" >Make Result</button>
-            <button *ngIf="!!taskResult._id" class="btn btn-primary" (click)="makeResult()" >Edit Result</button>
+            <button *ngIf="!taskResult._id && currentUser.role !== 'student'" class="btn btn-primary" (click)="makeResult()" >Make Result</button>
+            <button *ngIf="!!taskResult._id && currentUser.role !== 'student'" class="btn btn-primary" (click)="makeResult()" >Edit Result</button>
           </div>
         </div>
       </div>
 
-      <div class="col-md-8">
+      <div class="{{currentUser.role === 'student' ? 'col-md-8': 'd-none' }}" *ngIf="!noSubmission">
         <form [formGroup]="groupForm" (ngSubmit)="submitTask()" enctype="multipart/form-data">
           <div class="form-group">
             <label for="document">{{documents.length > 0 ? 'Upload Revision' : 'Upload Document:'}}</label>
@@ -44,14 +45,13 @@
         </form>
       </div>
 
-      <div class="col-md-4">
+      <div *ngIf="documents.length > 0" class="{{currentUser.role === 'student' ? (noSubmission ? 'col-md-12' : 'col-md-4') : 'col-md-8' }}">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Your Uploaded Documents</h5>
-            <div *ngFor="let doc of documents;index as i">
-              <p class="card-text">Name: {{ doc?.name }} 
-                <a [href]="doc.path" target="_blank" class="btn btn-primary">Download File</a>
-                {{i == (documents.length -1) ? "Latest File" : ""}}
+            <h5 class="card-title">Uploaded Document</h5>
+            <div>
+              <p class="card-text">Name: {{ documents[(documents.length - 1)]?.name }} 
+                <a [href]="documents[(documents.length - 1)]?.path" target="_blank" class="btn btn-primary ms-5">Download File</a>
               </p>
             </div>
           </div>

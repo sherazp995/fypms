@@ -15,10 +15,20 @@ export class ShowGroupComponent {
   students: any[] = [];
   tasks: any[] = [];
   taskData: any;
+  currentUser: any = {};
   @ViewChild(CreateTaskComponent) task: CreateTaskComponent;
 
   constructor(private route: ActivatedRoute, private apiServices: ApiService, private appServices: AppService, private router: Router){
-    this.apiServices.group(this.get_id()).subscribe((res) => {
+    this.currentUser = appServices.getUser();
+    if (this.currentUser.role !== 'student') {
+      this.get_group(this.get_id());
+    } else {
+      this.get_group(this.currentUser.group);
+    }
+  }
+
+  get_group(id) {
+    this.apiServices.group(id).subscribe((res) => {
       this.group = res.result;
       this.project = this.group.project;
       this.students = res.students;

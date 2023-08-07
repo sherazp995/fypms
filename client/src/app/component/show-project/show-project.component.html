@@ -34,7 +34,7 @@
             <button class="btn btn-primary mt-3" (click)="downloadProject()">
               Download File
             </button>
-            <button class="btn btn-danger mt-3" (click)="deleteProject()">
+            <button class="btn btn-danger mt-3" *ngIf="currentUser.role !== 'student'" (click)="deleteProject()">
               Delete Project
             </button>
           </div>
@@ -45,23 +45,23 @@
 
   <!-- Tab Panels for Groups and Tasks -->
   <ul class="nav nav-tabs mt-4">
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="currentUser.role !== 'student'">
       <a class="nav-link active" data-bs-toggle="tab" href="#groups">Groups</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-bs-toggle="tab" href="#documents">Documents</a>
+      <a class="nav-link {{currentUser.role === 'student' ? 'active' : ''}}" data-bs-toggle="tab" href="#documents">Documents</a>
     </li>
   </ul>
 
   <div class="tab-content">
     <!-- Groups Tab Panel -->
-    <div id="groups" class="tab-pane fade show active mt-4">
+    <div id="groups" class="tab-pane fade show active mt-4" *ngIf="currentUser.role !== 'student'">
       <div class="card">
         <div class="card-body">
           <div class="card-title row">
             <h4 class="col-9">Groups</h4>
             <div class="col-2">
-              <button class="btn btn-primary" (click)="addTask()">Add Task for all Groups</button>
+              <button class="btn btn-primary" *ngIf="currentUser.role !== 'student'" (click)="addTask()">Add Task for all Groups</button>
             </div>
           </div>
           <ul *ngFor="let group of groups">
@@ -72,13 +72,13 @@
     </div>
 
     <!-- Tasks Tab Panel -->
-    <div id="documents" class="tab-pane fade mt-4">
+    <div id="documents" class="tab-pane fade mt-4 {{currentUser.role === 'student' ? 'show active' : ''}}">
       <div class="card">
         <div class="card-body">
           <div class="card-title row">
             <h4 class="col-9">Documents </h4>
             <div class="col-2">
-              <button class="btn btn-primary" (click)="addDocument(content)">Upload helping Material</button>
+              <button class="btn btn-primary" *ngIf="currentUser.role !== 'student'" (click)="addDocument(content)">Upload helping Material</button>
             </div>
           </div>
           <ul *ngFor="let document of documents">

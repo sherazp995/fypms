@@ -17,6 +17,7 @@ export class ShowProjectComponent {
   documents: any[] = [];
   documentForm: FormGroup;
   selectedFile: any = {};
+  currentUser: any = {};
   myModal: any = null;
   @ViewChild(CreateTaskComponent) task: CreateTaskComponent;
   constructor(
@@ -28,12 +29,21 @@ export class ShowProjectComponent {
     private modalService: NgbModal,
     private formBuilder: FormBuilder
   ) {
-    this.apiServices.project(this.get_id()).subscribe((res) => {
+    this.currentUser = appServices.getUser();
+    if (this.currentUser.role !== 'student') {
+      this.get_project(this.get_id());
+    } else {
+      this.get_project(this.currentUser.project);
+    }
+  }
+
+  get_project(id) {
+    this.apiServices.project(id).subscribe((res) => {
       this.project = res.result;
       this.groups = res.groups;
     });
-    apiServices
-      .find_documents({ reference: this.get_id(), type: 'project' })
+    this.apiServices
+      .find_documents({ reference: id, type: 'project' })
       .subscribe((res) => {
         this.documents = res.result;
       });
