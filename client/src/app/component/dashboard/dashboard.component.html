@@ -1,13 +1,100 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mt-4 mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
   </div>
   <!-- Content Row -->
   <div class="row">
-      <h1 class="text-center">This page is under development</h1>
-      <div class="text-center">
-        <i class="fa fa-cog fa-spin fa-10x"></i>
+    <div class="col-md-12" *ngIf="!!cardsData[0]?.value">
+      <div class="single_element">
+        <div class="quick_activity">
+          <div class="quick_activity_wrap">
+            <a [routerLink]="[card.link]" *ngFor="let card of cardsData" class="text-decoration-none text-white single_quick_activity bg-{{card.bg}}">
+              <h4>{{card.title}}</h4>
+              <h3><span class="counter">{{card.value}}</span></h3>
+            </a>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <div class="col-12 row" *ngIf="!!projects">
+      <div class="col-12">
+        <h4>
+          Active Projects
+        </h4>
+      </div>
+      <div class="col-xl-4 mb-3 mb-lg-4" *ngFor="let project of projects">
+        <div class="card">
+            <a [routerLink]="['/projects/' + project._id]" class="card-body text-decoration-none">
+                <div class="d-flex flex-column text-center align-items-center">
+  
+                    <div class="flex-grow-1 pt-4">
+                        <span class="d-block text-muted">Updated {{getTimeInHours(project.updatedAt)}}h ago</span>
+                        <h5>{{ project.title }}</h5>
+                        <div class="mb-4">
+                            <span class="badge rounded-pill bg-success">In Progress</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+  
+            <div class="card-footer py-0 border-top">
+                <div class="row">
+                    <div class="col text-center p-3">
+                      <h4 class="fs-5 mb-1">{{project.totalGroups}}</h4>
+                      <span class="d-block font-size-sm">Groups</span>
+                    </div>
+  
+                    <div class="col p-3 text-center border-end border-start">
+                      <h4 class="fs-5 mb-1">{{project.totalTasks}}</h4>
+                      <span class="d-block font-size-sm">Tasks</span>
+                    </div>
+  
+                    <div class="col p-3 text-center">
+                      <h4 class="fs-5 mb-1">{{getTimeInHours(project.createdAt)}}</h4>
+                      <span class="d-block font-size-sm">Hours</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="col-12 row" *ngIf="!!upcomingMeetings">
+      <div class="col-12">
+        <h4>
+          Upcoming Meetings
+        </h4>
+      </div>
+      <div class="col-lg-4" *ngFor="let meeting of upcomingMeetings">
+        <div class="card card-margin">
+            <div class="card-header no-border">
+                <h5 class="card-title">{{meeting.title}}</h5>
+            </div>
+            <div class="card-body pt-0">
+                <div class="widget-49">
+                    <div class="widget-49-title-wrapper">
+                        <div class="widget-49-date-primary">
+                            <span class="widget-49-date-day">{{getDate(meeting.startDate)}}</span>
+                            <span class="widget-49-date-month">{{getMonth(meeting.startDate)}}</span>
+                        </div>
+                        <div class="widget-49-meeting-info">
+                            <span class="widget-49-pro-title">{{meeting.location}}</span>
+                            <span class="widget-49-meeting-time">{{getTime(meeting.startDate)}} to {{getTime(meeting.endDate)}} Hrs</span>
+                        </div>
+                    </div>
+                    <div class="widget-49-meeting-points">
+                        <div class="widget-49-meeting-item"><span>{{meeting.description}}</span></div>
+                    </div>
+                    <div class="widget-49-meeting-action">
+                        <a class="btn btn-sm btn-flash-border-primary" [routerLink]="['/meetings']">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

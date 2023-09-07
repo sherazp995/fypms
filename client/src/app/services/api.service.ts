@@ -160,4 +160,8 @@ export class ApiService {
   sendMessage(messageData: any) {
     return this.http.post(this.url + `messages/send`, messageData);
   }
+
+  getDashboardData() {
+    return this.http.get(this.url + `dashboard`);
+  }
 }
