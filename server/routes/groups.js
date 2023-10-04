@@ -30,7 +30,7 @@ router.post("/create", async (req, res) => {
             message = "Group already exists"
         } else {
             message = 'Group Created Successfully!';
-            result = await Group.create(group);
+            result = await Group.create({...group, approved: true});
         }
         await User.updateMany({_id: {$in: group.students}}, { $set: { group: result._id } }, {multi: true})
         res.status(200).json({result, message});

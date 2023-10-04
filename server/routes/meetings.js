@@ -7,20 +7,9 @@ const Meeting = require('../models/meeting');
 // Route to create a new meeting
 router.post('/create', async (req, res) => {
   try {
-    const { title, description, startDate, endDate, location, participants, supervisor } = req.body;
+    const meeting = await Meeting.create(req.body)
 
-    const meeting = new Meeting({
-      title,
-      description,
-      startDate,
-      endDate,
-      location,
-      participants,
-      supervisor,
-    });
-
-    const savedMeeting = await meeting.save();
-    res.status(201).json({ message: 'Meeting created successfully', result: savedMeeting });
+    res.status(201).json({ message: 'Meeting created successfully', result: meeting });
   } catch (error) {
     console.error('Error creating meeting:', error);
     res.status(500).json({ error: 'An error occurred while creating the meeting' });

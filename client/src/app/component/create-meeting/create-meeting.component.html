@@ -72,5 +72,32 @@
                 </tr>
             </tbody>
         </table>    
+        <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Location</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let event of meetingList">
+                  <td>{{ event.title }}</td>
+                  <td>{{ event.description }}</td>
+                  <td>{{ event.startDate | date: 'short' }}</td>
+                  <td>{{ event.endDate | date: 'short' }}</td>
+                  <td>{{ event.location }}</td>
+                  <td>
+                    <button *ngIf="supervisor.role !== 'student'" class="btn btn-danger btn-sm" (click)="deleteMeeting(event._id)">Delete</button>
+                    <span *ngIf="supervisor.role === 'student'">This feature is for supervisor only</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
     </div>
 </div>

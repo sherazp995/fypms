@@ -13,10 +13,12 @@ export class CreateMeetingComponent {
   studentList: any[] = [];
   selectedStudents: any[] = [];
   supervisor: any;
+  meetingList: any[] = [];
 
   constructor(private formBuilder: FormBuilder, private apiService: ApiService, private appServices: AppService) {
     this.supervisor = this.appServices.getUser();
-    this.getUsers()
+    this.getUsers();
+    this.allMeetings();
   }
 
   ngOnInit() {
@@ -57,10 +59,34 @@ export class CreateMeetingComponent {
     }
     let formData = this.meetingForm.value;
     formData.participants = this.selectedStudents.map(s => s._id.toString())
-
+    console.log(this.meetingForm.value)
     this.apiService.create_meeting(this.meetingForm.value).subscribe((res) => {
     }, (error) => {
       console.error('Error creating meeting:', error);
     });
+    this.allMeetings();
   }
+
+  allMeetings() {
+    this.apiService.meetings().subscribe(
+      (res: any) => {
+        this.meetingList = res.result;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  deleteMeeting(meetingId: string): void {
+    this.apiService.delete_meeting(meetingId).subscribe(
+      () => {
+        this.meetingList = this.meetingList.filter((event) => event._id !== meetingId);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
 }

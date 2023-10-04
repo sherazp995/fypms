@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="col-12 row" *ngIf="!!projects">
+    <div class="col-12 row" *ngIf="!!projects[0]">
       <div class="col-12">
         <h4>
           Active Projects
@@ -61,7 +61,7 @@
     </div>
     </div>
 
-    <div class="col-12 row" *ngIf="!!upcomingMeetings">
+    <div class="col-12 row" *ngIf="!!upcomingMeetings[0]">
       <div class="col-12">
         <h4>
           Upcoming Meetings
@@ -88,7 +88,7 @@
                         <div class="widget-49-meeting-item"><span>{{meeting.description}}</span></div>
                     </div>
                     <div class="widget-49-meeting-action">
-                        <a class="btn btn-sm btn-flash-border-primary" [routerLink]="['/meetings']">View All</a>
+                        <a class="btn btn-sm btn-flash-border-primary" [routerLink]="['/meetings/new']">View All</a>
                     </div>
                 </div>
             </div>

@@ -146,7 +146,7 @@ export class ApiService {
   }
 
   delete_meeting(id: any) {
-    return this.http.post(this.url + 'meetings/' + id, '')
+    return this.http.post(this.url + 'meetings/delete/' + id, '')
   }
 
   getAllMessages(): Observable<any> {
